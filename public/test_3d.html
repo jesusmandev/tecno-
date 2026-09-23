@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Test 3D Load</title>
+</head>
+<body>
+  <div id="log"></div>
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
+    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js';
+    import { DRACOLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/DRACOLoader.js';
+
+    const logEl = document.getElementById('log');
+    function log(msg) {
+      console.log(msg);
+      logEl.innerHTML += msg + '<br>';
+    }
+
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('/draco/gltf/');
+
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.setDRACOLoader(dracoLoader);
+
+    const models = [
+      '/phoneglb/apple_iphone_17_pro_max-v1.glb',
+      '/phoneglb/apple_iphone_duo_fold_star_white_2026_animated-v1.glb',
+      '/phoneglb/phone18-v1.glb'
+    ];
+
+    for (const url of models) {
+      gltfLoader.load(
+        url,
+        (gltf) => {
+          const box = new THREE.Box3().setFromObject(gltf.scene);
+          const size = box.getSize(new THREE.Vector3());
+          log(`SUCCESS: ${url} | size: ${JSON.stringify(size)} | meshes: ${gltf.scene.children.length}`);
+        },
+        undefined,
+        (err) => {
+          log(`ERROR: ${url} | ${err.message || err}`);
+        }
+      );
+    }
+  </script>
+</body>
+</html>

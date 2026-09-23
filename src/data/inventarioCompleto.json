@@ -1,5 +1,149 @@
 [
   {
+    "id": "iphone-18-pro-max-next-gen",
+    "name": "IPHONE 18 PRO MAX 256GB NEXT-GEN 2026",
+    "code": "IP18PM-256",
+    "price": 5490000,
+    "stock": 5,
+    "category": "Celulares",
+    "image": "/products/iphone17promax.jpg"
+  },
+  {
+    "id": "iphone-17-pro-max-256gb",
+    "name": "IPHONE 17 PRO MAX 256GB TITANIO",
+    "code": "IP17PM-256",
+    "price": 4990000,
+    "stock": 8,
+    "category": "Celulares",
+    "image": "/products/iphone17promax.jpg"
+  },
+  {
+    "id": "iphone-16-pro-max-256gb",
+    "name": "IPHONE 16 PRO MAX 256GB TITANIO DESIERTO",
+    "code": "IP16PM-256",
+    "price": 4450000,
+    "stock": 6,
+    "category": "Celulares",
+    "image": "/products/phone16promax.jpg"
+  },
+  {
+    "id": "redmi-note-15-pro-256gb",
+    "name": "REDMI NOTE 15 PRO 256GB 12GB RAM 200MP",
+    "code": "RN15PRO-256",
+    "price": 1250000,
+    "stock": 10,
+    "category": "Celulares",
+    "image": "/products/reminote15pro.jpg"
+  },
+  {
+    "id": "lenovo-ideapad-slim-3-15irh10",
+    "name": "PORTÁTIL LENOVO IDEAPAD SLIM 3 15IRH10 TÁCTIL CORE I5 16GB 512GB",
+    "code": "83K100WKLM",
+    "price": 2490000,
+    "stock": 4,
+    "category": "Cómputo y Accesorios",
+    "image": "/products/lenovo.png"
+  },
+  {
+    "id": "samsung-galaxy-tab-s9-ultra",
+    "name": "SAMSUNG GALAXY TAB S9 ULTRA 14.6\" 256GB S-PEN",
+    "code": "GTABS9-256",
+    "price": 2850000,
+    "stock": 3,
+    "category": "Cómputo y Accesorios",
+    "image": "/products/galaxy_tab_s9.jpg"
+  },
+  {
+    "id": "apple-watch-ultra-2-titanium",
+    "name": "APPLE WATCH ULTRA 2 TITANIUM 49MM",
+    "code": "AWU2-49TI",
+    "price": 890000,
+    "stock": 6,
+    "category": "Smartwatch y Relojes",
+    "image": "/products/apple_watch_ultra.jpg"
+  },
+  {
+    "id": "redmi-watch-5-active",
+    "name": "SMARTWATCH REDMI WATCH 5 ACTIVE",
+    "code": "RW5-ACTIVE",
+    "price": 189900,
+    "stock": 12,
+    "category": "Smartwatch y Relojes",
+    "image": "/products/redmi_watch5_studio.jpg"
+  },
+  {
+    "id": "galaxy-buds-pro-inalambricos",
+    "name": "AUDÍFONOS GALAXY BUDS PRO INALÁMBRICOS",
+    "code": "GBUDS3P",
+    "price": 420000,
+    "stock": 15,
+    "category": "Audífonos y Diademas",
+    "image": "/products/galaxy_buds_pro.jpg"
+  },
+  {
+    "id": "airpods-max-1-1",
+    "name": "DIADEMA AIRPODS MAX 1:1 CANCELACIÓN DE RUIDO",
+    "code": "AP-MAX-11",
+    "price": 85000,
+    "stock": 8,
+    "category": "Audífonos y Diademas",
+    "image": "/products/headphones.jpg"
+  },
+  {
+    "id": "tvbox-g7-edicion-arana",
+    "name": "TVBOX G7 EDICIÓN ARAÑA 4K ULTRA HD",
+    "code": "TVB-G7-4K",
+    "price": 180000,
+    "stock": 14,
+    "category": "Gaming y TV Box",
+    "image": "/products/tvbox_g7_studio.jpg"
+  },
+  {
+    "id": "game-stick-pro-4k-m15",
+    "name": "CONSOLA RETRO GAME STICK PRO 4K M15",
+    "code": "GS-M15-PRO",
+    "price": 180000,
+    "stock": 9,
+    "category": "Gaming y TV Box",
+    "image": "/products/gamestick_studio.jpg"
+  },
+  {
+    "id": "cable-usbc-lightning-100w",
+    "name": "CABLE USB-C A LIGHTNING CARGA RÁPIDA 100W",
+    "code": "CB-USBC-100W",
+    "price": 75000,
+    "stock": 25,
+    "category": "Cables y Conectividad",
+    "image": "/products/cable_usbc_studio.jpg"
+  },
+  {
+    "id": "combo-apple-lovers",
+    "name": "COMBO APPLE LOVERS (IPHONE 17 PRO MAX + APPLE WATCH ULTRA 2 + AIRPODS)",
+    "code": "CMB-APPLE-01",
+    "price": 6099000,
+    "stock": 5,
+    "category": "Combos",
+    "image": "/products/iphone17promax.jpg"
+  },
+  {
+    "id": "combo-tech-xiaomi",
+    "name": "COMBO TECH XIAOMI (REDMI NOTE 15 PRO + REDMI WATCH 5)",
+    "code": "CMB-XIAOMI-01",
+    "price": 749000,
+    "stock": 6,
+    "category": "Combos",
+    "image": "/products/reminote15pro.jpg"
+  },
+  {
+    "id": "combo-vibra-xiaomi",
+    "name": "COMBO VIBRA XIAOMI (REDMI NOTE + AUDÍFONOS + PARLANTE)",
+    "code": "CMB-VIBRA-01",
+    "price": 449000,
+    "stock": 7,
+    "category": "Combos",
+    "image": "/products/parlante_rgb.jpg"
+  },
+  {
     "id": "parlantes-premium-recargables-retroiluminados-30w-pt-0p103",
     "name": "PARLANTES PREMIUM RECARGABLES RETROILUMINADOS 30W",
     "code": "PT-0P103",
@@ -4678,5 +4822,482 @@
     "stock": 2,
     "category": "Sonido y Audio",
     "image": "https://www.globalmusic.com.co/wp-content/uploads/2025/05/J5250-1.jpg"
+  },
+  {
+    "id": "mini-lector-de-tarjeta-681-10355",
+    "name": "MINI LECTOR DE TARJETA 681",
+    "code": "10355",
+    "price": 1500,
+    "stock": 2,
+    "category": "Cómputo y Accesorios",
+    "image": "https://paisatech.co/wp-content/uploads/2026/02/MINI-LECTOR-DE-TARJETAS_10355_681_3.png"
+  },
+  {
+    "id": "cable-am-micro-50-cm-usb3-0-50cm-50cm",
+    "name": "CABLE AM/MICRO 50 CM USB3.0-50CM",
+    "code": "50CM",
+    "price": 15000,
+    "stock": 4,
+    "category": "Cables y Conectividad",
+    "image": "https://www.i-tech.com.au/media/catalog/product/cache/d90074b510a9e8618355b82ff6546f51/u/s/usb3-am-microb-50cm.jpg"
+  },
+  {
+    "id": "tarjeta-de-red-usb-lan-01-01",
+    "name": "TARJETA DE RED USB LAN-01",
+    "code": "01",
+    "price": 30000,
+    "stock": 3,
+    "category": "Cables y Conectividad",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_875742-MCO87317841880_072025-O.webp"
+  },
+  {
+    "id": "fuente-de-poder-700w-fps-200w-200w",
+    "name": "FUENTE DE PODER 700W FPS-200W",
+    "code": "200W",
+    "price": 100000,
+    "stock": 3,
+    "category": "Cargadores y Energía",
+    "image": "https://www.mtm.com.co/wp-content/uploads/2023/08/06188.jpg"
+  },
+  {
+    "id": "cable-usb-a-puerto-serial-rs232-usb-rs-rs",
+    "name": "CABLE USB A PUERTO SERIAL RS232-USB-RS",
+    "code": "RS",
+    "price": 25000,
+    "stock": 3,
+    "category": "Cables y Conectividad",
+    "image": "https://www.idcmayoristas.com/wp-content/uploads/2024/10/startech-com-cable-adaptador-usb-a-serie-rs232-de-icusb232v2-iws-1.png"
+  },
+  {
+    "id": "mini-otg-usb-2-0-tipo-c-b516c-b516c",
+    "name": "MINI OTG USB 2.0 TIPO C-B516C",
+    "code": "B516C",
+    "price": 15000,
+    "stock": 10,
+    "category": "Cables y Conectividad",
+    "image": "https://jaltechsas.com/wp-content/uploads/2019/05/MINI OTG USB 2.0 TIPO C_10832_B516C_2-600x600.png"
+  },
+  {
+    "id": "conver-usb-3-0-a-rj45-lan-gigabit-b556-b556",
+    "name": "CONVER.USB 3.0 A RJ45 LAN GIGABIT-B556",
+    "code": "B556",
+    "price": 55000,
+    "stock": 3,
+    "category": "Cables y Conectividad",
+    "image": "https://wirtec.com.co/wp-content/uploads/2021/10/CONVER.-USB-3.0-A-RJ45-LAN-GIGABIT_10881_B556_4.png"
+  },
+  {
+    "id": "carg-apple-tipo-c-20-3v3a-61w-ap08p-ap08p",
+    "name": "CARG. APPLE TIPO C 20.3V3A 61W-AP08P",
+    "code": "AP08P",
+    "price": 120000,
+    "stock": 4,
+    "category": "Cargadores y Energía",
+    "image": "https://tienda.pctintas.com/wp-content/uploads/cargador-apple-tipo-c-20-3v-3-61-am-1.webp"
+  },
+  {
+    "id": "convertidor-usb-a-usb-tipo-c-b579-b579",
+    "name": "CONVERTIDOR USB A USB TIPO C-B579",
+    "code": "B579",
+    "price": 15000,
+    "stock": 10,
+    "category": "Cables y Conectividad",
+    "image": "https://tu360compras.bancolombia.com/223235-large_default/convertidor-usb-a-usb-tipo-c-b579-color-negro-11017.jpg"
+  },
+  {
+    "id": "hub-usb-tipo-c-809-c809-c809",
+    "name": "HUB USB TIPO C 809-C809",
+    "code": "C809",
+    "price": 25000,
+    "stock": 5,
+    "category": "Cables y Conectividad",
+    "image": "https://nanotech-market.com/wp-content/uploads/2025/07/nanotech-2-2025-07-17T135425.959.png"
+  },
+  {
+    "id": "web-cam-hd-720-d27200-d27200",
+    "name": "WEB CAM HD 720 - D27200",
+    "code": "D27200",
+    "price": 70000,
+    "stock": 2,
+    "category": "Cómputo y Accesorios",
+    "image": "https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/c/a/camhd-720p.jpg"
+  },
+  {
+    "id": "pad-mouse-flat-mp10-mp10",
+    "name": "PAD MOUSE FLAT-MP10",
+    "code": "MP10",
+    "price": 15000,
+    "stock": 4,
+    "category": "Cómputo y Accesorios",
+    "image": "https://cambiosystem.com/wp-content/uploads/2023/11/Pad-Mouse-Flat-Mp10.png"
+  },
+  {
+    "id": "conver-tipo-ca-rj45-lan-gigabit-b556-b556",
+    "name": "CONVER. TIPO CA RJ45 LAN GIGABIT-B556",
+    "code": "B556",
+    "price": 25000,
+    "stock": 3,
+    "category": "Cables y Conectividad",
+    "image": "https://agaval.vtexassets.com/arquivos/ids/2780360/image-4df58b1ede524d06a65e7182a2b77491.jpg?v=638887987393770000"
+  },
+  {
+    "id": "adaptador-wifi-300m-w131-w131",
+    "name": "ADAPTADOR WIFI 300M-W131",
+    "code": "W131",
+    "price": 30000,
+    "stock": 6,
+    "category": "Cables y Conectividad",
+    "image": "https://manuals.plus/wp-content/uploads/2023/05/Hi-Focus-HF-W131-Wireless-Adaptor-Owners-Manual-3-Copy.png"
+  },
+  {
+    "id": "laptop-stand-18-plus-lh038-lh038",
+    "name": "LAPTOP STAND 18\" PLUS-LH038",
+    "code": "LH038",
+    "price": 50000,
+    "stock": 2,
+    "category": "Cómputo y Accesorios",
+    "image": "https://cambiosystem.com/wp-content/uploads/2023/11/soporte-ajustable-para-portatil-1.jpg"
+  },
+  {
+    "id": "hdmi-splitter-x4-4k-lh045-lh045",
+    "name": "HDMI SPLITTER X4 4K-LH045",
+    "code": "LH045",
+    "price": 70000,
+    "stock": 3,
+    "category": "Cables y Conectividad",
+    "image": "https://m.media-amazon.com/images/I/61mDWKBUHTL._AC_SL1500_.jpg"
+  },
+  {
+    "id": "fuente-de-poder-230w-reales-plus-230w-230w",
+    "name": "FUENTE DE PODER 230W REALES PLUS - 230W",
+    "code": "230W",
+    "price": 80000,
+    "stock": 3,
+    "category": "Cargadores y Energía",
+    "image": "https://jaltechsas.com/wp-content/uploads/2023/03/FUENTE-DE-PODER-230W-REALES-PLUS_11261_230WB_1-768x768.png"
+  },
+  {
+    "id": "fuente-de-poder-200w-50cms-fps200w-fps200w",
+    "name": "FUENTE DE PODER 200W 50CMS - FPS200W",
+    "code": "FPS200W",
+    "price": 80000,
+    "stock": 2,
+    "category": "Cargadores y Energía",
+    "image": "https://www.wifextelematics.com/wp-content/uploads/2025/02/01.png"
+  },
+  {
+    "id": "funda-correa-oxford-negra-14-01614-gen-539",
+    "name": "FUNDA CORREA OXFORD NEGRA 14- \"01614",
+    "code": "GEN-539",
+    "price": 45000,
+    "stock": 2,
+    "category": "Cómputo y Accesorios",
+    "image": "https://cambiosystem.com/wp-content/uploads/2023/11/Funda-Correa-Oxford-15-6″-01615.png"
+  },
+  {
+    "id": "adaptador-wifi-mini-usb-dual-band-2-4-5-gen-540",
+    "name": "ADAPTADOR WIFI MINI USB DUAL BAND 2.4+5",
+    "code": "GEN-540",
+    "price": 60000,
+    "stock": 8,
+    "category": "Cables y Conectividad",
+    "image": "https://jaltechsas.com/wp-content/uploads/2025/01/ADAPTADOR-WIFI-MINI-USB-DUAL-BAND-2.4+5G_11617_W161_6-768x768.png"
+  },
+  {
+    "id": "lector-de-memorias-all-in-one-ot-32g-32g",
+    "name": "LECTOR DE MEMORIAS ALL IN ONE-OT-32G",
+    "code": "32G",
+    "price": 15000,
+    "stock": 3,
+    "category": "Cómputo y Accesorios",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_997868-MLA95837738301_102025-O.webp"
+  },
+  {
+    "id": "switch-plus-5-puertos-base-100-jal-p-p",
+    "name": "SWITCH PLUS 5 PUERTOS BASE 100-JAL-P",
+    "code": "P",
+    "price": 40000,
+    "stock": 4,
+    "category": "Cables y Conectividad",
+    "image": "https://jaltechsas.com/wp-content/uploads/2025/01/SWITCH-PLUS-5-PUERTOS-BASE-100-JAL-PS5_11646_JAL-PS5_2.png"
+  },
+  {
+    "id": "switch-plus-8-puertos-base-100-jal-p-p",
+    "name": "SWITCH PLUS 8 PUERTOS BASE 100-JAL-P",
+    "code": "P",
+    "price": 60000,
+    "stock": 3,
+    "category": "Cables y Conectividad",
+    "image": "https://tecoperu.com/wp-content/uploads/2024/07/TP-TL-SF1008D-SWITCH-8P-10-100MBPS.-CASE-PLASTICO.jpg"
+  },
+  {
+    "id": "switch-5-puertos-base-1000-jal-s51000-s51000",
+    "name": "SWITCH 5 PUERTOS BASE 1000-JAL-S51000",
+    "code": "S51000",
+    "price": 40000,
+    "stock": 3,
+    "category": "Cables y Conectividad",
+    "image": "https://migracion.jaltechsas.com/wp-content/uploads/2025/02/SWITCH-5-PUERTOS-BASE-1000_11650_JAL-S51000_2.png"
+  },
+  {
+    "id": "switch-plus-8-puertos-base-1000-jal-jal",
+    "name": "SWITCH PLUS 8 PUERTOS BASE 1000-JAL",
+    "code": "JAL",
+    "price": 80000,
+    "stock": 3,
+    "category": "Cables y Conectividad",
+    "image": "https://weshmark.com/red/image/cache/catalog/Tecnologia/Otros/WMD - 00335-500x500.png"
+  },
+  {
+    "id": "adaptador-wifi-2-en-1-bt-150-mb-w107-w107",
+    "name": "ADAPTADOR WIFI 2 EN 1 BT 150 MB - W107",
+    "code": "W107",
+    "price": 30000,
+    "stock": 6,
+    "category": "Cables y Conectividad",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_855291-MLM73317827645_122023-O.webp"
+  },
+  {
+    "id": "convertidor-usb-y-usb-c-a-rj45-usb-x-gen-547",
+    "name": "CONVERTIDOR USB Y USB C A RJ45 + USB X",
+    "code": "GEN-547",
+    "price": 40000,
+    "stock": 2,
+    "category": "Cables y Conectividad",
+    "image": "https://cambiosystem.com/wp-content/uploads/2026/03/Convertidor-Usb-Y-Usb-C-A-Gigabit-Rj45-11724-2-768x768.png"
+  },
+  {
+    "id": "microfono-k8-para-celular-k8-k8",
+    "name": "MICROFONO K8 PARA CELULAR -K8",
+    "code": "K8",
+    "price": 40000,
+    "stock": 4,
+    "category": "Sonido y Audio",
+    "image": "https://http2.mlstatic.com/D_Q_NP_2X_638755-MLA96151231485_102025-E.webp"
+  },
+  {
+    "id": "microfonos-set-x2-k9-para-celular-k9-k9",
+    "name": "MICROFONOS SET X2 K9 PARA CELULAR-K9",
+    "code": "K9",
+    "price": 80000,
+    "stock": 4,
+    "category": "Sonido y Audio",
+    "image": "https://cambiosystem.com/wp-content/uploads/2023/11/Microfonos-Set-X2-K9-Para-Celular7-768x768.png"
+  },
+  {
+    "id": "aro-de-luz-33-cms-led-tripode-2-1mtrs-gen-550",
+    "name": "ARO DE LUZ 33 CMS LED + TRIPODE 2.1MTRS",
+    "code": "GEN-550",
+    "price": 70000,
+    "stock": 2,
+    "category": "Accesorios y Varios",
+    "image": "https://tecno-online.com/wp-content/uploads/2024/07/ARO-LUZ-33CM-RGB-2.1M-0-600x600.webp"
+  },
+  {
+    "id": "cable-usb-a-micro-usb-v8-1m-jal-v88-v88",
+    "name": "CABLE USB A MICRO USB V8 1M JAL -V88",
+    "code": "V88",
+    "price": 15000,
+    "stock": 8,
+    "category": "Cables y Conectividad",
+    "image": "https://cambiosystem.com/wp-content/uploads/2026/03/Cable-Usb-A-Micro-Usb-V8-1m-Jal-V88-30620-1.png"
+  },
+  {
+    "id": "smartwatch-pro-jal-sm03-sm03",
+    "name": "SMARTWATCH PRO JAL-SM03",
+    "code": "SM03",
+    "price": 200000,
+    "stock": 2,
+    "category": "Smartwatch y Relojes",
+    "image": "http://www.versatienda.co/cdn/shop/files/SMARTWATCH-PRO-JAL--SM03_30697_JAL-SM03_1.png?v=1758991122"
+  },
+  {
+    "id": "audifonos-tws-open-ear-x60-gen-554",
+    "name": "AUDIFONOS TWS OPEN EAR X60",
+    "code": "GEN-554",
+    "price": 20000,
+    "stock": 3,
+    "category": "Audífonos y Diademas",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_932498-MCO94006944561_102025-O.webp"
+  },
+  {
+    "id": "speaker-bt-8w-free-jt65-jt65",
+    "name": "SPEAKER BT 8W FREE-JT65",
+    "code": "JT65",
+    "price": 80000,
+    "stock": 3,
+    "category": "Sonido y Audio",
+    "image": "https://static.wixstatic.com/media/128026_b28048bda04b4ec8863277999d04dbca~mv2.jpg/v1/fill/w_980,h_980,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/128026_b28048bda04b4ec8863277999d04dbca~mv2.jpg"
+  },
+  {
+    "id": "audifonos-tws-fit-pro2-pro2",
+    "name": "AUDIFONOS TWS FIT-PRO2",
+    "code": "PRO2",
+    "price": 60000,
+    "stock": 3,
+    "category": "Audífonos y Diademas",
+    "image": "https://correos-market.ams3.cdn.digitaloceanspaces.com/prod/uploads/correos-marketplace-shop/1/product/260641-brudc4mn-karawan-auriculares-deportivos-tws-pro2-con-cancelacion-de-ruido-color-gris-gris-1.jpg"
+  },
+  {
+    "id": "audifonos-tws-open-ear-clip-s7-s7",
+    "name": "AUDIFONOS TWS OPEN EAR CLIP-S7",
+    "code": "S7",
+    "price": 90000,
+    "stock": 3,
+    "category": "Audífonos y Diademas",
+    "image": "https://s.alicdn.com/@sc04/kf/H9ea73b8b21474c318b87205d8891b1105.jpg_960x960q80.jpg"
+  },
+  {
+    "id": "audifonos-bt-bone-conduction-black-11-11",
+    "name": "AUDIFONOS BT BONE CONDUCTION BLACK-11",
+    "code": "11",
+    "price": 180000,
+    "stock": 8,
+    "category": "Audífonos y Diademas",
+    "image": "https://www.worten.pt/i/5fb577571db20612037e290a4d7aef85951dbc95.jpg"
+  },
+  {
+    "id": "mouse-basik-tech-usb-bsk700m-bsk700m",
+    "name": "MOUSE BASIK TECH USB-BSK700M",
+    "code": "BSK700M",
+    "price": 25000,
+    "stock": 1,
+    "category": "Cómputo y Accesorios",
+    "image": "https://cambiosystem.com/wp-content/uploads/2024/03/Mouse-Basik-Tech-Usb-Bsk700m.png"
+  },
+  {
+    "id": "combo-basik-tech-inalambrico-bsk300c-bsk300c",
+    "name": "COMBO BASIK TECH INALAMBRICO- BSK300C",
+    "code": "BSK300C",
+    "price": 70000,
+    "stock": 10,
+    "category": "Cómputo y Accesorios",
+    "image": "https://static.vendaenlinea.co/galeria/medium/tecnosoluciones-del-sur_combo-basik-tech-inalambrico_2344.png"
+  },
+  {
+    "id": "pad-mouse-basik-bskpad-bskpad",
+    "name": "PAD MOUSE BASIK-BSKPAD",
+    "code": "BSKPAD",
+    "price": 15000,
+    "stock": 8,
+    "category": "Cómputo y Accesorios",
+    "image": "https://cambiosystem.com/wp-content/uploads/2024/07/PAD-MOUSE-BASIK_80166_BSK-PAD_1.png"
+  },
+  {
+    "id": "cable-hdmi-3mtr-basik-hdmibt3m-hdmibt3m",
+    "name": "CABLE HDMI 3MTR BASIK-HDMIBT3M",
+    "code": "HDMIBT3M",
+    "price": 25000,
+    "stock": 8,
+    "category": "Cables y Conectividad",
+    "image": "https://confiatechnology.com/wp-content/uploads/2023/02/cable-hdmi-3m-600x600.jpeg"
+  },
+  {
+    "id": "cable-hdmi-10mtr-basik-hdmibt-10m-10m",
+    "name": "CABLE HDMI 10MTR BASIK-HDMIBT - 10M",
+    "code": "10M",
+    "price": 35000,
+    "stock": 4,
+    "category": "Cables y Conectividad",
+    "image": "https://cosmos-technologie.com/wp-content/uploads/2024/09/CABLE-HDMI-10M.jpg"
+  },
+  {
+    "id": "carg-para-asus-19v-3-42a-3-42a",
+    "name": "CARG PARA ASUS 19V-3.42A",
+    "code": "3.42A",
+    "price": 70000,
+    "stock": 6,
+    "category": "Cargadores y Energía",
+    "image": "https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/4914/PMP20000714892/full_image-1.jpeg"
+  },
+  {
+    "id": "carg-para-asus-19v-2-37a-bskas02-bskas02",
+    "name": "CARG. PARA ASUS 19V 2.37A-BSKAS02",
+    "code": "BSKAS02",
+    "price": 70000,
+    "stock": 4,
+    "category": "Cargadores y Energía",
+    "image": "https://jaltechsas.com/wp-content/uploads/2024/02/80185-1200x1200.jpg"
+  },
+  {
+    "id": "hub-3-0-basik-tech-bskhub3-0-bskhub3-0",
+    "name": "HUB 3.0 BASIK TECH-BSKHUB3.0",
+    "code": "BSKHUB3.0",
+    "price": 25000,
+    "stock": 5,
+    "category": "Cables y Conectividad",
+    "image": "https://jaltechsas.com/wp-content/uploads/2023/07/HUB-3.0-BASIK-TECH_80269_BSK-HUB-3.0_4-768x768.png"
+  },
+  {
+    "id": "carg-para-portatil-tipo-c-65w-plusb-gen-567",
+    "name": "CARG. PARA PORTATIL TIPO C 65W PLUSB",
+    "code": "GEN-567",
+    "price": 170000,
+    "stock": 2,
+    "category": "Cargadores y Energía",
+    "image": "https://digitalmtx.com/wp-content/uploads/Cargador-Portatil-Asus-TipoC-65W-Original-7551-2.webp"
+  },
+  {
+    "id": "carg-para-acer-19v-3-42a-65w-bskac04-bskac04",
+    "name": "CARG. PARA ACER 19V-3.42A 65W - BSKAC04",
+    "code": "BSKAC04",
+    "price": 70000,
+    "stock": 5,
+    "category": "Cargadores y Energía",
+    "image": "https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/4914/PMP20000400357/full_image-1.jpeg"
+  },
+  {
+    "id": "carg-para-apple-16-5v-3-65a-bskap01-ap01-gen-569",
+    "name": "CARG. PARA APPLE 16.5V-3.65A-BSKAP01 AP01",
+    "code": "GEN-569",
+    "price": 120000,
+    "stock": 1,
+    "category": "Cargadores y Energía",
+    "image": "https://www.mtm.com.co/wp-content/uploads/2024/03/0970.jpg"
+  },
+  {
+    "id": "carg-para-acer-19v-2-37a-45w-bsk-a05-a05",
+    "name": "CARG.PARA ACER 19V-2.37A 45W-BSK-A05",
+    "code": "A05",
+    "price": 10000,
+    "stock": 4,
+    "category": "Cargadores y Energía",
+    "image": "https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/4914/PMP20000419350/full_image-1.png"
+  },
+  {
+    "id": "regulador-de-voltaje-jal-r1200-r1200",
+    "name": "REGULADOR DE VOLTAJE JAL-R1200",
+    "code": "R1200",
+    "price": 100000,
+    "stock": 2,
+    "category": "Cargadores y Energía",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_880123-MCO108433867165_032026-O.webp"
+  },
+  {
+    "id": "combo-usb-teclado-y-mouse-bsk-9307-9307",
+    "name": "COMBO USB TECLADO Y MOUSE BSK-9307",
+    "code": "9307",
+    "price": 50000,
+    "stock": 8,
+    "category": "Cómputo y Accesorios",
+    "image": "https://jaltechsas.com/wp-content/uploads/2026/01/COMBO-USB-TECLADO-Y-MOUSE-BSK-9307_80412_BSK-9307_9-768x768.png"
+  },
+  {
+    "id": "carg-para-apple-14-85v-3-05a-45w-bsk-gen-573",
+    "name": "CARG PARA APPLE 14.85V-3.05A-45W BSK",
+    "code": "GEN-573",
+    "price": 130000,
+    "stock": 4,
+    "category": "Cargadores y Energía",
+    "image": "https://www.dmchile.cl/dinamicos/productos/03183-1718465071.jpg"
+  },
+  {
+    "id": "carg-para-portatil-asus-19v-3-42a-bs-bs",
+    "name": "CARG. PARA PORTATIL ASUS 19V-3.42A-BS",
+    "code": "BS",
+    "price": 480000,
+    "stock": 5,
+    "category": "Cargadores y Energía",
+    "image": "https://marboltec.com/wp-content/uploads/2023/03/Cargador-Asus-19V-3-3-600x600.jpg"
   }
 ]

@@ -5,6 +5,7 @@ import Link from "next/link";
 import inventarioData from "@/data/inventarioCompleto.json";
 import { formatPrice } from "@/data/mockProducts";
 import { useCart } from "@/context/CartContext";
+import PhoneBanner3D from "@/components/PhoneBanner3D";
 
 interface InventarioItem {
   id: string;
@@ -18,6 +19,8 @@ interface InventarioItem {
 
 const CATEGORIES = [
   "Todos",
+  "Celulares",
+  "Combos",
   "Sonido y Audio",
   "Audífonos y Diademas",
   "Gaming y TV Box",
@@ -88,22 +91,28 @@ export default function CatalogoPage() {
           <span className="font-semibold text-[#111]">Catálogo Completo</span>
         </div>
 
-        <div className="rounded-3xl bg-[#111111] text-white p-8 sm:p-12 relative overflow-hidden shadow-2xl">
-          <div className="relative z-10 max-w-2xl">
+        <div className="rounded-3xl bg-[#111111] text-white p-8 sm:p-12 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 min-h-[340px]">
+          {/* Left: Text Information */}
+          <div className="relative z-10 max-w-xl flex-1">
             <span className="inline-block rounded-full bg-[var(--red)] px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-white mb-3">
               Inventario Oficial 2026
             </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-              Catálogo Completo <br />
-              <span className="text-[var(--red)]">por Secciones</span>
+              Catálogo
             </h1>
             <p className="mt-4 text-sm sm:text-base text-gray-300 leading-relaxed">
               Explora más de 500 referencias de celulares, audio, gaming, cómputo y accesorios con precios oficiales actualizados. Compra online rápida y 100% segura con tarjeta o PSE.
             </p>
           </div>
 
+          {/* Right: 3D Draco GLB Model Viewer (iPhone 17 Pro Max auto-rotating) */}
+          <div className="relative z-10 w-full md:w-[360px] lg:w-[420px] h-[260px] sm:h-[300px] md:h-[340px] flex items-center justify-center">
+            <PhoneBanner3D className="w-full h-full" />
+          </div>
+
           {/* Decorative background glow */}
-          <div className="absolute right-0 top-0 -mr-20 -mt-20 h-80 w-80 rounded-full bg-[var(--red)] opacity-20 blur-3xl pointer-events-none" />
+          <div className="absolute right-0 top-0 -mr-20 -mt-20 h-80 w-80 rounded-full bg-[var(--red)] opacity-25 blur-3xl pointer-events-none" />
+          <div className="absolute right-1/4 bottom-0 -mb-20 h-64 w-64 rounded-full bg-white opacity-5 blur-2xl pointer-events-none" />
         </div>
       </div>
 
