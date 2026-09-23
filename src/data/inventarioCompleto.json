@@ -117,14 +117,14 @@
     "image": "/products/cable_usbc_studio.jpg"
   },
   {
-    "id": "combo-samsung-a27-tablet",
-    "name": "COMBO SAMSUNG GALAXY A27 5G + TABLET A11 (256 GB)",
+    "id": "combo-samsung-s25fe-watch",
+    "name": "COMBO SAMSUNG GALAXY S25 FE + WATCH (256 GB)",
     "code": "CMB-SAMS-01",
-    "price": 1499900,
-    "compareAtPrice": 1569900,
-    "stock": 8,
+    "price": 2999950,
+    "compareAtPrice": 3499950,
+    "stock": 7,
     "category": "Combos",
-    "image": "/products/combos/combo-samsung-a27-tablet.jpg"
+    "image": "/products/combos/combo-samsung-s25fe-watch.jpg"
   },
   {
     "id": "combo-motorola-g77-pad60",
@@ -135,56 +135,6 @@
     "stock": 6,
     "category": "Combos",
     "image": "/products/combos/combo-motorola-g77-pad60.jpg"
-  },
-  {
-    "id": "combo-xiaomi-17tpro-pad-redmi",
-    "name": "COMBO XIAOMI 17T PRO 5G CON PAD + REDMI A7 PRO (512 GB)",
-    "code": "CMB-XIAOMI-01",
-    "price": 4510900,
-    "compareAtPrice": 4799900,
-    "stock": 5,
-    "category": "Combos",
-    "image": "/products/combos/combo-xiaomi-17tpro-pad-redmi.jpg"
-  },
-  {
-    "id": "combo-samsung-s25fe-watch",
-    "name": "COMBO SAMSUNG GALAXY S25 FE + WATCH (256 GB)",
-    "code": "CMB-SAMS-02",
-    "price": 2999950,
-    "compareAtPrice": 3499950,
-    "stock": 7,
-    "category": "Combos",
-    "image": "/products/combos/combo-samsung-s25fe-watch.jpg"
-  },
-  {
-    "id": "combo-samsung-a37-5g",
-    "name": "COMBO SAMSUNG GALAXY A37 5G (256 GB)",
-    "code": "CMB-SAMS-03",
-    "price": 1699950,
-    "compareAtPrice": 1999950,
-    "stock": 10,
-    "category": "Combos",
-    "image": "/products/combos/combo-samsung-a37-5g.jpg"
-  },
-  {
-    "id": "combo-samsung-a17-4g",
-    "name": "COMBO SAMSUNG GALAXY A17 4G (128 GB)",
-    "code": "CMB-SAMS-04",
-    "price": 1027900,
-    "compareAtPrice": null,
-    "stock": 12,
-    "category": "Combos",
-    "image": "/products/combos/combo-samsung-a17-4g.jpg"
-  },
-  {
-    "id": "combo-xiaomi-17tpro-pad2-audifonos",
-    "name": "XIAOMI 17T PRO 5G + REDMI PAD 2 9.7 + AUDÍFONOS (1 TB)",
-    "code": "CMB-XIAOMI-02",
-    "price": 4999900,
-    "compareAtPrice": null,
-    "stock": 4,
-    "category": "Combos",
-    "image": "/products/combos/combo-xiaomi-17tpro-pad2-buds.jpg"
   },
   {
     "id": "combo-vivo-v60lite-buds-reloj",
@@ -207,14 +157,24 @@
     "image": "/products/combos/combo-oppo-a6-reloj-parlante.jpg"
   },
   {
-    "id": "combo-motog17-pad60lite",
-    "name": "COMBO MOTOG17 4G + PAD 60 LITE (256 GB)",
-    "code": "CMB-MOTO-02",
-    "price": 1279900,
+    "id": "combo-forro-vidrio-samsung-s25-ultra",
+    "name": "FORRO RÍGIDO + VIDRIO PANTALLA PARA SAMSUNG GALAXY S25 ULTRA",
+    "code": "CMB-ACC-01",
+    "price": 44900,
     "compareAtPrice": null,
-    "stock": 10,
+    "stock": 15,
     "category": "Combos",
-    "image": "/products/combos/combo-motog17-pad60lite.jpg"
+    "image": "/products/combos/combo-forro-vidrio-samsung.png"
+  },
+  {
+    "id": "combo-estuche-silicona-vidrio-xiaomi",
+    "name": "ESTUCHE FUNDA FORRO EN SILICONA + VIDRIO PREMIUM PARA XIAOMI",
+    "code": "CMB-ACC-02",
+    "price": 33150,
+    "compareAtPrice": null,
+    "stock": 20,
+    "category": "Combos",
+    "image": "/products/combos/combo-forro-vidrio-xiaomi.png"
   },
   {
     "id": "parlantes-premium-recargables-retroiluminados-30w-pt-0p103",
