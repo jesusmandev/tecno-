@@ -216,11 +216,18 @@ export default function HomePage() {
           <div className="tp-combos">
             {mockCombos.map((combo) => (
               <article key={combo.id} className="tp-combo">
-                <div>
+                <div className="tp-combo-info">
                   <small>{combo.subtitle}</small>
                   <h3>{combo.title}</h3>
                   <p>{combo.description}</p>
-                  <strong>{formatPrice(combo.price)}</strong>
+                  <div className="tp-combo-price-wrap">
+                    <strong>{formatPrice(combo.price)}</strong>
+                    {combo.compareAtPrice && combo.compareAtPrice > combo.price && (
+                      <del className="tp-combo-compare">
+                        {formatPrice(combo.compareAtPrice)}
+                      </del>
+                    )}
+                  </div>
                   <a
                     className="tp-buy-btn"
                     href={`https://wa.me/573126468514?text=${encodeURIComponent(
@@ -236,8 +243,8 @@ export default function HomePage() {
                   <Image
                     src={combo.imageUrl}
                     alt={combo.title}
-                    width={260}
-                    height={200}
+                    width={320}
+                    height={240}
                   />
                 </div>
               </article>

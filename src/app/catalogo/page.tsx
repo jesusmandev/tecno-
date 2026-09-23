@@ -15,6 +15,7 @@ interface InventarioItem {
   stock: number;
   category: string;
   image?: string;
+  compareAtPrice?: number | null;
 }
 
 const CATEGORIES = [
@@ -254,9 +255,16 @@ export default function CatalogoPage() {
                   <div className="mb-3 flex items-baseline justify-between">
                     <div>
                       <span className="text-[11px] text-[#70757d] block">Precio de venta:</span>
-                      <span className="text-lg font-black text-[#111]">
-                        {formatPrice(item.price)}
-                      </span>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-lg font-black text-[#111]">
+                          {formatPrice(item.price)}
+                        </span>
+                        {item.compareAtPrice && item.compareAtPrice > item.price && (
+                          <del className="text-xs text-gray-400 font-semibold line-through">
+                            {formatPrice(item.compareAtPrice)}
+                          </del>
+                        )}
+                      </div>
                     </div>
                     {item.stock > 0 && (
                       <span className="text-[11px] font-medium text-emerald-600 flex items-center gap-1">
@@ -282,7 +290,7 @@ export default function CatalogoPage() {
                           whatsappText: "",
                           tags: [item.category.toLowerCase()],
                           price: item.price,
-                          compareAtPrice: null,
+                          compareAtPrice: item.compareAtPrice ?? null,
                           currencyCode: "COP",
                           featuredImage: {
                             url: item.image || "/products/smartphone.jpg",
@@ -300,7 +308,7 @@ export default function CatalogoPage() {
                               title: "Estándar",
                               availableForSale: true,
                               price: item.price,
-                              compareAtPrice: null,
+                              compareAtPrice: item.compareAtPrice ?? null,
                             },
                           ],
                         },
@@ -309,7 +317,7 @@ export default function CatalogoPage() {
                           title: "Estándar",
                           availableForSale: true,
                           price: item.price,
-                          compareAtPrice: null,
+                          compareAtPrice: item.compareAtPrice ?? null,
                         },
                         quantity: 1,
                       })
