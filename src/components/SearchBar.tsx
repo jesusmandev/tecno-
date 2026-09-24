@@ -13,6 +13,7 @@ interface SearchBarProps {
 const POPULAR_SEARCHES = [
   "iPhone 17 Pro Max",
   "iPhone 16 Pro Max",
+  "Samsung Galaxy S26 Ultra",
   "Lenovo IdeaPad Slim 3",
   "Redmi Note 15 Pro",
   "TvBox G7",

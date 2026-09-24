@@ -10,6 +10,7 @@ const INITIAL_REVIEWS: ReviewItem[] = REAL_CUSTOMER_REVIEWS;
 const POPULAR_PRODUCTS = [
   "iPhone 17 Pro Max 256GB",
   "iPhone 16 Pro Max 256GB",
+  "Samsung Galaxy S26 Ultra 256GB",
   "Lenovo IdeaPad Slim 3 15IRH10",
   "Redmi Note 15 Pro",
   "Combo Apple Lovers",
