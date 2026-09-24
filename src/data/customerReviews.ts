@@ -10,6 +10,7 @@ export interface ReviewItem {
   verified: boolean;
   recommended: boolean;
   likes: number;
+  avatar_url?: string;
 }
 
 export const REAL_CUSTOMER_REVIEWS: ReviewItem[] = [

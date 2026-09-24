@@ -46,7 +46,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, city, rating, product, title, comment, recommended } = body;
+    const { name, city, rating, product, title, comment, recommended, avatar_url } = body;
 
     if (!name || !comment || comment.trim().length < 10) {
       return NextResponse.json(
@@ -67,13 +67,27 @@ export async function POST(request: Request) {
       verified: true,
       recommended: recommended !== false,
       likes: 0,
+      avatar_url: avatar_url?.trim() || undefined,
     };
 
-    const { data, error } = await supabase
+    let { data, error } = await supabase
       .from("reviews")
       .insert([newReview])
       .select()
       .single();
+
+    // Si la columna avatar_url aún no ha sido creada en la tabla de Supabase, reintentar sin ella
+    if (error && error.message && error.message.includes("avatar_url")) {
+      const fallbackReview = { ...newReview };
+      delete fallbackReview.avatar_url;
+      const retry = await supabase
+        .from("reviews")
+        .insert([fallbackReview])
+        .select()
+        .single();
+      data = retry.data;
+      error = retry.error;
+    }
 
     if (error) {
       console.error("Error al insertar en Supabase:", error);

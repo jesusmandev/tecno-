@@ -37,6 +37,48 @@ const AVATAR_GRADIENTS = [
   "from-emerald-600 to-teal-700",
 ];
 
+// Helper para comprimir y recortar la imagen seleccionada desde el dispositivo
+function compressImage(file: File, maxDim = 240, quality = 0.85): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > maxDim) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          }
+        } else {
+          if (height > maxDim) {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          resolve(reader.result as string);
+          return;
+        }
+
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/webp", quality) || canvas.toDataURL("image/jpeg", quality));
+      };
+      img.onerror = reject;
+      img.src = e.target?.result as string;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 // =============================================
 // TARJETA LIGERA DE OPINIÓN
 // =============================================
@@ -77,9 +119,17 @@ function ReviewCard({
         <div className="flex items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0">
             <div
-              className={`relative flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${avatarGradient} text-white text-sm font-bold`}
+              className={`relative flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${avatarGradient} text-white text-sm font-bold overflow-hidden shadow-xs`}
             >
-              {review.name.charAt(0)}
+              {review.avatar_url ? (
+                <img
+                  src={review.avatar_url}
+                  alt={review.name}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                review.name.charAt(0)
+              )}
               {review.verified && (
                 <span
                   className="absolute -bottom-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 text-white text-[8px] font-black ring-2 ring-white"
@@ -151,7 +201,7 @@ function ReviewCard({
                 e.stopPropagation();
                 onDelete(review.id);
               }}
-              className="flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-red-600 bg-red-50 hover:bg-red-600 hover:text-white border border-red-200 transition-colors"
+              className="flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-red-600 bg-red-50 hover:bg-red-600 hover:text-white border border-red-200 transition-colors cursor-pointer"
               title="Eliminar opinión permanentemente"
             >
               <span>🗑️</span>
@@ -197,6 +247,11 @@ export default function ReviewsSection() {
   const [isSeeding, setIsSeeding] = useState(false);
   const [seedMessage, setSeedMessage] = useState<string | null>(null);
 
+  // Photo Selector from Device (Gallery / Files / Camera)
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [formAvatar, setFormAvatar] = useState<string>("");
+  const [isProcessingPhoto, setIsProcessingPhoto] = useState(false);
+
   const touchStartX = useRef<number | null>(null);
 
   const [formRating, setFormRating] = useState<number>(5);
@@ -212,7 +267,7 @@ export default function ReviewsSection() {
 
   const STORAGE_KEY = "tecnoplus_customer_reviews_v3";
 
-  // Cargar de Supabase y de cache local
+  // Cargar de Supabase y cache local
   useEffect(() => {
     // 1. Cargar cache local inmediato
     try {
@@ -247,6 +302,29 @@ export default function ReviewsSection() {
     }
     fetchFromSupabase();
   }, []);
+
+  const handlePhotoSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setFormError("Por favor selecciona un archivo de imagen válido (JPG, PNG, WebP).");
+      return;
+    }
+
+    try {
+      setIsProcessingPhoto(true);
+      const compressedDataUrl = await compressImage(file, 240, 0.85);
+      setFormAvatar(compressedDataUrl);
+      setFormError(null);
+    } catch (err) {
+      console.error("Error al procesar foto:", err);
+      setFormError("No se pudo procesar la imagen seleccionada.");
+    } finally {
+      setIsProcessingPhoto(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
 
   const saveReviews = (newReviews: ReviewItem[]) => {
     setReviews(newReviews);
@@ -317,6 +395,7 @@ export default function ReviewsSection() {
       title: formTitle.trim() || (formRating >= 4 ? "¡Excelente experiencia!" : "Opinión del producto"),
       comment: formComment.trim(),
       recommended: formRecommended,
+      avatar_url: formAvatar || undefined,
     };
 
     const tempId = `rev-${Date.now()}`;
@@ -332,10 +411,11 @@ export default function ReviewsSection() {
       verified: true,
       recommended: reviewPayload.recommended,
       likes: 0,
+      avatar_url: formAvatar || undefined,
     };
 
     saveReviews([optimisticReview, ...reviews]);
-    setFormName(""); setFormTitle(""); setFormComment(""); setFormRating(5);
+    setFormTitle(""); setFormComment(""); setFormRating(5); setFormAvatar("");
     setIsFormOpen(false); setActiveSlide(0); setSuccessToast(true);
     setTimeout(() => setSuccessToast(false), 4500);
 
@@ -439,13 +519,13 @@ export default function ReviewsSection() {
               <button
                 onClick={handleSeedToSupabase}
                 disabled={isSeeding}
-                className="rounded-full bg-neutral-950 px-3.5 py-1.5 text-[11px] font-bold text-white hover:bg-black transition-colors disabled:opacity-50"
+                className="rounded-full bg-neutral-950 px-3.5 py-1.5 text-[11px] font-bold text-white hover:bg-black transition-colors disabled:opacity-50 cursor-pointer"
               >
                 {isSeeding ? "Sincronizando..." : "⚡ Subir las 84 a Supabase"}
               </button>
               <button
                 onClick={handleAdminLogout}
-                className="rounded-full border border-amber-400 bg-white px-3 py-1.5 text-[11px] font-bold text-amber-900 hover:bg-amber-50 transition-colors"
+                className="rounded-full border border-amber-400 bg-white px-3 py-1.5 text-[11px] font-bold text-amber-900 hover:bg-amber-50 transition-colors cursor-pointer"
               >
                 Cerrar sesión
               </button>
@@ -474,7 +554,7 @@ export default function ReviewsSection() {
             <button
               id="open-review-form-btn"
               onClick={() => setIsFormOpen((prev) => !prev)}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-neutral-950 px-6 py-2.5 text-xs font-bold text-white shadow-sm transition-colors duration-200 hover:bg-black active:scale-95"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-neutral-950 px-6 py-2.5 text-xs font-bold text-white shadow-sm transition-colors duration-200 hover:bg-black active:scale-95 cursor-pointer"
             >
               <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                 <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
@@ -485,7 +565,7 @@ export default function ReviewsSection() {
             <div className="flex items-center rounded-full bg-white border border-neutral-200/80 p-1 text-xs shadow-xs">
               <button
                 onClick={() => { setFilterRating("all"); setActiveSlide(0); }}
-                className={`rounded-full px-3.5 py-1 font-semibold transition-colors duration-200 ${filterRating === "all" ? "bg-neutral-950 text-white" : "text-neutral-500 hover:text-neutral-900"}`}
+                className={`rounded-full px-3.5 py-1 font-semibold transition-colors duration-200 cursor-pointer ${filterRating === "all" ? "bg-neutral-950 text-white" : "text-neutral-500 hover:text-neutral-900"}`}
               >
                 Todas ({reviews.length})
               </button>
@@ -493,7 +573,7 @@ export default function ReviewsSection() {
                 <button
                   key={star}
                   onClick={() => { setFilterRating(star); setActiveSlide(0); }}
-                  className={`flex items-center gap-1 rounded-full px-3 py-1 font-semibold transition-colors duration-200 ${filterRating === star ? "bg-neutral-950 text-white" : "text-neutral-500 hover:text-neutral-900"}`}
+                  className={`flex items-center gap-1 rounded-full px-3 py-1 font-semibold transition-colors duration-200 cursor-pointer ${filterRating === star ? "bg-neutral-950 text-white" : "text-neutral-500 hover:text-neutral-900"}`}
                 >
                   <span>{star}</span><span className="text-amber-400 text-xs">★</span>
                 </button>
@@ -512,7 +592,7 @@ export default function ReviewsSection() {
                 <p className="text-[11px] text-emerald-700">Quedó guardada para todos los visitantes.</p>
               </div>
             </div>
-            <button onClick={() => setSuccessToast(false)} className="text-emerald-700 text-xs font-bold px-2 py-1">✕</button>
+            <button onClick={() => setSuccessToast(false)} className="text-emerald-700 text-xs font-bold px-2 py-1 cursor-pointer">✕</button>
           </div>
         )}
 
@@ -524,7 +604,80 @@ export default function ReviewsSection() {
                 <h3 className="text-base font-bold text-neutral-950">Escribe tu opinión y calificación</h3>
                 <p className="text-xs text-neutral-400">Comparte tu experiencia con la comunidad de Tecno+.</p>
               </div>
-              <button onClick={() => setIsFormOpen(false)} className="text-neutral-400 hover:text-neutral-900 text-xs font-semibold px-2 py-1">✕ Cerrar</button>
+              <button onClick={() => setIsFormOpen(false)} className="text-neutral-400 hover:text-neutral-900 text-xs font-semibold px-2 py-1 cursor-pointer">✕ Cerrar</button>
+            </div>
+
+            {/* SELECTOR DE FOTO DE PERFIL DESDE EL DISPOSITIVO (FOTOS O ARCHIVOS) */}
+            <div className="mb-5 rounded-2xl bg-neutral-50 border border-neutral-200/80 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3.5">
+                <div className="relative">
+                  <div className="h-14 w-14 rounded-full overflow-hidden border-2 border-neutral-200 bg-white flex items-center justify-center shadow-xs">
+                    {formAvatar ? (
+                      <img
+                        src={formAvatar}
+                        alt="Foto de perfil seleccionada"
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-2xl text-neutral-300">👤</span>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-neutral-900 text-white text-xs shadow-md hover:bg-black transition-colors cursor-pointer"
+                    title="Subir foto desde tus archivos o galería"
+                  >
+                    📷
+                  </button>
+                </div>
+
+                <div>
+                  <div className="flex items-center gap-2">
+                    <p className="text-xs font-bold text-neutral-900">
+                      {formAvatar ? "¡Foto seleccionada!" : "Foto de perfil (opcional)"}
+                    </p>
+                    {formAvatar && (
+                      <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                        ✓ Lista
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[11px] text-neutral-500">
+                    {formAvatar
+                      ? "Aparecerá en tu tarjeta de opinión junto a tu nombre."
+                      : "Puedes elegir una foto desde tu galería, archivos o cámara."}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 self-start sm:self-auto">
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  accept="image/*"
+                  onChange={handlePhotoSelect}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isProcessingPhoto}
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-white border border-neutral-300 px-3.5 py-2 text-xs font-bold text-neutral-800 shadow-xs hover:bg-neutral-50 hover:border-neutral-400 transition-colors cursor-pointer disabled:opacity-50"
+                >
+                  <span>🖼️</span>
+                  <span>{isProcessingPhoto ? "Cargando..." : formAvatar ? "Cambiar foto" : "Subir foto / archivo"}</span>
+                </button>
+                {formAvatar && (
+                  <button
+                    type="button"
+                    onClick={() => setFormAvatar("")}
+                    className="text-xs font-semibold text-red-600 hover:underline px-2 py-1 cursor-pointer"
+                  >
+                    Quitar
+                  </button>
+                )}
+              </div>
             </div>
 
             {formError && <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-xs font-semibold text-red-700">{formError}</div>}
@@ -537,13 +690,13 @@ export default function ReviewsSection() {
                     {[1, 2, 3, 4, 5].map((star) => {
                       const active = (hoverRating !== null ? hoverRating : formRating) >= star;
                       return (
-                        <button key={star} type="button" onMouseEnter={() => setHoverRating(star)} onMouseLeave={() => setHoverRating(null)} onClick={() => setFormRating(star)} className="p-1 transition-transform hover:scale-125 focus:outline-none" aria-label={`${star} estrellas`}>
+                        <button key={star} type="button" onMouseEnter={() => setHoverRating(star)} onMouseLeave={() => setHoverRating(null)} onClick={() => setFormRating(star)} className="p-1 transition-transform hover:scale-125 focus:outline-none cursor-pointer" aria-label={`${star} estrellas`}>
                           <span className={`text-2xl ${active ? "text-amber-400" : "text-neutral-200"}`}>★</span>
                         </button>
                       );
                     })}
                   </div>
-                  <button type="button" onClick={() => setFormRating(0)} className={`text-xs px-3 py-1.5 rounded-xl border transition-colors duration-200 ${formRating === 0 ? "border-red-500 bg-red-50 text-red-700 font-bold" : "border-neutral-200 text-neutral-500 hover:bg-neutral-50"}`}>
+                  <button type="button" onClick={() => setFormRating(0)} className={`text-xs px-3 py-1.5 rounded-xl border transition-colors duration-200 cursor-pointer ${formRating === 0 ? "border-red-500 bg-red-50 text-red-700 font-bold" : "border-neutral-200 text-neutral-500 hover:bg-neutral-50"}`}>
                     Marcar 0 estrellas
                   </button>
                   <span className="text-xs font-semibold text-neutral-700">{RATING_LABELS[hoverRating !== null ? hoverRating : formRating]}</span>
@@ -552,8 +705,17 @@ export default function ReviewsSection() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">Tu nombre *</label>
-                  <input type="text" required placeholder="Ej. Andrés Ruiz" value={formName} onChange={(e) => setFormName(e.target.value)} className="w-full rounded-xl border border-neutral-200 bg-white px-3.5 py-2 text-xs text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-black focus:ring-1 focus:ring-black" />
+                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                    Tu nombre *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Ej. Andrés Ruiz"
+                    value={formName}
+                    onChange={(e) => setFormName(e.target.value)}
+                    className="w-full rounded-xl border border-neutral-200 bg-white px-3.5 py-2 text-xs text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-black focus:ring-1 focus:ring-black"
+                  />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-neutral-700 mb-1">Ciudad / Municipio *</label>
@@ -582,8 +744,8 @@ export default function ReviewsSection() {
               </div>
 
               <div className="flex justify-end gap-2.5 pt-2">
-                <button type="button" onClick={() => setIsFormOpen(false)} className="rounded-full border border-neutral-200 px-4 py-2 text-xs font-semibold text-neutral-600 hover:bg-neutral-50 transition-colors">Cancelar</button>
-                <button type="submit" disabled={isSubmitting} className="rounded-full bg-neutral-950 px-6 py-2 text-xs font-bold text-white hover:bg-black transition-colors disabled:opacity-50">
+                <button type="button" onClick={() => setIsFormOpen(false)} className="rounded-full border border-neutral-200 px-4 py-2 text-xs font-semibold text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer">Cancelar</button>
+                <button type="submit" disabled={isSubmitting} className="rounded-full bg-neutral-950 px-6 py-2 text-xs font-bold text-white hover:bg-black transition-colors disabled:opacity-50 cursor-pointer">
                   {isSubmitting ? "Publicando..." : "Publicar"}
                 </button>
               </div>
@@ -595,7 +757,7 @@ export default function ReviewsSection() {
         {filteredReviews.length === 0 ? (
           <div className="rounded-3xl border border-neutral-200 bg-white p-10 text-center my-6 max-w-md mx-auto">
             <p className="text-sm font-bold text-neutral-950">No hay opiniones con este filtro.</p>
-            <button onClick={() => { setFilterRating("all"); setIsFormOpen(true); }} className="mt-3 rounded-full bg-neutral-950 px-5 py-2 text-xs font-bold text-white">Escribir opinión</button>
+            <button onClick={() => { setFilterRating("all"); setIsFormOpen(true); }} className="mt-3 rounded-full bg-neutral-950 px-5 py-2 text-xs font-bold text-white cursor-pointer">Escribir opinión</button>
           </div>
         ) : (
           <div
@@ -675,7 +837,7 @@ export default function ReviewsSection() {
 
             {/* Controles */}
             <div className="mt-6 flex items-center justify-center gap-4 max-w-sm mx-auto">
-              <button onClick={prevSlide} aria-label="Opinión anterior" className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-neutral-200/80 text-neutral-700 hover:text-black hover:border-neutral-400 transition-colors active:scale-95">
+              <button onClick={prevSlide} aria-label="Opinión anterior" className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-neutral-200/80 text-neutral-700 hover:text-black hover:border-neutral-400 transition-colors active:scale-95 cursor-pointer">
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M15 18l-6-6 6-6" /></svg>
               </button>
 
@@ -693,7 +855,7 @@ export default function ReviewsSection() {
                 </div>
               )}
 
-              <button onClick={nextSlide} aria-label="Siguiente opinión" className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-neutral-200/80 text-neutral-700 hover:text-black hover:border-neutral-400 transition-colors active:scale-95">
+              <button onClick={nextSlide} aria-label="Siguiente opinión" className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-neutral-200/80 text-neutral-700 hover:text-black hover:border-neutral-400 transition-colors active:scale-95 cursor-pointer">
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M9 18l6-6-6-6" /></svg>
               </button>
             </div>
@@ -705,7 +867,7 @@ export default function ReviewsSection() {
           {!isAdmin ? (
             <button
               onClick={() => setShowAdminModal(true)}
-              className="text-[11px] text-neutral-400 hover:text-neutral-700 font-medium flex items-center gap-1.5 transition-colors py-1 px-3 rounded-full hover:bg-neutral-100"
+              className="text-[11px] text-neutral-400 hover:text-neutral-700 font-medium flex items-center gap-1.5 transition-colors py-1 px-3 rounded-full hover:bg-neutral-100 cursor-pointer"
             >
               <span>🔒</span>
               <span>Modo Administrador</span>
@@ -713,7 +875,7 @@ export default function ReviewsSection() {
           ) : (
             <button
               onClick={handleAdminLogout}
-              className="text-[11px] text-amber-700 hover:text-amber-900 font-bold flex items-center gap-1.5 transition-colors py-1 px-3 rounded-full bg-amber-50 border border-amber-200"
+              className="text-[11px] text-amber-700 hover:text-amber-900 font-bold flex items-center gap-1.5 transition-colors py-1 px-3 rounded-full bg-amber-50 border border-amber-200 cursor-pointer"
             >
               <span>👑</span>
               <span>Cerrar sesión de Administrador</span>
@@ -732,7 +894,7 @@ export default function ReviewsSection() {
                 </div>
                 <button
                   onClick={() => { setShowAdminModal(false); setAdminError(null); setAdminInputPassword(""); }}
-                  className="text-neutral-400 hover:text-neutral-900 text-xs font-bold"
+                  className="text-neutral-400 hover:text-neutral-900 text-xs font-bold cursor-pointer"
                 >
                   ✕
                 </button>
@@ -765,13 +927,13 @@ export default function ReviewsSection() {
                   <button
                     type="button"
                     onClick={() => { setShowAdminModal(false); setAdminError(null); setAdminInputPassword(""); }}
-                    className="rounded-full border border-neutral-200 px-4 py-1.5 text-xs font-semibold text-neutral-600 hover:bg-neutral-50"
+                    className="rounded-full border border-neutral-200 px-4 py-1.5 text-xs font-semibold text-neutral-600 hover:bg-neutral-50 cursor-pointer"
                   >
                     Cancelar
                   </button>
                   <button
                     type="submit"
-                    className="rounded-full bg-neutral-950 px-5 py-1.5 text-xs font-bold text-white hover:bg-black transition-colors"
+                    className="rounded-full bg-neutral-950 px-5 py-1.5 text-xs font-bold text-white hover:bg-black transition-colors cursor-pointer"
                   >
                     Ingresar
                   </button>
