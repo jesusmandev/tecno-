@@ -127,46 +127,6 @@
     "image": "/products/cable_usbc_studio.jpg"
   },
   {
-    "id": "combo-samsung-s25fe-watch",
-    "name": "COMBO SAMSUNG GALAXY S25 FE + WATCH (256 GB)",
-    "code": "CMB-SAMS-01",
-    "price": 2999950,
-    "compareAtPrice": 3499950,
-    "stock": 7,
-    "category": "Combos",
-    "image": "/products/combos/combo-samsung-s25fe-watch.jpg"
-  },
-  {
-    "id": "combo-motorola-g77-pad60",
-    "name": "COMBO CELULAR MOTOROLA G77 5G + PAD 60 LITE (256 GB)",
-    "code": "CMB-MOTO-01",
-    "price": 1599900,
-    "compareAtPrice": 1799900,
-    "stock": 6,
-    "category": "Combos",
-    "image": "/products/combos/combo-motorola-g77-pad60.jpg"
-  },
-  {
-    "id": "combo-vivo-v60lite-buds-reloj",
-    "name": "COMBO VIVO V60 LITE 5G + BUDS GRATIS RELOJ (256 GB)",
-    "code": "CMB-VIVO-01",
-    "price": 1999900,
-    "compareAtPrice": null,
-    "stock": 8,
-    "category": "Combos",
-    "image": "/products/combos/combo-vivo-v60lite-buds-reloj.jpg"
-  },
-  {
-    "id": "combo-oppo-a6-reloj-parlante",
-    "name": "COMBO OPPO A6 5G + RELOJ + PARLANTE (256 GB)",
-    "code": "CMB-OPPO-01",
-    "price": 1799900,
-    "compareAtPrice": null,
-    "stock": 9,
-    "category": "Combos",
-    "image": "/products/combos/combo-oppo-a6-reloj-parlante.jpg"
-  },
-  {
     "id": "combo-forro-vidrio-samsung-s25-ultra",
     "name": "FORRO RÍGIDO + VIDRIO PANTALLA PARA SAMSUNG GALAXY S25 ULTRA",
     "code": "CMB-ACC-01",
@@ -177,14 +137,24 @@
     "image": "/products/combos/combo-forro-vidrio-samsung.png"
   },
   {
-    "id": "combo-estuche-silicona-vidrio-xiaomi",
-    "name": "ESTUCHE FUNDA FORRO EN SILICONA + VIDRIO PREMIUM PARA XIAOMI",
-    "code": "CMB-ACC-02",
-    "price": 33150,
+    "id": "combo-redmi-15c-vidrio-forro",
+    "name": "COMBO REDMI 15C + VIDRIO TEMPLADO Y FORRO",
+    "code": "CMB-REDMI15C-01",
+    "price": 34900,
     "compareAtPrice": null,
     "stock": 20,
     "category": "Combos",
-    "image": "/products/combos/combo-forro-vidrio-xiaomi.png"
+    "image": "/products/combos/combo-forro-vidrio-redmi15c.jpg"
+  },
+  {
+    "id": "combo-samsung-a07-vidrio-forro",
+    "name": "COMBO SAMSUNG GALAXY A07 + VIDRIO TEMPLADO Y FORRO",
+    "code": "CMB-SAMS-A07-01",
+    "price": 38900,
+    "compareAtPrice": null,
+    "stock": 18,
+    "category": "Combos",
+    "image": "/products/combos/combo-forro-vidrio-samsung-a07.jpg"
   },
   {
     "id": "parlantes-premium-recargables-retroiluminados-30w-pt-0p103",
