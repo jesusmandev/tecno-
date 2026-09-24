@@ -1,107 +1,11 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { REAL_CUSTOMER_REVIEWS, type ReviewItem } from "@/data/customerReviews";
 
-export interface ReviewItem {
-  id: string;
-  name: string;
-  city: string;
-  rating: number; // 0 to 5
-  date: string;
-  product: string;
-  title: string;
-  comment: string;
-  verified: boolean;
-  recommended: boolean;
-  likes: number;
-}
+export type { ReviewItem };
 
-const INITIAL_REVIEWS: ReviewItem[] = [
-  {
-    id: "rev-1",
-    name: "Andrés Felipe Ruiz M.",
-    city: "Montería (La Castellana)",
-    rating: 5,
-    date: "Hace 2 días",
-    product: "iPhone 17 Pro Max 256GB",
-    title: "¡Entrega el mismo día en Montería!",
-    comment:
-      "¡Impresionante la rapidez de entrega! Lo pedí en la mañana y en la tarde ya lo tenía en mis manos en Montería. Equipo 100% original, sellado en caja y con su garantía oficial. La compra con tarjeta fue súper fluida.",
-    verified: true,
-    recommended: true,
-    likes: 18,
-  },
-  {
-    id: "rev-2",
-    name: "Valentina Jaramillo P.",
-    city: "Cereté, Córdoba",
-    rating: 5,
-    date: "Hace 4 días",
-    product: "Lenovo IdeaPad Slim 3 15IRH10",
-    title: "Excelente portátil para la universidad",
-    comment:
-      "Compré el portátil Lenovo con pantalla táctil y procesador Intel Core i5 de 13va con 16GB RAM. La pantalla es hermosa, nítida y responde al tacto al instante. Llegó a Cereté en menos de 24 horas y con un embalaje impecable.",
-    verified: true,
-    recommended: true,
-    likes: 12,
-  },
-  {
-    id: "rev-3",
-    name: "Juan Camilo Durango",
-    city: "Montería (El Recreo)",
-    rating: 5,
-    date: "Hace 1 semana",
-    product: "Combo Apple Lovers",
-    title: "El ahorro en los combos es real",
-    comment:
-      "Aproveché el combo especial que incluye los AirPods y el case MagSafe. Me ahorré una buena plata en comparación con otras tiendas. Me encanta que ahora se pueda pagar directamente por tarjeta o PSE en la web.",
-    verified: true,
-    recommended: true,
-    likes: 24,
-  },
-  {
-    id: "rev-4",
-    name: "María Alejandra Vélez S.",
-    city: "Sahagún, Córdoba",
-    rating: 5,
-    date: "Hace 1 semana",
-    product: "iPhone 16 Pro Max 256GB",
-    title: "Color Titanio Desierto espectacular",
-    comment:
-      "Tenía algo de desconfianza al pedir por internet desde Sahagún, pero la compra fue transparente y segura. El iPhone llegó sellado con factura legal y el nuevo botón de control de cámara es una maravilla. Muy agradecida.",
-    verified: true,
-    recommended: true,
-    likes: 15,
-  },
-  {
-    id: "rev-5",
-    name: "Carlos Mario Petro E.",
-    city: "Lorica, Córdoba",
-    rating: 4,
-    date: "Hace 2 semanas",
-    product: "Redmi Note 15 Pro",
-    title: "La cámara de 200MP es de otro nivel",
-    comment:
-      "La calidad de las fotos y la fluidez de la pantalla de 120Hz compiten con cualquier gama alta. La batería dura más de un día completo. Le doy 4 estrellas solo porque la transportadora tardó un día más por lluvia.",
-    verified: true,
-    recommended: true,
-    likes: 9,
-  },
-  {
-    id: "rev-6",
-    name: "Camila Sofía Hoyos",
-    city: "Montería (Pasatiempo)",
-    rating: 5,
-    date: "Hace 3 semanas",
-    product: "TvBox G7 Edición Araña",
-    title: "Entretenimiento puro para la familia",
-    comment:
-      "Mis hijos están felices con todos los juegos retro que trae y para ver series en 4K va súper fluido. Fácil de conectar al televisor y excelente asesoría. Además el pago contra entrega en Montería me dio total tranquilidad.",
-    verified: true,
-    recommended: true,
-    likes: 17,
-  },
-];
+const INITIAL_REVIEWS: ReviewItem[] = REAL_CUSTOMER_REVIEWS;
 
 const POPULAR_PRODUCTS = [
   "iPhone 17 Pro Max 256GB",
@@ -134,19 +38,25 @@ const AVATAR_GRADIENTS = [
 ];
 
 // =============================================
-// TARJETA LIGERA (sin tilt 3D, sin backdrop-blur)
+// TARJETA LIGERA DE OPINIÓN
 // =============================================
 function ReviewCard({
   review,
   isCenter,
   onLike,
   isLiked,
+  isAdmin,
+  onDelete,
 }: {
   review: ReviewItem;
   isCenter: boolean;
   onLike: (id: string) => void;
   isLiked: boolean;
+  isAdmin?: boolean;
+  onDelete?: (id: string) => void;
 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isLong = review.comment.length > 130;
   const avatarGradient = AVATAR_GRADIENTS[(review.name.charCodeAt(0) || 0) % AVATAR_GRADIENTS.length];
 
   return (
@@ -198,27 +108,70 @@ function ReviewCard({
         </div>
 
         <h4 className="text-base sm:text-[17px] font-bold text-neutral-950 leading-snug mb-2 line-clamp-1 tracking-tight">{review.title}</h4>
-        <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed line-clamp-4">{review.comment}</p>
+        
+        {isLong ? (
+          <div>
+            <p
+              className={`text-xs sm:text-sm text-neutral-600 leading-relaxed transition-all duration-200 ${
+                isExpanded
+                  ? "max-h-[135px] sm:max-h-[130px] overflow-y-auto pr-1 select-text"
+                  : "line-clamp-3 sm:line-clamp-4"
+              }`}
+            >
+              {review.comment}
+            </p>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsExpanded((prev) => !prev);
+              }}
+              className="mt-1 text-[11px] font-bold text-neutral-900 hover:text-black hover:underline cursor-pointer inline-flex items-center gap-1"
+            >
+              <span>{isExpanded ? "Ver menos" : "Ver más"}</span>
+              <span className="text-[9px]">{isExpanded ? "▲" : "▼"}</span>
+            </button>
+          </div>
+        ) : (
+          <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed line-clamp-4">{review.comment}</p>
+        )}
       </div>
 
       {/* INFERIOR */}
       <div className="pt-4 border-t border-neutral-100 flex items-center justify-between gap-2">
-        <div className="inline-flex items-center gap-1.5 rounded-full bg-neutral-50 border border-neutral-200/60 px-3 py-1 text-[11px] max-w-[70%] sm:max-w-[75%]">
+        <div className="inline-flex items-center gap-1.5 rounded-full bg-neutral-50 border border-neutral-200/60 px-3 py-1 text-[11px] max-w-[55%] sm:max-w-[62%]">
           <span className="text-xs">🏷️</span>
           <span className="truncate font-medium text-neutral-800">{review.product}</span>
         </div>
-        <button
-          onClick={(e) => { e.stopPropagation(); onLike(review.id); }}
-          className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors duration-200 ${
-            isLiked
-              ? "bg-red-50 text-red-600 border border-red-200"
-              : "bg-neutral-50 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 border border-neutral-200/60"
-          }`}
-          title="Marcar como útil"
-        >
-          <span className="text-xs">👍</span>
-          <span className="font-bold">{review.likes}</span>
-        </button>
+
+        <div className="flex items-center gap-2">
+          {isAdmin && onDelete && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete(review.id);
+              }}
+              className="flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-red-600 bg-red-50 hover:bg-red-600 hover:text-white border border-red-200 transition-colors"
+              title="Eliminar opinión permanentemente"
+            >
+              <span>🗑️</span>
+              <span>Borrar</span>
+            </button>
+          )}
+
+          <button
+            onClick={(e) => { e.stopPropagation(); onLike(review.id); }}
+            className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors duration-200 ${
+              isLiked
+                ? "bg-red-50 text-red-600 border border-red-200"
+                : "bg-neutral-50 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 border border-neutral-200/60"
+            }`}
+            title="Marcar como útil"
+          >
+            <span className="text-xs">👍</span>
+            <span className="font-bold">{review.likes}</span>
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -236,6 +189,14 @@ export default function ReviewsSection() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Admin Mode States
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showAdminModal, setShowAdminModal] = useState(false);
+  const [adminInputPassword, setAdminInputPassword] = useState("");
+  const [adminError, setAdminError] = useState<string | null>(null);
+  const [isSeeding, setIsSeeding] = useState(false);
+  const [seedMessage, setSeedMessage] = useState<string | null>(null);
+
   const touchStartX = useRef<number | null>(null);
 
   const [formRating, setFormRating] = useState<number>(5);
@@ -247,20 +208,49 @@ export default function ReviewsSection() {
   const [formComment, setFormComment] = useState("");
   const [formRecommended, setFormRecommended] = useState(true);
   const [formError, setFormError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const STORAGE_KEY = "tecnoplus_customer_reviews_v3";
+
+  // Cargar de Supabase y de cache local
   useEffect(() => {
+    // 1. Cargar cache local inmediato
     try {
-      const stored = localStorage.getItem("tecnoplus_customer_reviews");
+      const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) setReviews(parsed);
       }
     } catch { /* ignore */ }
+
+    // 2. Comprobar si hay sesión admin guardada
+    try {
+      if (sessionStorage.getItem("tecnoplus_admin_auth") === "true") {
+        setIsAdmin(true);
+      }
+    } catch { /* ignore */ }
+
+    // 3. Sincronizar en segundo plano con Supabase
+    async function fetchFromSupabase() {
+      try {
+        const res = await fetch("/api/reviews");
+        const json = await res.json();
+        if (json.reviews && Array.isArray(json.reviews) && json.reviews.length > 0) {
+          setReviews(json.reviews);
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(json.reviews));
+          } catch { /* ignore */ }
+        }
+      } catch (err) {
+        console.warn("Modo local activo:", err);
+      }
+    }
+    fetchFromSupabase();
   }, []);
 
   const saveReviews = (newReviews: ReviewItem[]) => {
     setReviews(newReviews);
-    try { localStorage.setItem("tecnoplus_customer_reviews", JSON.stringify(newReviews)); } catch { /* ignore */ }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(newReviews)); } catch { /* ignore */ }
   };
 
   const filteredReviews = useMemo(() => {
@@ -295,36 +285,139 @@ export default function ReviewsSection() {
     touchStartX.current = null;
   };
 
-  const handleLike = (id: string) => {
+  const handleLike = async (id: string) => {
     if (likedReviews[id]) return;
     setLikedReviews((prev) => ({ ...prev, [id]: true }));
-    saveReviews(reviews.map((r) => (r.id === id ? { ...r, likes: r.likes + 1 } : r)));
+    const target = reviews.find((r) => r.id === id);
+    const newLikes = (target?.likes || 0) + 1;
+    saveReviews(reviews.map((r) => (r.id === id ? { ...r, likes: newLikes } : r)));
+
+    try {
+      await fetch("/api/reviews", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, likes: newLikes }),
+      });
+    } catch { /* ignore */ }
   };
 
-  const handleSubmitReview = (e: React.FormEvent) => {
+  const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
     if (!formName.trim()) { setFormError("Por favor ingresa tu nombre."); return; }
     if (!formComment.trim() || formComment.trim().length < 10) { setFormError("Por favor escribe un comentario de al menos 10 caracteres."); return; }
 
-    const newReview: ReviewItem = {
-      id: `rev-${Date.now()}`,
+    setIsSubmitting(true);
+
+    const reviewPayload = {
       name: formName.trim(),
       city: formCity.trim() || "Montería, Córdoba",
       rating: formRating,
-      date: "Hace unos momentos",
       product: formProduct,
       title: formTitle.trim() || (formRating >= 4 ? "¡Excelente experiencia!" : "Opinión del producto"),
       comment: formComment.trim(),
-      verified: true,
       recommended: formRecommended,
+    };
+
+    const tempId = `rev-${Date.now()}`;
+    const optimisticReview: ReviewItem = {
+      id: tempId,
+      name: reviewPayload.name,
+      city: reviewPayload.city,
+      rating: reviewPayload.rating,
+      date: "Hace unos momentos",
+      product: reviewPayload.product,
+      title: reviewPayload.title,
+      comment: reviewPayload.comment,
+      verified: true,
+      recommended: reviewPayload.recommended,
       likes: 0,
     };
 
-    saveReviews([newReview, ...reviews]);
+    saveReviews([optimisticReview, ...reviews]);
     setFormName(""); setFormTitle(""); setFormComment(""); setFormRating(5);
     setIsFormOpen(false); setActiveSlide(0); setSuccessToast(true);
     setTimeout(() => setSuccessToast(false), 4500);
+
+    // Enviar a Supabase para persistencia pública permanente
+    try {
+      const res = await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reviewPayload),
+      });
+      const data = await res.json();
+      if (data.review) {
+        setReviews((prev) => prev.map((r) => (r.id === tempId ? data.review : r)));
+      }
+    } catch (err) {
+      console.error("Error guardando en Supabase:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Funciones de Administrador
+  const handleAdminLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanPass = adminInputPassword.trim();
+    if (cleanPass === "tecnomasadmin2026") {
+      setIsAdmin(true);
+      try { sessionStorage.setItem("tecnoplus_admin_auth", "true"); } catch { /* ignore */ }
+      setShowAdminModal(false);
+      setAdminError(null);
+      setAdminInputPassword("");
+    } else {
+      setAdminError("Contraseña incorrecta. Intenta nuevamente.");
+    }
+  };
+
+  const handleAdminLogout = () => {
+    setIsAdmin(false);
+    try { sessionStorage.removeItem("tecnoplus_admin_auth"); } catch { /* ignore */ }
+  };
+
+  const handleDeleteReview = async (id: string) => {
+    if (!confirm("¿Deseas eliminar este comentario para siempre de la tienda y la base de datos?")) return;
+
+    try {
+      const res = await fetch(`/api/reviews?id=${encodeURIComponent(id)}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminPassword: "tecnomasadmin2026" }),
+      });
+
+      if (res.ok) {
+        const next = reviews.filter((r) => r.id !== id);
+        saveReviews(next);
+      } else {
+        alert("No se pudo eliminar el comentario. Revisa los permisos.");
+      }
+    } catch {
+      alert("Error de red al intentar borrar.");
+    }
+  };
+
+  const handleSeedToSupabase = async () => {
+    setIsSeeding(true);
+    setSeedMessage(null);
+    try {
+      const res = await fetch("/api/reviews/seed", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminPassword: "tecnomasadmin2026" }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setSeedMessage(`¡Éxito! ${data.message || "Se subieron las opiniones a Supabase."}`);
+      } else {
+        setSeedMessage(`Aviso: ${data.error || "Asegúrate de haber creado la tabla en SQL Editor."}`);
+      }
+    } catch {
+      setSeedMessage("Error de conexión al sincronizar.");
+    } finally {
+      setIsSeeding(false);
+    }
   };
 
   return (
@@ -332,11 +425,45 @@ export default function ReviewsSection() {
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-gradient-to-tr from-blue-50/40 via-indigo-50/30 to-amber-50/20 blur-3xl pointer-events-none" />
 
       <div className="tp-container relative z-10">
+        {/* BARRA DE MODO ADMIN SI ESTÁ ACTIVO */}
+        {isAdmin && (
+          <div className="mb-8 mx-auto max-w-3xl rounded-2xl bg-amber-500/10 border border-amber-500/30 p-4 text-amber-950 flex flex-col sm:flex-row items-center justify-between gap-3 animate-fadeIn">
+            <div className="flex items-center gap-2.5">
+              <span className="text-xl">👑</span>
+              <div>
+                <p className="text-xs font-bold">Modo Administrador Activo</p>
+                <p className="text-[11px] text-amber-800">Tienes permisos para borrar opiniones directamente de la base de datos.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleSeedToSupabase}
+                disabled={isSeeding}
+                className="rounded-full bg-neutral-950 px-3.5 py-1.5 text-[11px] font-bold text-white hover:bg-black transition-colors disabled:opacity-50"
+              >
+                {isSeeding ? "Sincronizando..." : "⚡ Subir las 84 a Supabase"}
+              </button>
+              <button
+                onClick={handleAdminLogout}
+                className="rounded-full border border-amber-400 bg-white px-3 py-1.5 text-[11px] font-bold text-amber-900 hover:bg-amber-50 transition-colors"
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          </div>
+        )}
+
+        {seedMessage && (
+          <div className="mb-6 max-w-xl mx-auto rounded-xl bg-blue-50 border border-blue-200 p-3 text-center text-xs font-semibold text-blue-900">
+            {seedMessage}
+          </div>
+        )}
+
         {/* HEADER */}
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 rounded-full bg-white border border-neutral-200/80 px-4 py-1.5 shadow-xs mb-4">
             <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-xs font-semibold text-neutral-800">4.9 de 5 · Opiniones Verificadas en Colombia</span>
+            <span className="text-xs font-semibold text-neutral-800">5.0 de 5 · +80 Opiniones Verificadas en Colombia</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 tracking-tight leading-tight">Lo que dicen nuestros clientes</h2>
           <p className="mt-3 text-sm sm:text-base text-neutral-500 max-w-lg leading-relaxed font-normal">
@@ -382,7 +509,7 @@ export default function ReviewsSection() {
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 text-white font-bold text-xs">✓</span>
               <div>
                 <p className="text-xs font-bold">¡Tu opinión fue publicada!</p>
-                <p className="text-[11px] text-emerald-700">Aparece en primer lugar en el carrusel.</p>
+                <p className="text-[11px] text-emerald-700">Quedó guardada para todos los visitantes.</p>
               </div>
             </div>
             <button onClick={() => setSuccessToast(false)} className="text-emerald-700 text-xs font-bold px-2 py-1">✕</button>
@@ -456,13 +583,15 @@ export default function ReviewsSection() {
 
               <div className="flex justify-end gap-2.5 pt-2">
                 <button type="button" onClick={() => setIsFormOpen(false)} className="rounded-full border border-neutral-200 px-4 py-2 text-xs font-semibold text-neutral-600 hover:bg-neutral-50 transition-colors">Cancelar</button>
-                <button type="submit" className="rounded-full bg-neutral-950 px-6 py-2 text-xs font-bold text-white hover:bg-black transition-colors">Publicar</button>
+                <button type="submit" disabled={isSubmitting} className="rounded-full bg-neutral-950 px-6 py-2 text-xs font-bold text-white hover:bg-black transition-colors disabled:opacity-50">
+                  {isSubmitting ? "Publicando..." : "Publicar"}
+                </button>
               </div>
             </form>
           </div>
         )}
 
-        {/* ================= CARRUSEL 3D OPTIMIZADO (SIN BLUR) ================= */}
+        {/* ================= CARRUSEL 3D ================= */}
         {filteredReviews.length === 0 ? (
           <div className="rounded-3xl border border-neutral-200 bg-white p-10 text-center my-6 max-w-md mx-auto">
             <p className="text-sm font-bold text-neutral-950">No hay opiniones con este filtro.</p>
@@ -490,7 +619,6 @@ export default function ReviewsSection() {
                 const isVisible = Math.abs(diff) <= 2;
                 if (!isVisible) return null;
 
-                // Solo transform + opacity: propiedades 100% GPU (no causan repaint)
                 let translateX = 0;
                 let translateZ = 0;
                 let rotateY = 0;
@@ -532,25 +660,123 @@ export default function ReviewsSection() {
                       cursor: !isCenter ? "pointer" : "default",
                     }}
                   >
-                    <ReviewCard review={rev} isCenter={isCenter} onLike={handleLike} isLiked={!!likedReviews[rev.id]} />
+                    <ReviewCard
+                      review={rev}
+                      isCenter={isCenter}
+                      onLike={handleLike}
+                      isLiked={!!likedReviews[rev.id]}
+                      isAdmin={isAdmin}
+                      onDelete={handleDeleteReview}
+                    />
                   </div>
                 );
               })}
             </div>
 
             {/* Controles */}
-            <div className="mt-6 flex items-center justify-center gap-5 max-w-xs mx-auto">
+            <div className="mt-6 flex items-center justify-center gap-4 max-w-sm mx-auto">
               <button onClick={prevSlide} aria-label="Opinión anterior" className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-neutral-200/80 text-neutral-700 hover:text-black hover:border-neutral-400 transition-colors active:scale-95">
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M15 18l-6-6 6-6" /></svg>
               </button>
-              <div className="flex items-center gap-1.5">
-                {filteredReviews.map((_, i) => (
-                  <button key={i} onClick={() => setActiveSlide(i)} aria-label={`Ir a opinión ${i + 1}`} className={`h-1.5 rounded-full transition-all duration-300 ${activeSlide === i ? "w-7 bg-neutral-900" : "w-1.5 bg-neutral-300 hover:bg-neutral-400"}`} />
-                ))}
-              </div>
+
+              {filteredReviews.length <= 10 ? (
+                <div className="flex items-center gap-1.5">
+                  {filteredReviews.map((_, i) => (
+                    <button key={i} onClick={() => setActiveSlide(i)} aria-label={`Ir a opinión ${i + 1}`} className={`h-1.5 rounded-full transition-all duration-300 ${activeSlide === i ? "w-7 bg-neutral-900" : "w-1.5 bg-neutral-300 hover:bg-neutral-400"}`} />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex items-center justify-center px-4 py-1.5 rounded-full bg-white border border-neutral-200 text-xs font-bold text-neutral-800 shadow-xs">
+                  <span>{activeSlide + 1}</span>
+                  <span className="mx-1 text-neutral-400">/</span>
+                  <span>{filteredReviews.length}</span>
+                </div>
+              )}
+
               <button onClick={nextSlide} aria-label="Siguiente opinión" className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-neutral-200/80 text-neutral-700 hover:text-black hover:border-neutral-400 transition-colors active:scale-95">
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M9 18l6-6-6-6" /></svg>
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* BOTÓN DISCRETO DE ACCESO ADMINISTRADOR */}
+        <div className="mt-12 flex justify-center">
+          {!isAdmin ? (
+            <button
+              onClick={() => setShowAdminModal(true)}
+              className="text-[11px] text-neutral-400 hover:text-neutral-700 font-medium flex items-center gap-1.5 transition-colors py-1 px-3 rounded-full hover:bg-neutral-100"
+            >
+              <span>🔒</span>
+              <span>Modo Administrador</span>
+            </button>
+          ) : (
+            <button
+              onClick={handleAdminLogout}
+              className="text-[11px] text-amber-700 hover:text-amber-900 font-bold flex items-center gap-1.5 transition-colors py-1 px-3 rounded-full bg-amber-50 border border-amber-200"
+            >
+              <span>👑</span>
+              <span>Cerrar sesión de Administrador</span>
+            </button>
+          )}
+        </div>
+
+        {/* MODAL DE LOGIN ADMIN */}
+        {showAdminModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4 animate-fadeIn">
+            <div className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl border border-neutral-200">
+              <div className="flex items-center justify-between pb-3 mb-4 border-b border-neutral-100">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">🔐</span>
+                  <h3 className="text-sm font-bold text-neutral-900">Acceso Administrador</h3>
+                </div>
+                <button
+                  onClick={() => { setShowAdminModal(false); setAdminError(null); setAdminInputPassword(""); }}
+                  className="text-neutral-400 hover:text-neutral-900 text-xs font-bold"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <p className="text-xs text-neutral-500 mb-4">
+                Ingresa la contraseña de administrador para poder borrar comentarios y sincronizar con la base de datos.
+              </p>
+
+              {adminError && (
+                <div className="mb-3 rounded-xl bg-red-50 p-2.5 text-[11px] font-semibold text-red-600 border border-red-200">
+                  {adminError}
+                </div>
+              )}
+
+              <form onSubmit={handleAdminLogin} className="space-y-3.5">
+                <div>
+                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">Contraseña</label>
+                  <input
+                    type="password"
+                    autoFocus
+                    placeholder="Contraseña de admin"
+                    value={adminInputPassword}
+                    onChange={(e) => setAdminInputPassword(e.target.value)}
+                    className="w-full rounded-xl border border-neutral-300 bg-white px-3.5 py-2 text-xs text-neutral-900 outline-none focus:border-black focus:ring-1 focus:ring-black"
+                  />
+                </div>
+
+                <div className="flex justify-end gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => { setShowAdminModal(false); setAdminError(null); setAdminInputPassword(""); }}
+                    className="rounded-full border border-neutral-200 px-4 py-1.5 text-xs font-semibold text-neutral-600 hover:bg-neutral-50"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="rounded-full bg-neutral-950 px-5 py-1.5 text-xs font-bold text-white hover:bg-black transition-colors"
+                  >
+                    Ingresar
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

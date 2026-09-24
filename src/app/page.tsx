@@ -216,6 +216,14 @@ export default function HomePage() {
           <div className="tp-combos">
             {mockCombos.map((combo) => (
               <article key={combo.id} className="tp-combo">
+                <div className="tp-combo-img">
+                  <Image
+                    src={combo.imageUrl}
+                    alt={combo.title}
+                    width={400}
+                    height={300}
+                  />
+                </div>
                 <div className="tp-combo-info">
                   <small>{combo.subtitle}</small>
                   <h3>{combo.title}</h3>
@@ -238,14 +246,6 @@ export default function HomePage() {
                   >
                     Quiero este combo <span>→</span>
                   </a>
-                </div>
-                <div className="tp-combo-img">
-                  <Image
-                    src={combo.imageUrl}
-                    alt={combo.title}
-                    width={320}
-                    height={240}
-                  />
                 </div>
               </article>
             ))}
