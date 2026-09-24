@@ -122,6 +122,7 @@ function ReviewCard({
               className={`relative flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${avatarGradient} text-white text-sm font-bold overflow-hidden shadow-xs`}
             >
               {review.avatar_url ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
                 <img
                   src={review.avatar_url}
                   alt={review.name}
@@ -231,7 +232,18 @@ function ReviewCard({
 // COMPONENTE PRINCIPAL
 // =============================================
 export default function ReviewsSection() {
-  const [reviews, setReviews] = useState<ReviewItem[]>(INITIAL_REVIEWS);
+  const [reviews, setReviews] = useState<ReviewItem[]>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("tecnoplus_customer_reviews_v3");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch { /* ignore */ }
+    }
+    return INITIAL_REVIEWS;
+  });
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [filterRating, setFilterRating] = useState<number | "all">("all");
   const [likedReviews, setLikedReviews] = useState<Record<string, boolean>>({});
@@ -240,7 +252,14 @@ export default function ReviewsSection() {
   const [isPaused, setIsPaused] = useState(false);
 
   // Admin Mode States
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        return sessionStorage.getItem("tecnoplus_admin_auth") === "true";
+      } catch { /* ignore */ }
+    }
+    return false;
+  });
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [adminInputPassword, setAdminInputPassword] = useState("");
   const [adminError, setAdminError] = useState<string | null>(null);
@@ -269,23 +288,7 @@ export default function ReviewsSection() {
 
   // Cargar de Supabase y cache local
   useEffect(() => {
-    // 1. Cargar cache local inmediato
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) setReviews(parsed);
-      }
-    } catch { /* ignore */ }
-
-    // 2. Comprobar si hay sesión admin guardada
-    try {
-      if (sessionStorage.getItem("tecnoplus_admin_auth") === "true") {
-        setIsAdmin(true);
-      }
-    } catch { /* ignore */ }
-
-    // 3. Sincronizar en segundo plano con Supabase
+    // Sincronizar en segundo plano con Supabase (asíncrono)
     async function fetchFromSupabase() {
       try {
         const res = await fetch("/api/reviews");
@@ -336,9 +339,7 @@ export default function ReviewsSection() {
     return reviews.filter((r) => r.rating === filterRating);
   }, [reviews, filterRating]);
 
-  useEffect(() => {
-    if (activeSlide >= filteredReviews.length) setActiveSlide(Math.max(0, filteredReviews.length - 1));
-  }, [filteredReviews.length, activeSlide]);
+  const currentSlide = filteredReviews.length > 0 ? Math.min(activeSlide, filteredReviews.length - 1) : 0;
 
   const nextSlide = useCallback(() => {
     setActiveSlide((prev) => (filteredReviews.length > 0 ? (prev + 1) % filteredReviews.length : 0));
@@ -613,6 +614,7 @@ export default function ReviewsSection() {
                 <div className="relative">
                   <div className="h-14 w-14 rounded-full overflow-hidden border-2 border-neutral-200 bg-white flex items-center justify-center shadow-xs">
                     {formAvatar ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
                       <img
                         src={formAvatar}
                         alt="Foto de perfil seleccionada"
@@ -773,7 +775,7 @@ export default function ReviewsSection() {
             >
               {filteredReviews.map((rev, index) => {
                 const count = filteredReviews.length;
-                let diff = index - activeSlide;
+                let diff = index - currentSlide;
                 if (diff > count / 2) diff -= count;
                 if (diff < -count / 2) diff += count;
 
@@ -844,12 +846,12 @@ export default function ReviewsSection() {
               {filteredReviews.length <= 10 ? (
                 <div className="flex items-center gap-1.5">
                   {filteredReviews.map((_, i) => (
-                    <button key={i} onClick={() => setActiveSlide(i)} aria-label={`Ir a opinión ${i + 1}`} className={`h-1.5 rounded-full transition-all duration-300 ${activeSlide === i ? "w-7 bg-neutral-900" : "w-1.5 bg-neutral-300 hover:bg-neutral-400"}`} />
+                    <button key={i} onClick={() => setActiveSlide(i)} aria-label={`Ir a opinión ${i + 1}`} className={`h-1.5 rounded-full transition-all duration-300 ${currentSlide === i ? "w-7 bg-neutral-900" : "w-1.5 bg-neutral-300 hover:bg-neutral-400"}`} />
                   ))}
                 </div>
               ) : (
                 <div className="flex items-center justify-center px-4 py-1.5 rounded-full bg-white border border-neutral-200 text-xs font-bold text-neutral-800 shadow-xs">
-                  <span>{activeSlide + 1}</span>
+                  <span>{currentSlide + 1}</span>
                   <span className="mx-1 text-neutral-400">/</span>
                   <span>{filteredReviews.length}</span>
                 </div>
