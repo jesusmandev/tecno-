@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { mockProducts, formatPrice, type Product } from "@/data/mockProducts";
 
@@ -26,6 +25,17 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
   const [isListening, setIsListening] = useState(false);
   const [speechError, setSpeechError] = useState<string | null>(null);
 
+  // Reset state when modal opens
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+  if (prevIsOpen !== isOpen) {
+    setPrevIsOpen(isOpen);
+    if (isOpen) {
+      setQuery("");
+      setSelectedIndex(-1);
+      setSpeechError(null);
+    }
+  }
+
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -45,12 +55,18 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
     });
   }, [query]);
 
+  // Navigate to product and close modal
+  const handleSelectProduct = useCallback(
+    (product: Product) => {
+      onClose();
+      router.push(`/productos/${product.id}`);
+    },
+    [onClose, router]
+  );
+
   // Focus input when opened & handle body scroll lock
   useEffect(() => {
     if (isOpen) {
-      setQuery("");
-      setSelectedIndex(-1);
-      setSpeechError(null);
       // Small timeout to ensure DOM is ready
       const timer = setTimeout(() => {
         inputRef.current?.focus();
@@ -94,12 +110,7 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, results, selectedIndex, onClose]);
-
-  const handleSelectProduct = (product: Product) => {
-    onClose();
-    router.push(`/productos/${product.id}`);
-  };
+  }, [isOpen, results, selectedIndex, onClose, handleSelectProduct]);
 
   const handleLucky = () => {
     if (mockProducts.length === 0) return;
