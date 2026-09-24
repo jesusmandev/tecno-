@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useId, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/data/mockProducts";
