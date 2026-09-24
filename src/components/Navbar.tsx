@@ -39,9 +39,38 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Top Announcement Bar */}
-      <div className="tp-announcement">
-        Envío gratis a todo Colombia · Compra segura · Montería, Córdoba
+      {/* Top Announcement Bar with Infinite Marquee */}
+      <div className="tp-announcement" aria-label="Información de envíos y garantías">
+        <div className="tp-announcement-track">
+          {[1, 2].map((half) => (
+            <div key={half} className="flex items-center shrink-0">
+              <span className="tp-announcement-item">
+                Envío gratis a todo Colombia
+              </span>
+              <span className="text-[var(--red)] mx-3.5 font-bold">·</span>
+              <span className="tp-announcement-item">
+                Compra segura
+              </span>
+              <span className="text-[var(--red)] mx-3.5 font-bold">·</span>
+              <span className="tp-announcement-item">
+                Montería, Córdoba
+              </span>
+              <span className="text-[var(--red)] mx-3.5 font-bold">·</span>
+              <span className="tp-announcement-item">
+                Garantía oficial Tecno+
+              </span>
+              <span className="text-[var(--red)] mx-3.5 font-bold">·</span>
+              <span className="tp-announcement-item">
+                Pagos en línea con PSE, Tarjetas y Nequi
+              </span>
+              <span className="text-[var(--red)] mx-3.5 font-bold">·</span>
+              <span className="tp-announcement-item">
+                Envíos 24-48h a toda Colombia
+              </span>
+              <span className="text-[var(--red)] mx-3.5 font-bold">·</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Main Sticky Header */}

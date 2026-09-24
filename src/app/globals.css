@@ -42,15 +42,58 @@ a {
   margin: auto;
 }
 
-/* Top Announcement bar */
+/* Top Announcement bar with Infinite Smooth Marquee */
 .tp-announcement {
-  background: #111111;
+  background: #0c0c0c;
   color: #ffffff;
-  text-align: center;
-  padding: 9px;
+  overflow: hidden;
+  padding: 8px 0;
   font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  user-select: none;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 32px,
+    black calc(100% - 32px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 32px,
+    black calc(100% - 32px),
+    transparent 100%
+  );
+}
+
+.tp-announcement-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: tp-announcement-marquee 24s linear infinite;
+}
+
+.tp-announcement:hover .tp-announcement-track {
+  animation-play-state: paused;
+}
+
+@keyframes tp-announcement-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.tp-announcement-item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 /* Header & Nav */
