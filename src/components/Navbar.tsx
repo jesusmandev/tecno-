@@ -3,14 +3,26 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useCart, type CartItem } from "@/context/CartContext";
 import { formatPrice } from "@/data/mockProducts";
 import SearchBar from "./SearchBar";
 import CheckoutDrawer from "./CheckoutDrawer";
 import { preload3DModels } from "@/lib/preload3D";
 
+const NAV_ITEMS = [
+  { id: "celulares", label: "Celulares", href: "/#celulares" },
+  { id: "catalogo", label: "Catálogo", href: "/catalogo", preload: true },
+  { id: "combos", label: "Combos", href: "/#combos" },
+  { id: "opiniones", label: "Opiniones", href: "/#opiniones" },
+  { id: "gaming", label: "Gaming", href: "/#gaming" },
+  { id: "beneficios", label: "Beneficios", href: "/#beneficios" },
+];
+
 export default function Navbar() {
+  const pathname = usePathname();
   const [searchOpen, setSearchOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   const {
     totalQuantity,
@@ -34,6 +46,41 @@ export default function Navbar() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  // Derive active tab: If on /catalogo, it's always "catalogo"
+  const currentActive = pathname === "/catalogo" ? "catalogo" : activeSection;
+
+  // Detect which section is active on homepage scroll
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const sections = ["celulares", "combos", "opiniones", "gaming", "beneficios"];
+
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 200;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const id = sections[i];
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPos >= top) {
+            setActiveSection(id);
+            return;
+          }
+        }
+      }
+
+      if (window.scrollY < 150) {
+        setActiveSection("");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [pathname]);
 
 
 
@@ -93,16 +140,19 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Navigation Links */}
+          {/* Navigation Links with Active Section Highlight */}
           <nav className="tp-nav-links">
-            <Link href="/#celulares">Celulares</Link>
-            <Link href="/catalogo" onMouseEnter={() => preload3DModels("high")}>
-              Catálogo
-            </Link>
-            <Link href="/#combos">Combos</Link>
-            <Link href="/#opiniones">Opiniones</Link>
-            <Link href="/#gaming">Gaming</Link>
-            <Link href="/#beneficios">Beneficios</Link>
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                onClick={() => setActiveSection(item.id)}
+                onMouseEnter={item.preload ? () => preload3DModels("high") : undefined}
+                className={currentActive === item.id ? "active" : ""}
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
           {/* Actions */}

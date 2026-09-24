@@ -182,19 +182,46 @@ a {
 .tp-nav-links {
   display: flex;
   justify-content: center;
-  gap: 25px;
+  align-items: center;
+  gap: 6px;
   flex: 1;
 }
 
 .tp-nav-links a {
+  position: relative;
   font-size: 13px;
   font-weight: 600;
   color: #555555;
-  transition: color 0.2s;
+  padding: 6px 14px;
+  border-radius: 999px;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tp-nav-links a:hover {
   color: var(--red);
+  background: rgba(224, 36, 36, 0.05);
+}
+
+.tp-nav-links a.active {
+  color: #e02424;
+  font-weight: 700;
+  background: rgba(224, 36, 36, 0.08);
+}
+
+.tp-nav-links a.active::after {
+  content: "";
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 2px;
+  border-radius: 99px;
+  background: var(--red);
 }
 
 .tp-actions {
