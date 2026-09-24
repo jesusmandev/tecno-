@@ -705,7 +705,7 @@ export const mockCombos: ComboItem[] = [
     description: "Celular Samsung Galaxy A07 (64 GB) nuevo en caja sellada + Vidrio templado premium de borde a borde + Forro en silicona suave con interior gamuzado.",
     price: 420_000,
     compareAtPrice: 490_000,
-    imageUrl: "/products/combos/combo-forro-vidrio-samsung-a07.jpg",
+    imageUrl: "/products/combos/combo-samsung-a07-forro-silicona-vidrio.jpg",
     whatsappText: "Hola Tecno+, quiero el Combo Celular Samsung Galaxy A07 64GB + Vidrio Templado y Forro de Silicona ($420.000 COP)",
   },
 ];
