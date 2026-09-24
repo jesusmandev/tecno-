@@ -34,22 +34,7 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const handleScrollTo = (selector: string) => {
-    const el = document.querySelector(selector);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
-  // Generate WhatsApp order message for entire cart
-  const generateCartWaLink = () => {
-    let message = "Hola Tecno+, quiero realizar el siguiente pedido:\n\n";
-    items.forEach((item, index) => {
-      message += `${index + 1}. ${item.product.title} (${item.variant.title}) x${item.quantity} - ${formatPrice(item.variant.price * item.quantity)}\n`;
-    });
-    message += `\nTotal: ${formattedTotal}\n\n¿Tienen disponibilidad para envío?`;
-    return `https://wa.me/573043547935?text=${encodeURIComponent(message)}`;
-  };
 
   return (
     <>
