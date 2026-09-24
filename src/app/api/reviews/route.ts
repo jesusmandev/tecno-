@@ -68,6 +68,7 @@ export async function POST(request: Request) {
       recommended: recommended !== false,
       likes: 0,
       avatar_url: avatar_url?.trim() || undefined,
+      created_at: new Date().toISOString(),
     };
 
     let { data, error } = await supabase

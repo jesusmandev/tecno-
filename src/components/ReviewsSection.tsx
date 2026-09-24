@@ -37,6 +37,49 @@ const AVATAR_GRADIENTS = [
   "from-emerald-600 to-teal-700",
 ];
 
+// Helper para calcular hace cuánto tiempo se publicó la reseña (tiempo relativo dinámico y preciso)
+function formatTimeAgo(dateString?: string, createdAt?: string, id?: string): string {
+  let rawTimestamp = createdAt || (dateString && !isNaN(Date.parse(dateString)) ? dateString : null);
+
+  // Si no hay timestamp directo pero el ID contiene la marca de tiempo (ej. rev-179025...)
+  if (!rawTimestamp && id) {
+    const match = id.match(/^rev-(\d{13})/);
+    if (match) {
+      const ms = parseInt(match[1], 10);
+      if (!isNaN(ms) && ms > 1600000000000 && ms <= Date.now()) {
+        rawTimestamp = new Date(ms).toISOString();
+      }
+    }
+  }
+
+  if (rawTimestamp) {
+    const diffMs = Date.now() - new Date(rawTimestamp).getTime();
+    const diffSec = Math.max(0, Math.floor(diffMs / 1000));
+
+    if (diffSec < 15) return "Hace unos segundos";
+    if (diffSec < 60) return `Hace ${diffSec} seg`;
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return `Hace ${diffMin} ${diffMin === 1 ? "minuto" : "minutos"}`;
+    const diffHours = Math.floor(diffMin / 60);
+    if (diffHours < 24) return `Hace ${diffHours} ${diffHours === 1 ? "hora" : "horas"}`;
+    const diffDays = Math.floor(diffHours / 24);
+    if (diffDays < 7) return `Hace ${diffDays} ${diffDays === 1 ? "día" : "días"}`;
+    const diffWeeks = Math.floor(diffDays / 7);
+    if (diffWeeks < 4) return `Hace ${diffWeeks} ${diffWeeks === 1 ? "semana" : "semanas"}`;
+    const diffMonths = Math.floor(diffDays / 30);
+    if (diffMonths < 12) return `Hace ${diffMonths} ${diffMonths === 1 ? "mes" : "meses"}`;
+    const diffYears = Math.floor(diffDays / 365);
+    return `Hace ${diffYears} ${diffYears === 1 ? "año" : "años"}`;
+  }
+
+  // Si no tiene fecha ISO pero dice 'Hace unos momentos'
+  if (!dateString || dateString.toLowerCase().includes("hace unos momentos") || dateString.toLowerCase().includes("hace un momento")) {
+    return "Hace unos momentos";
+  }
+
+  return dateString;
+}
+
 // Helper para comprimir y recortar la imagen seleccionada desde el dispositivo
 function compressImage(file: File, maxDim = 240, quality = 0.85): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -89,6 +132,8 @@ function ReviewCard({
   isLiked,
   isAdmin,
   onDelete,
+  onMouseEnter,
+  onMouseLeave,
 }: {
   review: ReviewItem;
   isCenter: boolean;
@@ -96,13 +141,24 @@ function ReviewCard({
   isLiked: boolean;
   isAdmin?: boolean;
   onDelete?: (id: string) => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const isLong = review.comment.length > 130;
   const avatarGradient = AVATAR_GRADIENTS[(review.name.charCodeAt(0) || 0) % AVATAR_GRADIENTS.length];
 
+  const fullDateTooltip = review.created_at
+    ? new Date(review.created_at).toLocaleString("es-CO", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      })
+    : review.date;
+
   return (
     <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       className={`relative flex flex-col justify-between w-full h-[370px] sm:h-[360px] rounded-[28px] p-7 sm:p-8 select-none ${
         isCenter
           ? "bg-white shadow-[0_16px_48px_-12px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.04)]"
@@ -145,7 +201,12 @@ function ReviewCard({
               <p className="text-xs text-neutral-400 truncate">📍 {review.city}</p>
             </div>
           </div>
-          <span className="text-[11px] font-medium text-neutral-400 whitespace-nowrap">{review.date}</span>
+          <span
+            className="text-[11px] font-semibold text-neutral-400 whitespace-nowrap tabular-nums bg-neutral-50 px-2 py-0.5 rounded-md border border-neutral-100"
+            title={fullDateTooltip}
+          >
+            🕒 {formatTimeAgo(review.date, review.created_at, review.id)}
+          </span>
         </div>
 
         <div className="flex items-center gap-2 mb-3">
@@ -349,11 +410,32 @@ export default function ReviewsSection() {
     setActiveSlide((prev) => filteredReviews.length > 0 ? (prev - 1 + filteredReviews.length) % filteredReviews.length : 0);
   }, [filteredReviews.length]);
 
+  // Ticker periódico para actualizar los tiempos relativos en vivo cada 10 segundos
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTick((t) => t + 1);
+    }, 10000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Auto-rotación continua cada 3.8 segundos
   useEffect(() => {
     if (isPaused || filteredReviews.length <= 1) return;
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 3800);
     return () => clearInterval(interval);
   }, [isPaused, filteredReviews.length, nextSlide]);
+
+  // Si se pausa (por tocar la tarjeta o botón), reanudar automáticamente tras 6 segundos de inactividad
+  useEffect(() => {
+    if (!isPaused) return;
+    const resumeTimer = setTimeout(() => {
+      setIsPaused(false);
+    }, 6000);
+    return () => clearTimeout(resumeTimer);
+  }, [isPaused]);
 
   const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -388,6 +470,8 @@ export default function ReviewsSection() {
 
     setIsSubmitting(true);
 
+    const nowIso = new Date().toISOString();
+
     const reviewPayload = {
       name: formName.trim(),
       city: formCity.trim() || "Montería, Córdoba",
@@ -397,6 +481,7 @@ export default function ReviewsSection() {
       comment: formComment.trim(),
       recommended: formRecommended,
       avatar_url: formAvatar || undefined,
+      created_at: nowIso,
     };
 
     const tempId = `rev-${Date.now()}`;
@@ -405,7 +490,7 @@ export default function ReviewsSection() {
       name: reviewPayload.name,
       city: reviewPayload.city,
       rating: reviewPayload.rating,
-      date: "Hace unos momentos",
+      date: "Hace unos segundos",
       product: reviewPayload.product,
       title: reviewPayload.title,
       comment: reviewPayload.comment,
@@ -413,6 +498,7 @@ export default function ReviewsSection() {
       recommended: reviewPayload.recommended,
       likes: 0,
       avatar_url: formAvatar || undefined,
+      created_at: nowIso,
     };
 
     saveReviews([optimisticReview, ...reviews]);
@@ -764,8 +850,6 @@ export default function ReviewsSection() {
         ) : (
           <div
             className="relative w-full py-4 select-none"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
@@ -831,6 +915,8 @@ export default function ReviewsSection() {
                       isLiked={!!likedReviews[rev.id]}
                       isAdmin={isAdmin}
                       onDelete={handleDeleteReview}
+                      onMouseEnter={isCenter ? () => setIsPaused(true) : undefined}
+                      onMouseLeave={isCenter ? () => setIsPaused(false) : undefined}
                     />
                   </div>
                 );
@@ -838,9 +924,27 @@ export default function ReviewsSection() {
             </div>
 
             {/* Controles */}
-            <div className="mt-6 flex items-center justify-center gap-4 max-w-sm mx-auto">
-              <button onClick={prevSlide} aria-label="Opinión anterior" className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-neutral-200/80 text-neutral-700 hover:text-black hover:border-neutral-400 transition-colors active:scale-95 cursor-pointer">
+            <div className="mt-6 flex items-center justify-center gap-3 sm:gap-4 max-w-md mx-auto">
+              <button
+                onClick={prevSlide}
+                aria-label="Opinión anterior"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-neutral-200/80 text-neutral-700 hover:text-black hover:border-neutral-400 transition-colors active:scale-95 cursor-pointer"
+              >
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M15 18l-6-6 6-6" /></svg>
+              </button>
+
+              <button
+                onClick={() => setIsPaused((prev) => !prev)}
+                aria-label={isPaused ? "Reanudar giro automático" : "Pausar giro automático"}
+                title={isPaused ? "Reanudar giro automático de comentarios" : "Pausar giro automático"}
+                className={`flex h-9 px-3 items-center justify-center gap-2 rounded-full border text-xs font-bold transition-all shadow-xs cursor-pointer ${
+                  !isPaused
+                    ? "bg-white border-emerald-300 text-emerald-700 hover:bg-emerald-50"
+                    : "bg-white border-amber-300 text-amber-700 hover:bg-amber-50"
+                }`}
+              >
+                <span className={`h-2 w-2 rounded-full ${!isPaused ? "bg-emerald-500 animate-pulse" : "bg-amber-500"}`} />
+                <span>{!isPaused ? "Rotando auto" : "Pausado"}</span>
               </button>
 
               {filteredReviews.length <= 10 ? (
@@ -857,7 +961,11 @@ export default function ReviewsSection() {
                 </div>
               )}
 
-              <button onClick={nextSlide} aria-label="Siguiente opinión" className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-neutral-200/80 text-neutral-700 hover:text-black hover:border-neutral-400 transition-colors active:scale-95 cursor-pointer">
+              <button
+                onClick={nextSlide}
+                aria-label="Siguiente opinión"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-neutral-200/80 text-neutral-700 hover:text-black hover:border-neutral-400 transition-colors active:scale-95 cursor-pointer"
+              >
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M9 18l6-6-6-6" /></svg>
               </button>
             </div>
