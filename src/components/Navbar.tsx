@@ -48,7 +48,7 @@ export default function Navbar() {
       message += `${index + 1}. ${item.product.title} (${item.variant.title}) x${item.quantity} - ${formatPrice(item.variant.price * item.quantity)}\n`;
     });
     message += `\nTotal: ${formattedTotal}\n\n¿Tienen disponibilidad para envío?`;
-    return `https://wa.me/573126468514?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/573043547935?text=${encodeURIComponent(message)}`;
   };
 
   return (
@@ -146,7 +146,7 @@ export default function Navbar() {
             {/* WhatsApp Link */}
             <a
               className="tp-wa-btn"
-              href="https://wa.me/573126468514"
+              href="https://wa.me/573043547935"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -238,7 +238,7 @@ export default function HomePage() {
                   </div>
                   <a
                     className="tp-buy-btn"
-                    href={`https://wa.me/573126468514?text=${encodeURIComponent(
+                    href={`https://wa.me/573043547935?text=${encodeURIComponent(
                       combo.whatsappText
                     )}`}
                     target="_blank"
