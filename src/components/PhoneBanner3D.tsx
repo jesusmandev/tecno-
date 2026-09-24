@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { GLTFLoader, type GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 
 interface PhoneBanner3DProps {
@@ -109,14 +109,14 @@ export default function PhoneBanner3D({ className = "" }: PhoneBanner3DProps) {
       };
     });
 
-    (window as any).__PHONE3D_DEBUG = { scene, camera, slots, MODELS_CONFIG };
+    (window as unknown as Record<string, unknown>).__PHONE3D_DEBUG = { scene, camera, slots, MODELS_CONFIG };
 
     // 5. Loaders Setup (Draco WASM)
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath("/draco/gltf/");
 
     // Helper to process loaded model
-    const setupModelInSlot = (gltf: any, idx: number, cfg: typeof MODELS_CONFIG[0]) => {
+    const setupModelInSlot = (gltf: GLTF, idx: number, cfg: (typeof MODELS_CONFIG)[0]) => {
       if (isDisposed) return;
       const model = gltf.scene;
 
@@ -129,13 +129,20 @@ export default function PhoneBanner3D({ className = "" }: PhoneBanner3DProps) {
       model.scale.set(scale, scale, scale);
       model.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
 
-      model.traverse((child: any) => {
-        if (child.isMesh) {
+      model.traverse((child: THREE.Object3D) => {
+        if (child instanceof THREE.Mesh) {
           child.castShadow = true;
           child.receiveShadow = true;
           if (child.material) {
-            child.material.envMapIntensity = 1.25;
-            child.material.needsUpdate = true;
+            const materials = Array.isArray(child.material)
+              ? child.material
+              : [child.material];
+            materials.forEach((mat: THREE.Material) => {
+              if ("envMapIntensity" in mat) {
+                (mat as THREE.MeshStandardMaterial).envMapIntensity = 1.25;
+              }
+              mat.needsUpdate = true;
+            });
           }
         }
       });
@@ -316,13 +323,13 @@ export default function PhoneBanner3D({ className = "" }: PhoneBanner3DProps) {
       resizeObserver.disconnect();
       dracoLoader.dispose();
 
-      scene.traverse((object: any) => {
-        if (object.isMesh) {
+      scene.traverse((object: THREE.Object3D) => {
+        if (object instanceof THREE.Mesh) {
           object.geometry?.dispose();
           if (Array.isArray(object.material)) {
-            object.material.forEach((m: any) => m.dispose());
+            object.material.forEach((m: THREE.Material) => m.dispose());
           } else if (object.material) {
-            object.material.dispose();
+            (object.material as THREE.Material).dispose();
           }
         }
       });
