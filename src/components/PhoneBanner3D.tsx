@@ -111,9 +111,11 @@ export default function PhoneBanner3D({ className = "" }: PhoneBanner3DProps) {
 
     (window as unknown as Record<string, unknown>).__PHONE3D_DEBUG = { scene, camera, slots, MODELS_CONFIG };
 
-    // 5. Loaders Setup (Draco WASM)
+    // 5. Loaders Setup (Draco WASM & Global Three Memory Cache)
+    THREE.Cache.enabled = true;
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath("/draco/gltf/");
+    dracoLoader.preload();
 
     // Helper to process loaded model
     const setupModelInSlot = (gltf: GLTF, idx: number, cfg: (typeof MODELS_CONFIG)[0]) => {

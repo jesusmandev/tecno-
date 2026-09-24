@@ -7,6 +7,7 @@ import { useCart, type CartItem } from "@/context/CartContext";
 import { formatPrice } from "@/data/mockProducts";
 import SearchBar from "./SearchBar";
 import CheckoutDrawer from "./CheckoutDrawer";
+import { preload3DModels } from "@/lib/preload3D";
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -66,7 +67,9 @@ export default function Navbar() {
           {/* Navigation Links */}
           <nav className="tp-nav-links">
             <Link href="/#celulares">Celulares</Link>
-            <Link href="/catalogo">Catálogo</Link>
+            <Link href="/catalogo" onMouseEnter={() => preload3DModels("high")}>
+              Catálogo
+            </Link>
             <Link href="/#combos">Combos</Link>
             <Link href="/#opiniones">Opiniones</Link>
             <Link href="/#gaming">Gaming</Link>

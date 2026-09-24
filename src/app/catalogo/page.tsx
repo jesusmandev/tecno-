@@ -16,6 +16,7 @@ interface InventarioItem {
   category: string;
   image?: string;
   compareAtPrice?: number | null;
+  badge?: string;
 }
 
 const CATEGORIES = [
@@ -74,11 +75,6 @@ export default function CatalogoPage() {
   const visibleProducts = useMemo(() => {
     return filteredProducts.slice(0, visibleCount);
   }, [filteredProducts, visibleCount]);
-
-  const getWaLink = (item: InventarioItem) => {
-    const msg = `Hola Tecno+, estoy interesado en el producto: *${item.name}* (Código: ${item.code}) por valor de ${formatPrice(item.price)}. ¿Tienen disponibilidad para entrega en Montería o envío nacional?`;
-    return `https://wa.me/573043547935?text=${encodeURIComponent(msg)}`;
-  };
 
   return (
     <main className="min-h-screen bg-[#f8f9fa] pt-8 pb-20">
@@ -233,6 +229,12 @@ export default function CatalogoPage() {
 
                   {/* Product Image Container */}
                   <div className="relative w-full aspect-square bg-[#fbfbfc] rounded-xl overflow-hidden mb-3.5 flex items-center justify-center p-3 border border-gray-100 group-hover:border-red-100 transition-colors">
+                    {item.badge && (
+                      <span className="absolute top-2.5 left-2.5 z-10 rounded-full bg-amber-500 text-white font-extrabold text-[10px] uppercase px-2.5 py-0.5 shadow-sm tracking-wider animate-pulse">
+                        {item.badge}
+                      </span>
+                    )}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={item.image || "/products/smartphone.jpg"}
                       alt={item.name}
@@ -324,7 +326,7 @@ export default function CatalogoPage() {
                     }
                     className="tp-catalog-card-btn"
                   >
-                    <span>Comprar</span>
+                    <span>{item.badge === "Preventa" ? "Apartar Preventa" : "Comprar"}</span>
                     <span>→</span>
                   </button>
                 </div>

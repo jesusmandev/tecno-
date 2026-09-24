@@ -6,6 +6,7 @@ import { CartProvider } from "@/context/CartContext";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Model3DPreloader from "@/components/Model3DPreloader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -54,8 +55,19 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo/logotecno.png" type="image/png" />
         <link rel="apple-touch-icon" href="/logo/logotecno.png" />
+
+        {/* =============================================
+            PRELOAD & PREFETCH 3D MODELS (CATALOG BANNER)
+            Carga anticipada para evitar esperas en /catalogo
+            ============================================= */}
+        <link rel="prefetch" href="/draco/gltf/draco_decoder.wasm" as="fetch" crossOrigin="anonymous" />
+        <link rel="prefetch" href="/draco/gltf/draco_wasm_wrapper.js" as="script" crossOrigin="anonymous" />
+        <link rel="prefetch" href="/phoneglb/apple_iphone_17_pro_max-v1.glb" as="fetch" crossOrigin="anonymous" />
+        <link rel="prefetch" href="/phoneglb/apple_iphone_duo_fold_star_white_2026_animated-v1.glb" as="fetch" crossOrigin="anonymous" />
+        <link rel="prefetch" href="/phoneglb/phone18-v1.glb" as="fetch" crossOrigin="anonymous" />
       </head>
       <body>
+        <Model3DPreloader />
         <SmoothScrollProvider>
           <CartProvider>
             <Navbar />

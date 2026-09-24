@@ -1,27 +1,28 @@
 [
   {
     "id": "iphone-18-pro-max-next-gen",
-    "name": "IPHONE 18 PRO MAX 256GB NEXT-GEN 2026",
-    "code": "IP18PM-256",
-    "price": 5490000,
+    "name": "IPHONE 18 PRO MAX 256GB PREVENTA 2026",
+    "code": "IP18PM-PREVENTA",
+    "price": 6400000,
     "stock": 5,
     "category": "Celulares",
-    "image": "/products/iphone17promax.jpg"
+    "image": "/products/iphone17promax.jpg",
+    "badge": "Preventa"
   },
   {
     "id": "iphone-17-pro-max-256gb",
     "name": "IPHONE 17 PRO MAX 256GB TITANIO",
     "code": "IP17PM-256",
-    "price": 4990000,
+    "price": 4500000,
     "stock": 8,
     "category": "Celulares",
     "image": "/products/iphone17promax.jpg"
   },
   {
     "id": "iphone-16-pro-max-256gb",
-    "name": "IPHONE 16 PRO MAX 256GB TITANIO DESIERTO",
+    "name": "IPHONE 16 PRO MAX 256GB SEMINUEVO TITANIO DESIERTO",
     "code": "IP16PM-256",
-    "price": 4450000,
+    "price": 2990000,
     "stock": 6,
     "category": "Celulares",
     "image": "/products/phone16promax.jpg"
@@ -76,7 +77,7 @@
     "id": "redmi-watch-5-active",
     "name": "SMARTWATCH REDMI WATCH 5 ACTIVE",
     "code": "RW5-ACTIVE",
-    "price": 189900,
+    "price": 300000,
     "stock": 12,
     "category": "Smartwatch y Relojes",
     "image": "/products/redmi_watch5_studio.jpg"
@@ -103,7 +104,7 @@
     "id": "tvbox-g7-edicion-arana",
     "name": "TVBOX G7 EDICIÓN ARAÑA 4K ULTRA HD",
     "code": "TVB-G7-4K",
-    "price": 180000,
+    "price": 160000,
     "stock": 14,
     "category": "Gaming y TV Box",
     "image": "/products/tvbox_g7_studio.jpg"
@@ -148,7 +149,7 @@
   },
   {
     "id": "combo-samsung-a07-vidrio-forro",
-    "name": "COMBO CELULAR SAMSUNG GALAXY A07 64GB + VIDRIO TEMPLADO Y FORRO",
+    "name": "COMBO CELULAR SAMSUNG GALAXY A07 64GB + VIDRIO TEMPLADO Y FORRO DE SILICONA",
     "code": "CMB-SAMS-A07-01",
     "price": 420000,
     "compareAtPrice": 490000,
@@ -1042,7 +1043,7 @@
     "id": "tv-box-2g-16g-mxq-11468",
     "name": "TV BOX 2G 16G MXQ",
     "code": "11468",
-    "price": 180000,
+    "price": 160000,
     "stock": 1,
     "category": "Gaming y TV Box",
     "image": "https://cambiosystem.com/wp-content/uploads/2025/02/Tv-Box-2g-16g-Mxq-Multimedia-8-1536x1536.png"

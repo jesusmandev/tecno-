@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  mockProducts,
   mockCombos,
   gamerFeature,
   getProductsByCategory,
@@ -9,6 +8,7 @@ import {
 } from "@/data/mockProducts";
 import ProductCard from "@/components/ProductCard";
 import GamerCarousel from "@/components/GamerCarousel";
+import GamerBuyButton from "@/components/GamerBuyButton";
 import ReviewsSection from "@/components/ReviewsSection";
 
 export default function HomePage() {
@@ -119,17 +119,8 @@ export default function HomePage() {
               <h2>{gamerFeature.title}</h2>
               <p>{gamerFeature.description}</p>
               <strong>{gamerFeature.price}</strong>
-              <div>
-                <a
-                  className="tp-btn primary"
-                  href={`https://wa.me/573043547935?text=${encodeURIComponent(
-                    gamerFeature.whatsappText
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Comprar consola →
-                </a>
+              <div className="mt-2">
+                <GamerBuyButton />
               </div>
             </div>
             <div className="tp-feature-img">
