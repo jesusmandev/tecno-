@@ -1,0 +1,539 @@
+{
+  "payments": [
+    {
+      "id": "pay-1790374095321-s7zt1m",
+      "order_number": "TP-503671",
+      "customer_name": "Jesus Manuel Martinez Serpa",
+      "customer_email": "jesusmanuelserpa23@gmail.com",
+      "customer_phone": "00000000000",
+      "customer_id_number": "",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "CL 2 CR-2-83",
+      "address_notes": "",
+      "payment_method": "bold",
+      "payment_method_detail": {},
+      "items": [
+        {
+          "id": "iphone-16-pro-max",
+          "title": "iPhone 16 Pro Max",
+          "price": 2990000,
+          "quantity": 1,
+          "variantTitle": "256GB - Titanio Desierto (Seminuevo)",
+          "image": "/products/phone16promax.jpg"
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 2990000,
+      "shipping_cost": 0,
+      "total": 2990000,
+      "currency": "COP",
+      "status": "pending",
+      "notes": "Orden generada para procesar con Bold.co",
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "created_at": "2026-09-25T22:08:15.321Z",
+      "updated_at": "2026-09-25T22:08:15.321Z"
+    },
+    {
+      "id": "pay-1790373973251-300ak3",
+      "order_number": "TP-826948",
+      "customer_name": "Jesus Manuel Martinez Serpa",
+      "customer_email": "jesusmanuelserpa23@gmail.com",
+      "customer_phone": "3014686477",
+      "customer_id_number": "1138077539",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "CL 2 CR-2-83",
+      "address_notes": "",
+      "payment_method": "bold",
+      "payment_method_detail": {},
+      "items": [
+        {
+          "id": "iphone-16-pro-max",
+          "title": "iPhone 16 Pro Max",
+          "price": 2990000,
+          "quantity": 1,
+          "variantTitle": "256GB - Titanio Desierto (Seminuevo)",
+          "image": "/products/phone16promax.jpg"
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 2990000,
+      "shipping_cost": 0,
+      "total": 2990000,
+      "currency": "COP",
+      "status": "pending",
+      "notes": "Orden generada para procesar con Bold.co",
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "created_at": "2026-09-25T22:06:13.251Z",
+      "updated_at": "2026-09-25T22:06:13.251Z"
+    },
+    {
+      "id": "pay-1790373796386-1aahof",
+      "order_number": "TP-111465",
+      "customer_name": "Jesus Manuel Martinez Serpa",
+      "customer_email": "jesusmanuelserpa23@gmail.com",
+      "customer_phone": "3014686477",
+      "customer_id_number": "1138077539",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "CL 2 CR-2-83",
+      "address_notes": "",
+      "payment_method": "bold",
+      "payment_method_detail": {},
+      "items": [
+        {
+          "id": "parlantes-premium-30w",
+          "title": "Parlantes Premium 30W RGB",
+          "price": 260000,
+          "quantity": 1,
+          "variantTitle": "Negro RGB",
+          "image": "/products/parlante_rgb.png"
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 260000,
+      "shipping_cost": 0,
+      "total": 260000,
+      "currency": "COP",
+      "status": "pending",
+      "notes": "Orden generada para procesar con Bold.co",
+      "ip_address": "::ffff:127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "created_at": "2026-09-25T22:03:16.386Z",
+      "updated_at": "2026-09-25T22:03:16.386Z"
+    },
+    {
+      "id": "pay-1790373698381-jobb52",
+      "order_number": "TP-873500",
+      "customer_name": "Jesus Manuel Martinez Serpa",
+      "customer_email": "jesusmanuelserpa23@gmail.com",
+      "customer_phone": "3014686477",
+      "customer_id_number": "1138077539",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "CL 2 CR-2-83",
+      "address_notes": "",
+      "payment_method": "bold",
+      "payment_method_detail": {},
+      "items": [
+        {
+          "id": "parlantes-premium-30w",
+          "title": "Parlantes Premium 30W RGB",
+          "price": 260000,
+          "quantity": 1,
+          "variantTitle": "Negro RGB",
+          "image": "/products/parlante_rgb.png"
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 260000,
+      "shipping_cost": 0,
+      "total": 260000,
+      "currency": "COP",
+      "status": "pending",
+      "notes": "Orden generada para procesar con Bold.co",
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "created_at": "2026-09-25T22:01:38.380Z",
+      "updated_at": "2026-09-25T22:01:38.380Z"
+    },
+    {
+      "id": "pay-1790373243344-pef2ke",
+      "order_number": "TP-584792",
+      "customer_name": "Jesus Manuel Martinez Serpa",
+      "customer_email": "jesusmanuelserpa23@gmail.com",
+      "customer_phone": "3014686477",
+      "customer_id_number": "1138077539",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "CL 2 CR-2-83",
+      "address_notes": "",
+      "payment_method": "bold",
+      "payment_method_detail": {},
+      "items": [
+        {
+          "id": "parlantes-premium-30w",
+          "title": "Parlantes Premium 30W RGB",
+          "price": 260000,
+          "quantity": 1,
+          "variantTitle": "Negro RGB",
+          "image": "/products/parlante_rgb.png"
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 260000,
+      "shipping_cost": 0,
+      "total": 260000,
+      "currency": "COP",
+      "status": "pending",
+      "notes": "Orden generada para procesar con Bold.co",
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "created_at": "2026-09-25T21:54:03.344Z",
+      "updated_at": "2026-09-25T21:54:03.344Z"
+    },
+    {
+      "id": "pay-1790373058947-er248r",
+      "order_number": "TP-427948",
+      "customer_name": "Jesus Manuel Martinez Serpa",
+      "customer_email": "jesusmanuelserpa23@gmail.com",
+      "customer_phone": "3014686477",
+      "customer_id_number": "1138077539",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "CL 2 CR-2-83",
+      "address_notes": "",
+      "payment_method": "bold",
+      "payment_method_detail": {},
+      "items": [
+        {
+          "id": "parlantes-premium-30w",
+          "title": "Parlantes Premium 30W RGB",
+          "price": 260000,
+          "quantity": 1,
+          "variantTitle": "Negro RGB",
+          "image": "/products/parlante_rgb.png"
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 260000,
+      "shipping_cost": 0,
+      "total": 260000,
+      "currency": "COP",
+      "status": "pending",
+      "notes": "Orden generada para procesar con Bold.co",
+      "ip_address": "::ffff:127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "created_at": "2026-09-25T21:50:58.947Z",
+      "updated_at": "2026-09-25T21:50:58.947Z"
+    },
+    {
+      "id": "pay-1790372991663-kh56ne",
+      "order_number": "TP-232592",
+      "customer_name": "Cliente Tecno Mas",
+      "customer_email": "ventas@tecnomas.com",
+      "customer_phone": "3043547935",
+      "customer_id_number": "",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "Carrera 5 #30-40",
+      "address_notes": "",
+      "payment_method": "bold",
+      "payment_method_detail": {},
+      "items": [
+        {
+          "id": "prod-1",
+          "title": "Combo Gamer Tecno+",
+          "price": 150000,
+          "quantity": 1
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 150000,
+      "shipping_cost": 0,
+      "total": 150000,
+      "currency": "COP",
+      "status": "pending",
+      "notes": "Orden generada para procesar con Bold.co",
+      "ip_address": "::1",
+      "user_agent": "node",
+      "created_at": "2026-09-25T21:49:51.662Z",
+      "updated_at": "2026-09-25T21:49:51.662Z"
+    },
+    {
+      "id": "pay-1790372817079-ls8m0t",
+      "order_number": "TP-590175",
+      "customer_name": "Jesus Manuel Martinez Serpa",
+      "customer_email": "jesusmanuelserpa23@gmail.com",
+      "customer_phone": "3014686477",
+      "customer_id_number": "1138077539",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "CL 2 CR-2-83",
+      "address_notes": "",
+      "payment_method": "bold",
+      "payment_method_detail": {},
+      "items": [
+        {
+          "id": "iphone-16-pro-max-catalog",
+          "title": "iPhone 16 Pro Max",
+          "price": 2990000,
+          "quantity": 1,
+          "variantTitle": "256GB - Titanio Desierto (Seminuevo)",
+          "image": "/products/iphone16_desert.png"
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 2990000,
+      "shipping_cost": 0,
+      "total": 2990000,
+      "currency": "COP",
+      "status": "pending",
+      "notes": "Orden generada para procesar con Bold.co",
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "created_at": "2026-09-25T21:46:57.078Z",
+      "updated_at": "2026-09-25T21:46:57.078Z"
+    },
+    {
+      "id": "pay-1790372631628-1sze56",
+      "order_number": "TP-176793",
+      "customer_name": "Test Comprador Bold",
+      "customer_email": "test@ejemplo.com",
+      "customer_phone": "3001234567",
+      "customer_id_number": "",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "Calle 10 #20-30",
+      "address_notes": "",
+      "payment_method": "bold",
+      "payment_method_detail": {},
+      "items": [
+        {
+          "id": "item-1",
+          "title": "iPhone 15 Pro Max",
+          "price": 4299900,
+          "quantity": 1
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 4299900,
+      "shipping_cost": 0,
+      "total": 4299900,
+      "currency": "COP",
+      "status": "approved",
+      "notes": "Orden generada para procesar con Bold.co",
+      "ip_address": "::1",
+      "user_agent": "node",
+      "created_at": "2026-09-25T21:43:51.628Z",
+      "updated_at": "2026-09-25T21:43:57.855Z"
+    },
+    {
+      "id": "pay-1790361980848-j115za",
+      "order_number": "TP-459864",
+      "customer_name": "Santiago Ramirez",
+      "customer_email": "santiago@example.com",
+      "customer_phone": "3001234567",
+      "customer_id_number": "1067998822",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "Calle 44 #10-20 La Castellana",
+      "address_notes": "",
+      "payment_method": "nequi",
+      "payment_method_detail": {},
+      "items": [
+        {
+          "id": "p1",
+          "title": "iPhone 15 Pro Max",
+          "price": 4299900,
+          "quantity": 1
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 4299900,
+      "shipping_cost": 0,
+      "total": 4299900,
+      "currency": "COP",
+      "status": "approved",
+      "notes": "",
+      "ip_address": "::1",
+      "user_agent": "node",
+      "created_at": "2026-09-25T18:46:20.848Z",
+      "updated_at": "2026-09-25T18:46:20.848Z"
+    },
+    {
+      "id": "pay-seed-001",
+      "order_number": "TP-729410",
+      "customer_name": "Carlos Mendoza",
+      "customer_email": "carlos.mendoza@gmail.com",
+      "customer_phone": "3012345678",
+      "customer_id_number": "1067894523",
+      "department": "Córdoba",
+      "city": "Montería",
+      "shipping_address": "Calle 29 #14-25 Barrio El Recreo",
+      "address_notes": "Casa de dos pisos rejas blancas",
+      "payment_method": "nequi",
+      "payment_method_detail": {
+        "phone": "3012345678"
+      },
+      "items": [
+        {
+          "id": "prod-1",
+          "title": "iPhone 15 Pro Max 256GB Titanio Natural",
+          "price": 4299900,
+          "quantity": 1,
+          "variantTitle": "256GB / Titanio"
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 4299900,
+      "shipping_cost": 0,
+      "total": 4299900,
+      "currency": "COP",
+      "status": "approved",
+      "notes": "Pago recibido por Nequi",
+      "created_at": "2026-09-25T14:44:02.977Z",
+      "updated_at": "2026-09-25T14:44:02.977Z"
+    },
+    {
+      "id": "pay-seed-002",
+      "order_number": "TP-839211",
+      "customer_name": "Valentina Gómez",
+      "customer_email": "valen.gomez@hotmail.com",
+      "customer_phone": "3159876543",
+      "customer_id_number": "1102837492",
+      "department": "Córdoba",
+      "city": "Cereté",
+      "shipping_address": "Carrera 12 #8-40 Centro",
+      "payment_method": "cash_on_delivery",
+      "items": [
+        {
+          "id": "prod-2",
+          "title": "Combo Gamer Tecno+ Redragon Pro + Mousepad",
+          "price": 289900,
+          "quantity": 1,
+          "variantTitle": "RGB Black"
+        }
+      ],
+      "items_count": 1,
+      "subtotal": 289900,
+      "shipping_cost": 0,
+      "total": 289900,
+      "currency": "COP",
+      "status": "processing",
+      "notes": "Contra entrega en Cereté",
+      "created_at": "2026-09-25T16:44:02.977Z",
+      "updated_at": "2026-09-25T16:44:02.977Z"
+    }
+  ],
+  "visits": [
+    {
+      "id": "vis-1790374072643-2z1tzr",
+      "visitor_id": "vis_1790374072606_ayjhxbh",
+      "session_id": "sess_1790374072606_n68v6fc",
+      "page_path": "/",
+      "referrer": "",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T22:07:52.643Z"
+    },
+    {
+      "id": "vis-1790373936268-qoio9n",
+      "visitor_id": "vis_1790371447007_mlsfbut",
+      "session_id": "sess_1790371447008_ns0gh73",
+      "page_path": "/",
+      "referrer": "http://localhost:3000/",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T22:05:36.268Z"
+    },
+    {
+      "id": "vis-1790373743147-3o2xj7",
+      "visitor_id": "vis_1790371447007_mlsfbut",
+      "session_id": "sess_1790371447008_ns0gh73",
+      "page_path": "/",
+      "referrer": "http://localhost:3000/",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T22:02:23.147Z"
+    },
+    {
+      "id": "vis-1790373217599-kawcvq",
+      "visitor_id": "vis_1790371447007_mlsfbut",
+      "session_id": "sess_1790371447008_ns0gh73",
+      "page_path": "/",
+      "referrer": "http://localhost:3000/",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T21:53:37.599Z"
+    },
+    {
+      "id": "vis-1790373024611-t9s0au",
+      "visitor_id": "vis_1790371447007_mlsfbut",
+      "session_id": "sess_1790371447008_ns0gh73",
+      "page_path": "/",
+      "referrer": "http://localhost:3000/",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T21:50:24.611Z"
+    },
+    {
+      "id": "vis-1790372762125-g1mhiv",
+      "visitor_id": "vis_1790371447007_mlsfbut",
+      "session_id": "sess_1790371447008_ns0gh73",
+      "page_path": "/",
+      "referrer": "",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T21:46:02.125Z"
+    },
+    {
+      "id": "vis-1790363522319-54z4xf",
+      "visitor_id": "vis_1790361841954_vl5v0mp",
+      "session_id": "sess_1790361841954_kd0zplz",
+      "page_path": "/catalogo",
+      "referrer": "http://localhost:3000/",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T19:12:02.319Z"
+    },
+    {
+      "id": "vis-1790361980111-rkrz6u",
+      "visitor_id": "test_vis_123",
+      "session_id": "test_sess_123",
+      "page_path": "/catalogo",
+      "referrer": "",
+      "user_agent": "node",
+      "device_type": "mobile",
+      "created_at": "2026-09-25T18:46:20.111Z"
+    },
+    {
+      "id": "vis-1790361955995-7flpm2",
+      "visitor_id": "vis_1790361841954_vl5v0mp",
+      "session_id": "sess_1790361841954_kd0zplz",
+      "page_path": "/",
+      "referrer": "http://localhost:3000/",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T18:45:55.995Z"
+    },
+    {
+      "id": "vis-1790361842981-t3o72r",
+      "visitor_id": "vis_1790361841954_vl5v0mp",
+      "session_id": "sess_1790361841954_kd0zplz",
+      "page_path": "/",
+      "referrer": "http://localhost:3000/",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T18:44:02.981Z"
+    },
+    {
+      "id": "vis-seed-001",
+      "visitor_id": "vis_demo_1",
+      "session_id": "sess_demo_1",
+      "page_path": "/",
+      "device_type": "mobile",
+      "created_at": "2026-09-25T13:44:02.977Z"
+    },
+    {
+      "id": "vis-seed-002",
+      "visitor_id": "vis_demo_2",
+      "session_id": "sess_demo_2",
+      "page_path": "/catalogo",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T15:44:02.977Z"
+    },
+    {
+      "id": "vis-seed-003",
+      "visitor_id": "vis_demo_3",
+      "session_id": "sess_demo_3",
+      "page_path": "/productos/iphone-15-pro-max",
+      "device_type": "mobile",
+      "created_at": "2026-09-25T17:44:02.977Z"
+    }
+  ],
+  "lastUpdated": "2026-09-25T22:08:15.352Z"
+}
