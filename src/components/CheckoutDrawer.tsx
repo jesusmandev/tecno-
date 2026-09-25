@@ -87,7 +87,7 @@ export default function CheckoutDrawer() {
   };
 
   // Submit & Simulate Payment
-  const handleSubmitPayment = (e: React.FormEvent) => {
+  const handleSubmitPayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError(null);
 
@@ -129,15 +129,65 @@ export default function CheckoutDrawer() {
     // Enter processing state
     setStep("processing");
 
-    setTimeout(() => {
+    // Preparar items del pedido
+    const mappedItems = checkoutItems.map((item) => ({
+      id: item.product.id,
+      title: item.product.title,
+      price: item.variant.price,
+      quantity: item.quantity,
+      variantTitle: item.variant.title,
+      image: item.product.featuredImage?.url,
+    }));
+
+    try {
+      const payload = {
+        customer_name: customerName,
+        customer_email: email,
+        customer_phone: phone,
+        customer_id_number: documentId,
+        department: department || "Córdoba",
+        city: city || "Montería",
+        shipping_address: address,
+        payment_method: paymentMethod,
+        payment_method_detail: {
+          cardBrand: paymentMethod === "card" ? cardBrand : undefined,
+          last4: paymentMethod === "card" ? cardNumber.replace(/\s+/g, "").slice(-4) : undefined,
+          installments: paymentMethod === "card" ? installments : undefined,
+          bank: paymentMethod === "pse" ? selectedBank : undefined,
+          nequiPhone: paymentMethod === "nequi" ? (nequiPhone || phone) : undefined,
+        },
+        items: mappedItems,
+        subtotal: activeTotal,
+        shipping_cost: 0,
+        total: activeTotal,
+      };
+
+      const res = await fetch("/api/backend/payments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (data.success && data.order_number) {
+        setOrderId(data.order_number);
+      } else {
+        const randomCode = Math.floor(100000 + Math.random() * 900000);
+        setOrderId(`TP-${randomCode}`);
+      }
+    } catch (err) {
+      console.error("Error al registrar pago en backend:", err);
       const randomCode = Math.floor(100000 + Math.random() * 900000);
       setOrderId(`TP-${randomCode}`);
+    }
+
+    // Pequeña pausa para efecto visual de procesamiento bancario
+    setTimeout(() => {
       setStep("success");
-      // If it wasn't a direct single item, clear the cart
       if (!directCheckoutItem) {
         clearCart();
       }
-    }, 2200);
+    }, 1200);
   };
 
   const handleFinish = () => {

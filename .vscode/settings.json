@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "*.sql": "postgres"
+  },
+  "sqltools.connections": [],
+  "sqltools.format": {
+    "dialect": "PostgreSQL"
+  }
+}

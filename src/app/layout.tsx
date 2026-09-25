@@ -7,6 +7,7 @@ import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Model3DPreloader from "@/components/Model3DPreloader";
+import VisitorTracker from "@/components/VisitorTracker";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -70,6 +71,7 @@ export default function RootLayout({
         <Model3DPreloader />
         <SmoothScrollProvider>
           <CartProvider>
+            <VisitorTracker />
             <Navbar />
             {children}
 
