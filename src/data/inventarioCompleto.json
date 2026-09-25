@@ -34,7 +34,7 @@
     "price": 3450000,
     "stock": 8,
     "category": "Celulares",
-    "image": "/products/samsung s26 ultra.jpg",
+    "image": "/products/samsung_s24_ultra.png",
     "compareAtPrice": 4190000
   },
   {
@@ -44,7 +44,7 @@
     "price": 1250000,
     "stock": 10,
     "category": "Celulares",
-    "image": "/products/reminote15pro.jpg"
+    "image": "/products/redmi_note13_pro.png"
   },
   {
     "id": "lenovo-ideapad-slim-3-15irh10",
@@ -62,7 +62,7 @@
     "price": 2850000,
     "stock": 3,
     "category": "Cómputo y Accesorios",
-    "image": "/products/galaxy_tab_s9.jpg"
+    "image": "/products/galaxy_tab_s9.png"
   },
   {
     "id": "apple-watch-ultra-2-titanium",
@@ -80,16 +80,7 @@
     "price": 300000,
     "stock": 12,
     "category": "Smartwatch y Relojes",
-    "image": "/products/redmi_watch5_studio.jpg"
-  },
-  {
-    "id": "galaxy-buds-pro-inalambricos",
-    "name": "AUDÍFONOS GALAXY BUDS PRO INALÁMBRICOS",
-    "code": "GBUDS3P",
-    "price": 420000,
-    "stock": 15,
-    "category": "Audífonos y Diademas",
-    "image": "/products/galaxy_buds_pro.jpg"
+    "image": "/products/redmi_watch5.png"
   },
   {
     "id": "airpods-max-1-1",
@@ -98,7 +89,7 @@
     "price": 85000,
     "stock": 8,
     "category": "Audífonos y Diademas",
-    "image": "/products/headphones.jpg"
+    "image": "/products/headphones.png"
   },
   {
     "id": "tvbox-g7-edicion-arana",
@@ -107,7 +98,7 @@
     "price": 160000,
     "stock": 14,
     "category": "Gaming y TV Box",
-    "image": "/products/tvbox_g7_studio.jpg"
+    "image": "/products/tvbox_g7.jpg"
   },
   {
     "id": "game-stick-pro-4k-m15",
@@ -116,7 +107,7 @@
     "price": 180000,
     "stock": 9,
     "category": "Gaming y TV Box",
-    "image": "/products/gamestick_studio.jpg"
+    "image": "/products/gamestick_4k.png"
   },
   {
     "id": "cable-usbc-lightning-100w",
@@ -125,7 +116,7 @@
     "price": 75000,
     "stock": 25,
     "category": "Cables y Conectividad",
-    "image": "/products/cable_usbc_studio.jpg"
+    "image": "/products/cable_usbc.png"
   },
   {
     "id": "combo-forro-vidrio-samsung-s25-ultra",
@@ -308,7 +299,7 @@
     "price": 80000,
     "stock": 4,
     "category": "Cargadores y Energía",
-    "image": "https://www.eccom.pe/wp-content/uploads/2025/01/cargador-dell-19-5v-3-34a-65w-4-5mm-x-3-0mm-cargador-dell-19-5v-3-34a-65w-4-5mm-x-3-0mm.jpg"
+    "image": "/products/chargers/dell_pa12.webp"
   },
   {
     "id": "j-r-cargador-monitor-12v-5a-jyrlg03",
@@ -317,7 +308,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://lasmejorescompras.com/wp-content/uploads/2021/09/CARGADOR-JR-MONITOR-LG-12V-5A.jpg"
+    "image": "/products/chargers/lg_monitor_5a.jpg"
   },
   {
     "id": "j-r-cargador-monitor-lg-12v-3a-jyrlg01",
@@ -326,7 +317,7 @@
     "price": 80000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://www.resinformatica.com.ar/Temp/App_WebSite/App_PictureFiles/Items/4941_800.jpg"
+    "image": "/products/chargers/lg_monitor_3a.jpg"
   },
   {
     "id": "j-r-cargador-lenovo-20v-3-25a-jyrle08",
@@ -335,7 +326,7 @@
     "price": 85000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://allcomputo.com.co/wp-content/uploads/2024/03/Diseno-sin-titulo-20-1.png"
+    "image": "/products/chargers/lenovo_slimtip.jpg"
   },
   {
     "id": "j-r-cargador-sony-19-5v-2a-jyrso03",
@@ -344,7 +335,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://tecnosalsv.com/wp-content/uploads/2018/09/CARGADOR-SONY-19.5V-2A-40W.png"
+    "image": "/products/chargers/toshiba_19v.jpg"
   },
   {
     "id": "j-r-cargador-toshiba-19v-3-42a-jyrts02",
@@ -353,7 +344,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_815857-MPE96060155621_102025-O.webp"
+    "image": "/products/chargers/toshiba_19v.jpg"
   },
   {
     "id": "j-r-cargador-hp-18-5v-3-5a-jyrhp01",
@@ -362,7 +353,7 @@
     "price": 85000,
     "stock": 4,
     "category": "Cargadores y Energía",
-    "image": "https://qostechnologies.com.ar/wp-content/uploads/2025/10/Diseno-sin-titulo-32.jpg"
+    "image": "/products/chargers/hp_estandar.jpg"
   },
   {
     "id": "j-r-cargador-asus-19v-3-42a-jyras01",
@@ -371,7 +362,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_609107-MLM74292976187_012024-O.webp"
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "j-r-cargador-asus-19v-1-75a-jyras07",
@@ -380,7 +371,7 @@
     "price": 95000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_635802-MLA49179394651_022022-O.webp"
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "j-r-cargador-lenovo-19v-3-42a-jyrle07",
@@ -389,7 +380,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_812977-MLA87285457757_072025-O.webp"
+    "image": "/products/chargers/lenovo_slimtip.jpg"
   },
   {
     "id": "j-r-cargador-toshiba-19v-2-37a-jyras10",
@@ -398,7 +389,7 @@
     "price": 85000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://gigabyte-website-production.s3.amazonaws.com/PRO00203O-1.jpg"
+    "image": "/products/chargers/toshiba_19v.jpg"
   },
   {
     "id": "j-r-cargador-lenovo-20v-2a-jyrle11",
@@ -407,7 +398,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/cargador-original-lenovo-20v-2a-g475-s9-s10-s12-garantizado-D_NQ_NP_907712-MLM31216662159_062019-F.jpg"
+    "image": "/products/chargers/lenovo_slimtip.jpg"
   },
   {
     "id": "j-r-cargador-tipo-c-90w-jyrty90",
@@ -416,7 +407,7 @@
     "price": 90000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_788640-MLA83535599258_042025-O.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "mouse-gamer-serenity-mgjr-051",
@@ -442,8 +433,8 @@
     "code": "80172",
     "price": 60000,
     "stock": 4,
-    "category": "Accesorios y Varios",
-    "image": "https://autoplay.com.pk/wp-content/uploads/2024/03/2-Copy-1.jpg"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/acer_19v.png"
   },
   {
     "id": "basik-tech-cargador-hp-18-5v-3-5a-80176",
@@ -452,7 +443,7 @@
     "price": 70000,
     "stock": 4,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_748083-MPE78455385554_082024-O.webp"
+    "image": "/products/chargers/hp_estandar.jpg"
   },
   {
     "id": "carg-para-asus-19v-1-75a-80184",
@@ -460,8 +451,8 @@
     "code": "80184",
     "price": 65000,
     "stock": 5,
-    "category": "Accesorios y Varios",
-    "image": "http://taino.pe/cdn/shop/files/Diseno_sin_titulo_450b6422-6cf1-409f-a72e-cfced1cf3729.png?v=1758319610"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "cargador-para-hp-azul-19-5v-3-33a-bskh04-80179",
@@ -470,7 +461,7 @@
     "price": 75000,
     "stock": 5,
     "category": "Cargadores y Energía",
-    "image": "https://megazone.pk/wp-content/uploads/2022/10/e75b85a0a3fdae4b5b354d26d0494fc0.jpg"
+    "image": "/products/chargers/hp_punta_azul.jpg"
   },
   {
     "id": "carg-para-portatil-tipo-c-45w-bsktc0-80297",
@@ -478,8 +469,8 @@
     "code": "80297",
     "price": 120000,
     "stock": 3,
-    "category": "Accesorios y Varios",
-    "image": "https://centersystemcolombia.com/wp-content/uploads/2025/06/CARG.-PARA-PORTATIL-TIPO-C-45W_80297_BSK-TC02_1-500x500.png"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cargador-para-apple-16-5v-3-65a-bskapo1-80301",
@@ -488,7 +479,7 @@
     "price": 110000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://cahuana.com.pe/wp-content/uploads/2023/09/0315024_Mesa-de-trabajo-1.jpg"
+    "image": "/products/chargers/apple_magsafe1.jpg"
   },
   {
     "id": "cargador-para-apple-14-5v-3-1a-45w-bsk-ap-80423",
@@ -497,7 +488,7 @@
     "price": 120000,
     "stock": 3,
     "category": "Cargadores y Energía",
-    "image": "https://www.mexicobateria.mx/adaptador/apple/img_big_Zoom/AP-L-45W-1.jpg"
+    "image": "/products/chargers/apple_magsafe1.jpg"
   },
   {
     "id": "carg-lenovo-20v-3-25a-bsklen01-80180",
@@ -505,8 +496,8 @@
     "code": "80180",
     "price": 70000,
     "stock": 4,
-    "category": "Accesorios y Varios",
-    "image": "https://tecnovision.cl/254-medium_default/cargador-lenovo-original-20v-225a.jpg"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/lenovo_slimtip.jpg"
   },
   {
     "id": "carg-para-hacer-19v-3-42a-65w-80299",
@@ -514,8 +505,8 @@
     "code": "80299",
     "price": 70000,
     "stock": 6,
-    "category": "Accesorios y Varios",
-    "image": "https://muchorepuesto.com/41602-large_default/cargador-original-chicony-insys-19v-342a-65w-valido-para-19v-21a-y-3a-35135.jpg"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/acer_19v.png"
   },
   {
     "id": "carg-apple-14-85v-3-05a-45w-bsk-80424",
@@ -523,8 +514,8 @@
     "code": "80424",
     "price": 100000,
     "stock": 2,
-    "category": "Accesorios y Varios",
-    "image": "https://latiendatecno.com/wp-content/uploads/2025/12/Podemer-clikear-la-categoria-y-que-salgan-todos-en-general-2.png"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/apple_magsafe2.jpg"
   },
   {
     "id": "cargador-para-acer-19v-2-37a-45w-80405",
@@ -533,7 +524,7 @@
     "price": 70000,
     "stock": 4,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_709941-MLA79654253690_102024-O.webp"
+    "image": "/products/chargers/acer_19v.png"
   },
   {
     "id": "cargador-para-asus-19v-3-42a-bskas12-80262",
@@ -542,7 +533,7 @@
     "price": 70000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://compucordoba.com.ar/img/Public/1078-producto-cargador-asus-3-4650.jpg"
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "basik-tech-cargador-lenovo-pc-20v-2-25a-80182",
@@ -551,7 +542,7 @@
     "price": 80000,
     "stock": 7,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_905099-MPE89727588010_082025-O.webp"
+    "image": "/products/chargers/lenovo_slimtip.jpg"
   },
   {
     "id": "carg-para-asus-19v-2-37a-45w-80185",
@@ -559,8 +550,8 @@
     "code": "80185",
     "price": 70000,
     "stock": 6,
-    "category": "Accesorios y Varios",
-    "image": "https://www.mychargeur.fr/images/2023-Asus-19V-2.37A-4.0-1.35mm_2.jpg"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "cargador-para-acer-19v-2-37a-bsklen04-80173",
@@ -569,7 +560,7 @@
     "price": 60000,
     "stock": 7,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_878842-MLC48243682039_112021-F.jpg"
+    "image": "/products/chargers/acer_19v.png"
   },
   {
     "id": "cargador-multifuncional-24v-2-5a-80411",
@@ -578,7 +569,7 @@
     "price": 60000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://www.omega-store.co/wp-content/uploads/2023/07/24V2.5ADC3PIN-3.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cargador-para-dell-pa12-19-5v-3-34a-80186",
@@ -587,7 +578,7 @@
     "price": 60000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_696046-MLV46102731473_052021-O.webp"
+    "image": "/products/chargers/dell_pa12.webp"
   },
   {
     "id": "cargador-para-toshiba-19v-3-42a-bskt01-80175",
@@ -596,7 +587,7 @@
     "price": 80000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://compuferia.pe/wp-content/uploads/2022/01/Carg-lap-tosh-19v-3.95a-tiendas-tec-1-1.png"
+    "image": "/products/chargers/toshiba_19v.jpg"
   },
   {
     "id": "basiktech-cargador-hp-19-5v-4-62a-80298",
@@ -605,7 +596,7 @@
     "price": 70000,
     "stock": 6,
     "category": "Cargadores y Energía",
-    "image": "https://importadora-espinoza.s3.amazonaws.com/PRO01287-1.jpg"
+    "image": "/products/chargers/hp_estandar.jpg"
   },
   {
     "id": "jaltech-premium-cargador-hp-18-5v-3-5a-10272",
@@ -614,7 +605,7 @@
     "price": 80000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2019/05/Cargador para HP paguja 18.5V-3.5A_10272_H02P_5-600x600.png"
+    "image": "/products/chargers/hp_estandar.jpg"
   },
   {
     "id": "jaltech-premium-cargador-asus-19v-2-37a-10688",
@@ -623,7 +614,7 @@
     "price": 85000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://ctsaul.com/tienda/wp-content/uploads/2025/03/xd-62-scaled-600x425.jpg"
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "cargador-lenovo-jaltech-20v-3-25a-10792",
@@ -632,7 +623,7 @@
     "price": 85000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2019/05/CARGADOR PARA LENOVO 20V-3.42A_10792_LEN-15P_4-600x600.png"
+    "image": "/products/chargers/lenovo_slimtip.jpg"
   },
   {
     "id": "jaltech-premium-cargador-asus-19v-3-42a-102799",
@@ -641,7 +632,7 @@
     "price": 85000,
     "stock": 3,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_733665-MLA95959130552_102025-O.webp"
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "cargador-para-acer-19v-3-42a-65w-10960",
@@ -650,7 +641,7 @@
     "price": 80000,
     "stock": 3,
     "category": "Cargadores y Energía",
-    "image": "https://compumundostore.com/wp-content/uploads/2024/06/CARGADOR-ACER-19V-3.42A-65W-5.5-2.5MM.jpg"
+    "image": "/products/chargers/acer_19v.png"
   },
   {
     "id": "jaltech-premium-cargador-dell-19-5v-3-34a-11222",
@@ -659,7 +650,7 @@
     "price": 90000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://ctsaul.com/tienda/wp-content/uploads/2025/03/xd-66-scaled.jpg"
+    "image": "/products/chargers/dell_pa12.webp"
   },
   {
     "id": "carg-para-asus-19v-1-75a-10510",
@@ -667,8 +658,8 @@
     "code": "10510",
     "price": 80000,
     "stock": 3,
-    "category": "Accesorios y Varios",
-    "image": "https://jaltechsas.com/wp-content/uploads/2023/11/CARG.-PARA-ASUS-19V-1.75_80300_BSK-AS03_1.png?ref=10510"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "jaltech-premium-cargador-dell-19-5v-2-31a-11178",
@@ -677,7 +668,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://exitocol.vtexassets.com/arquivos/ids/27066838/cargador-generico-premiun-jaltech-dell-195v-231a-11178.jpg?v=638776014941700000"
+    "image": "/products/chargers/dell_pa12.webp"
   },
   {
     "id": "cargador-para-hp-punta-azul-19-5v-3-33a-h07p-10411",
@@ -686,7 +677,7 @@
     "price": 85000,
     "stock": 3,
     "category": "Cargadores y Energía",
-    "image": "https://www.electronicaalex.com/wp-content/uploads/2025/06/Cargador-para-Notebook-Hp-19.5V-3.33A-Plug-4.5X3.0MM-600x600.webp"
+    "image": "/products/chargers/hp_punta_azul.jpg"
   },
   {
     "id": "carg-para-asus-19v-3-42a-65w-negra-as-10750",
@@ -694,8 +685,8 @@
     "code": "10750",
     "price": 85000,
     "stock": 3,
-    "category": "Accesorios y Varios",
-    "image": "https://eurocomputer.com.uy/wp-content/uploads/2023/06/CNBAS1.jpg"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "vidrios-templados-9126",
@@ -713,7 +704,7 @@
     "price": 80000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2019/05/CARGADOR TOSHIBA 19v-3.42A_10071_T01P_3-600x600.png"
+    "image": "/products/chargers/toshiba_19v.jpg"
   },
   {
     "id": "carg-para-asus-19v-1-75a-10510",
@@ -721,8 +712,8 @@
     "code": "10510",
     "price": 80000,
     "stock": 2,
-    "category": "Accesorios y Varios",
-    "image": "https://jaltechsas.com/wp-content/uploads/2023/11/CARG.-PARA-ASUS-19V-1.75_80300_BSK-AS03_1.png"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "carg-para-mini-hp-19-5v-2-05a-10060",
@@ -730,8 +721,8 @@
     "code": "10060",
     "price": 40000,
     "stock": 2,
-    "category": "Accesorios y Varios",
-    "image": "https://eurocomputer.com.uy/wp-content/uploads/2023/06/hp-charger10.png"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/hp_estandar.jpg"
   },
   {
     "id": "jaltech-premium-cargador-dell-19-5v-3-34a-10675",
@@ -740,7 +731,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://compunadia.com/assets/media/cargadores/cargador-portatil-dell-d01p-jaltech-premium_1.jpg"
+    "image": "/products/chargers/dell_pa12.webp"
   },
   {
     "id": "jaltech-premium-cargador-asus-usb-19v-1-75a-10663",
@@ -749,7 +740,7 @@
     "price": 65000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://ctsaul.com/tienda/wp-content/uploads/2025/03/xd-63-scaled.jpg"
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "jaltech-preimum-cargador-macbook-14-5v-3-1a-10860",
@@ -758,7 +749,7 @@
     "price": 100000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://ramsystems.com.ec/wp-content/uploads/2026/03/MAC-CARGADOR-14.5V-3.1A-REPLICA-TIPO-L-45W-500x500-1.png"
+    "image": "/products/chargers/apple_magsafe1.jpg"
   },
   {
     "id": "jaltech-premium-cargador-universal-15v-20v6a-10787",
@@ -767,7 +758,7 @@
     "price": 160000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://corporativo.jaltechsas.com/wp-content/uploads/2025/02/CARGADOR-PARA-PORTATIL-UNIVERSAL_10787_TY-01P2-562x1024.png"
+    "image": "/products/chargers/lenovo_slimtip.jpg"
   },
   {
     "id": "jaltech-premium-cargador-sony-10-5v-3-9a-10088",
@@ -776,7 +767,7 @@
     "price": 85000,
     "stock": 3,
     "category": "Cargadores y Energía",
-    "image": "https://ctsaul.com/tienda/wp-content/uploads/2025/03/xd-72-scaled-600x416.jpg"
+    "image": "/products/chargers/toshiba_19v.jpg"
   },
   {
     "id": "jaltech-premium-cargador-samsung-19v-3-16a-10287",
@@ -785,7 +776,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2019/05/Cargador para SAMSUNG 19V-3 16A_10287_SAM-01P_2-600x600.png"
+    "image": "/products/chargers/samsung_laptop.jpg"
   },
   {
     "id": "jaltech-premium-cargador-samsung-14v-2-14a-10531",
@@ -794,7 +785,7 @@
     "price": 58000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://ctsaul.com/tienda/wp-content/uploads/2025/03/xd-70-scaled.jpg"
+    "image": "/products/chargers/lg_monitor_5a.jpg"
   },
   {
     "id": "jaltech-premium-cargador-lenovo-20v-3-25a-10281",
@@ -803,7 +794,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://exitocol.vtexassets.com/arquivos/ids/27066756/cargador-generico-premiun-jaltech-lenovo-20v-325a-10281.jpg?v=638776014388670000"
+    "image": "/products/chargers/lenovo_slimtip.jpg"
   },
   {
     "id": "jaltech-premium-cargador-monitor-lg-12v-3a-10737",
@@ -812,7 +803,7 @@
     "price": 58000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://compunadia.com/assets/media/cargadores/cargador-as-07-mp-19v-21a.png"
+    "image": "/products/chargers/lg_monitor_3a.jpg"
   },
   {
     "id": "jaltech-premium-cargador-monitor-samsung-19v-2-1a-10690",
@@ -821,7 +812,7 @@
     "price": 85000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2019/05/CARGADOR PARA MONITOR SAM 19V-2.1A_10690_SAM-08MP_3-600x600.png"
+    "image": "/products/chargers/lg_monitor_5a.jpg"
   },
   {
     "id": "jaltech-premium-cargador-lenovo-5v-4a-10785",
@@ -830,7 +821,7 @@
     "price": 55000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2019/05/CARGADOR PARA LENOVO IDEAPAD 5V 4A_10785_LEN-13MP_3-600x600.png"
+    "image": "/products/chargers/lenovo_slimtip.jpg"
   },
   {
     "id": "pasta-termica-silver-carye-tdp=w/(8.5)mk",
@@ -848,7 +839,7 @@
     "price": 10000,
     "stock": 6,
     "category": "Cargadores y Energía",
-    "image": "https://makingbusiness.com.co/wp-content/uploads/2025/01/TR9VRB1.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "bateria-triple-aaa-tronex-r03",
@@ -857,7 +848,7 @@
     "price": 8000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://makingbusiness.com.co/wp-content/uploads/2025/01/TRAAAR03EHDBLK.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "switch-de-8-puertos-10-100-1000-mercusys-ms108g",
@@ -1118,7 +1109,7 @@
     "price": 35000,
     "stock": 3,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_997544-MCO70562195020_072023-O.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "regulador-de-voltaje-jal-r1000-80406",
@@ -1172,7 +1163,7 @@
     "price": 110000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2023/03/FUENTE-DE-PODER-230W-REALES_11298_-FPS-230W_1.png?ref=11261"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "antena-tdt-5-metros-wb5m-02",
@@ -1262,7 +1253,7 @@
     "price": 30000,
     "stock": 5,
     "category": "Cargadores y Energía",
-    "image": "https://m.media-amazon.com/images/I/612+eultLdL.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cargador-para-iphone-qc-3-0-fast-charger-18w-plm349ip",
@@ -1271,7 +1262,7 @@
     "price": 40000,
     "stock": 5,
     "category": "Cargadores y Energía",
-    "image": "https://ae01.alicdn.com/kf/Sdb7733a008d64b03a268296c84424289X/18W-3A-Quick-Charge-QC-3-0-USB-Charger-Fast-Charger-3-0-Phone-Charger-for.jpg_.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cargador-plm344tc-plm344tc",
@@ -1280,7 +1271,7 @@
     "price": 25000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "http://mercaditosmart.com/cdn/shop/products/11125-i-D751741D-1_1024x.jpg?v=1717858571"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "pd-fast-charger-20w-iphone-plm348ip",
@@ -1298,7 +1289,7 @@
     "price": 25000,
     "stock": 21,
     "category": "Cargadores y Energía",
-    "image": "https://m.media-amazon.com/images/I/61zHaLX3mUL._AC_.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "single-usb-fast-wall-charger-2-a-iphone-vs-a03iphone",
@@ -1316,7 +1307,7 @@
     "price": 70000,
     "stock": 6,
     "category": "Cargadores y Energía",
-    "image": "https://vidvie.com.co/wp-content/uploads/360-i-1-1200x1204.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "type-c-data-cable-cb4031t",
@@ -1658,7 +1649,7 @@
     "price": 150000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://marketplace.bancointer.com.br/ecommerce/images/platform/8ab732c13d03bab2b362be02385e47ec.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "fast-charging-power-bank-ugreen-200w-25000mah-pb722",
@@ -1667,7 +1658,7 @@
     "price": 390000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://img.ep-cdn.com/i/500/500/oh/ohbavpxqmiysgtwdrfcl/ugreen-25000mah-200w-fast-charging-power-bank-pb722-cene.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "amoled-ultra-clear-screen-wireless-call-smart-watch-sw1617",
@@ -1829,7 +1820,7 @@
     "price": 100000,
     "stock": 5,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2023/03/FUENTE-DE-PODER-230W-REALES_11298_-FPS-230W_1.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "convert-hdmi-a-vga-activo-lh053-11276",
@@ -1918,8 +1909,8 @@
     "code": "80178",
     "price": 60000,
     "stock": 6,
-    "category": "Accesorios y Varios",
-    "image": "https://eurocomputer.com.uy/wp-content/uploads/2024/09/hp-charger-original.png"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/hp_punta_azul.jpg"
   },
   {
     "id": "hub-3-0-basik-tech-bskhub3-0-80269",
@@ -2189,7 +2180,7 @@
     "price": 40000,
     "stock": 20,
     "category": "Cargadores y Energía",
-    "image": "https://m.media-amazon.com/images/I/61WXMgUxzdL._AC_.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "single-type-c-gan-charger-30w-cargador-c-lightnig-vs-a16c&i",
@@ -2198,7 +2189,7 @@
     "price": 60000,
     "stock": 17,
     "category": "Cargadores y Energía",
-    "image": "https://www.stf.tech/cdn/shop/files/5-STF_0109_1000x1000_Infografias-ST-P77170-1.jpg?v=1760634616"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cargador-single-usb-fast-wall-charger-22w-usb-c-vs-a12t",
@@ -2207,7 +2198,7 @@
     "price": 30000,
     "stock": 20,
     "category": "Cargadores y Energía",
-    "image": "https://i5.walmartimages.com/seo/Original-Samsung-Galaxy-A12-Super-Fast-Charging-Block-2-Pack-25W-Wall-Charger-USB-C-Adapters-Cable-Not-Included-Black_63bbde9c-9c11-4b55-9985-82b1628fbb26.bba6a6e082ec51bc366d2b59f6b7b001.jpeg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cubo-samsung-25w-original-nb-009",
@@ -2225,7 +2216,7 @@
     "price": 20000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_819470-MLM54292512636_032023-O.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "type-c-to-lighthing-data-cable-vidvie-20w-cb477",
@@ -2243,7 +2234,7 @@
     "price": 40000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://cdn.v2.tiendanegocio.com/gallery/20736/img_20736_193b4897e5f.png"
+    "image": "/products/chargers/motorola_turbopower.png"
   },
   {
     "id": "cargador-motorola-x8-38w-9005",
@@ -2252,7 +2243,7 @@
     "price": 25000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://exitocol.vtexassets.com/arquivos/ids/24479088/cargador-motorola-turbo-power-38w-cable-tipo-c-carga-rapida.jpg?v=638612363310600000"
+    "image": "/products/chargers/motorola_turbopower.png"
   },
   {
     "id": "cargadores-samsung-galaxy-note-9-9006",
@@ -2261,7 +2252,7 @@
     "price": 25000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://images.mobilefun.co.uk/graphics/450pixelp/68890.jpg"
+    "image": "/products/chargers/samsung_25w.png"
   },
   {
     "id": "cable-vidvie-type-c-to-lightning-2-4-a-cb460",
@@ -2351,7 +2342,7 @@
     "price": 35000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://luegopagocdn.azureedge.net/content-process/products-images/prod/3019/576fb243-401f-461a-8db2-4e5c08e304bd.webp"
+    "image": "/products/chargers/xiaomi_67w.jpg"
   },
   {
     "id": "vidvie-cable-usb-a-tipo-c-qd21t",
@@ -2378,7 +2369,7 @@
     "price": 50000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://www.alltechno.com.ar/wp-content/uploads/2023/07/Cargador-motorola-50w-1-1024x1024.png"
+    "image": "/products/chargers/motorola_turbopower.png"
   },
   {
     "id": "cable-usb-a-tipo-c-trenzado-1m-jal-a13-30627",
@@ -2441,7 +2432,7 @@
     "price": 160000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2025/05/POWER-BANK-MAGSAFE-10000-mAh_30709_JAL-01MAG_3.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "audifonos-cable-3-5mm-jal-47-30609",
@@ -2584,8 +2575,8 @@
     "code": "80174",
     "price": 50000,
     "stock": 2,
-    "category": "Accesorios y Varios",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_746814-CBT75778885696_042024-O.webp"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/acer_19v.png"
   },
   {
     "id": "router-inalambrico-multimodo-2-antenas-n300-mbps-mercusys-mw",
@@ -2639,7 +2630,7 @@
     "price": 65000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_782199-MLV54730597824_032023-O.webp"
+    "image": "/products/chargers/acer_19v.png"
   },
   {
     "id": "adaptador-pos-jaltech-apjt1-40023",
@@ -2693,7 +2684,7 @@
     "price": 120000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://m.media-amazon.com/images/I/61tDVCyC4eL._AC_SL1500_.jpg"
+    "image": "/products/chargers/lenovo_slimtip.jpg"
   },
   {
     "id": "carg-para-asus-gamer-19v-6-32a-11291",
@@ -2701,8 +2692,8 @@
     "code": "11291",
     "price": 150000,
     "stock": 1,
-    "category": "Gaming y TV Box",
-    "image": "https://tecnologianexos.com/wp-content/uploads/2024/01/s-l1600-3.jpg"
+    "category": "Cargadores y Energía",
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "luces-de-belleza-panel-pl-26-profesional-pl-26",
@@ -2954,7 +2945,7 @@
     "price": 50000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://mastecnologiapc.com/wp-content/uploads/2025/04/LM23-10-34.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "extra-thick-fast-charging-cable-cb418",
@@ -3008,7 +2999,7 @@
     "price": 25000,
     "stock": 7,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/product/adaptador-de-corriente5v-1a-2/ADAPTADOR-CORRIENTE-12V2A_11054_LH028_3.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cargador-cg-01-v3-9026",
@@ -3017,7 +3008,7 @@
     "price": 7000,
     "stock": 3,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_786478-MLM31954113692_082019-O.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "fast-charging-nylon-braided-cable-vidvie-cb449v",
@@ -3071,7 +3062,7 @@
     "price": 35000,
     "stock": 9,
     "category": "Cargadores y Energía",
-    "image": "https://powertechsantander.com/assets/uploads/2e6c8ab4913f691d4279b98dda9284bc.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cargador-de-carro-pd-38w-alta-potencia-30652",
@@ -3080,7 +3071,7 @@
     "price": 35000,
     "stock": 9,
     "category": "Cargadores y Energía",
-    "image": "https://res.cloudinary.com/ditrt47am/image/upload/f_auto,q_auto/v1757513342/catalogo/productos/prod_a34af6bef5a9.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "metal-dual-usb-fast-car-charger-2-4a-cc528",
@@ -3116,7 +3107,7 @@
     "price": 100000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://sc04.alicdn.com/kf/H83addafdf7f44e4aa41bf42eae313502U/240476038/H83addafdf7f44e4aa41bf42eae313502U.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "3-port-usb-charger-4-8a-vidvie-plm331",
@@ -3143,7 +3134,7 @@
     "price": 100000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://vidvie.hk/Uploads/2024-05-13/6641e73839305.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "vidvie-gan-single-cargador-tipo-c-33w-plm354",
@@ -3152,7 +3143,7 @@
     "price": 70000,
     "stock": 5,
     "category": "Cargadores y Energía",
-    "image": "https://www.vidvie.hk/Uploads/2024-05-27/665428466f3e2.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "gan-dual-type-c-40w-high-power-charger-plm346",
@@ -3179,7 +3170,7 @@
     "price": 60000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_900506-MLA83619266719_042025-O.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "vidvie-car-iphone-holder-hc1512-hc1512",
@@ -3224,7 +3215,7 @@
     "price": 30000,
     "stock": 3,
     "category": "Cargadores y Energía",
-    "image": "https://images.rappi.com/products/1743802640995_1743802639839_1743802638364.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "soporte-carro-ajustable-jal-h02-30649",
@@ -3548,7 +3539,7 @@
     "price": 18000,
     "stock": 4,
     "category": "Accesorios y Varios",
-    "image": "/products/iphone17promax.jpg"
+    "image": "/products/iphone16_desert.png"
   },
   {
     "id": "case-silicon-iphone-17-pro-tec-378",
@@ -3746,7 +3737,7 @@
     "price": 80000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://2dmdigital.com/wp-content/uploads/2025/12/3918_imagen_1.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "bateria-iph-12-mini-9080",
@@ -3755,7 +3746,7 @@
     "price": 80000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://dmax.pe/wp-content/uploads/2025/06/Bateria-iPhone12-mini-Dmax.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "bateria-iph-13-pro-9081",
@@ -3764,7 +3755,7 @@
     "price": 70000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_721144-MCO69927372797_062023-O.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "adaptador-tipo-c-a-3-5mm-carga-jbco-30662",
@@ -4043,7 +4034,7 @@
     "price": 25000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://icscooter.com/1183-medium_default/cargador-m5.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "tarjeta-de-sonido-7-1-10177",
@@ -4259,7 +4250,7 @@
     "price": 20000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://lyonimport.com.ar/wp-content/uploads/2025/06/172528740332857d74ce485887758029d2063c1020.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "audifonos-cable-3-5mm-jal-24-30610",
@@ -4547,7 +4538,7 @@
     "price": 15000,
     "stock": 13,
     "category": "Cargadores y Energía",
-    "image": "http://www.goditek.com/cdn/shop/files/COD.10640_1200x1200.jpg?v=1701411664"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cable-de-poder-plano-ref-pc-001-11429",
@@ -4619,7 +4610,7 @@
     "price": 15000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://luegopagocdn.azureedge.net/content-process/products-images/prod/2926/64168316-d0c3-4f4b-b66a-bca70335c99c.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cable-am-micro-50-cm-usb-3-0-50cm-10034",
@@ -4808,7 +4799,7 @@
     "price": 85000,
     "stock": 1,
     "category": "Audífonos y Diademas",
-    "image": "/products/headphones.jpg"
+    "image": "/products/headphones.png"
   },
   {
     "id": "speaker-bt-mini-3-30829",
@@ -4871,7 +4862,7 @@
     "price": 100000,
     "stock": 3,
     "category": "Cargadores y Energía",
-    "image": "https://www.mtm.com.co/wp-content/uploads/2023/08/06188.jpg"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "cable-usb-a-puerto-serial-rs232-usb-rs-rs",
@@ -4907,7 +4898,7 @@
     "price": 120000,
     "stock": 4,
     "category": "Cargadores y Energía",
-    "image": "https://tienda.pctintas.com/wp-content/uploads/cargador-apple-tipo-c-20-3v-3-61-am-1.webp"
+    "image": "/products/chargers/apple_usbc_61w.jpg"
   },
   {
     "id": "convertidor-usb-a-usb-tipo-c-b579-b579",
@@ -4988,7 +4979,7 @@
     "price": 80000,
     "stock": 3,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2023/03/FUENTE-DE-PODER-230W-REALES-PLUS_11261_230WB_1-768x768.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "fuente-de-poder-200w-50cms-fps200w-fps200w",
@@ -4997,7 +4988,7 @@
     "price": 80000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://www.wifextelematics.com/wp-content/uploads/2025/02/01.png"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "funda-correa-oxford-negra-14-01614-gen-539",
@@ -5222,7 +5213,7 @@
     "price": 70000,
     "stock": 6,
     "category": "Cargadores y Energía",
-    "image": "https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/4914/PMP20000714892/full_image-1.jpeg"
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "carg-para-asus-19v-2-37a-bskas02-bskas02",
@@ -5231,7 +5222,7 @@
     "price": 70000,
     "stock": 4,
     "category": "Cargadores y Energía",
-    "image": "https://jaltechsas.com/wp-content/uploads/2024/02/80185-1200x1200.jpg"
+    "image": "/products/chargers/asus_19v.jpg"
   },
   {
     "id": "hub-3-0-basik-tech-bskhub3-0-bskhub3-0",
@@ -5249,7 +5240,7 @@
     "price": 170000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://digitalmtx.com/wp-content/uploads/Cargador-Portatil-Asus-TipoC-65W-Original-7551-2.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "carg-para-acer-19v-3-42a-65w-bskac04-bskac04",
@@ -5258,7 +5249,7 @@
     "price": 70000,
     "stock": 5,
     "category": "Cargadores y Energía",
-    "image": "https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/4914/PMP20000400357/full_image-1.jpeg"
+    "image": "/products/chargers/acer_19v.png"
   },
   {
     "id": "carg-para-apple-16-5v-3-65a-bskap01-ap01-gen-569",
@@ -5267,7 +5258,7 @@
     "price": 120000,
     "stock": 1,
     "category": "Cargadores y Energía",
-    "image": "https://www.mtm.com.co/wp-content/uploads/2024/03/0970.jpg"
+    "image": "/products/chargers/apple_magsafe1.jpg"
   },
   {
     "id": "carg-para-acer-19v-2-37a-45w-bsk-a05-a05",
@@ -5276,7 +5267,7 @@
     "price": 10000,
     "stock": 4,
     "category": "Cargadores y Energía",
-    "image": "https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/4914/PMP20000419350/full_image-1.png"
+    "image": "/products/chargers/acer_19v.png"
   },
   {
     "id": "regulador-de-voltaje-jal-r1200-r1200",
@@ -5285,7 +5276,7 @@
     "price": 100000,
     "stock": 2,
     "category": "Cargadores y Energía",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_880123-MCO108433867165_032026-O.webp"
+    "image": "/products/chargers/apple_usbc_20w.jpg"
   },
   {
     "id": "combo-usb-teclado-y-mouse-bsk-9307-9307",
@@ -5303,7 +5294,7 @@
     "price": 130000,
     "stock": 4,
     "category": "Cargadores y Energía",
-    "image": "https://www.dmchile.cl/dinamicos/productos/03183-1718465071.jpg"
+    "image": "/products/chargers/apple_magsafe2.jpg"
   },
   {
     "id": "carg-para-portatil-asus-19v-3-42a-bs-bs",
@@ -5312,6 +5303,6 @@
     "price": 480000,
     "stock": 5,
     "category": "Cargadores y Energía",
-    "image": "https://marboltec.com/wp-content/uploads/2023/03/Cargador-Asus-19V-3-3-600x600.jpg"
+    "image": "/products/chargers/asus_19v.jpg"
   }
 ]

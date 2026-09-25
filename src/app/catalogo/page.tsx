@@ -36,6 +36,149 @@ const CATEGORIES = [
 
 const ITEMS_PER_PAGE = 24;
 
+function getFallbackImage(category: string, name: string): string {
+  const c = (category || "").toLowerCase();
+  const n = (name || "").toLowerCase();
+
+  // 1. CARGADORES, FUENTES, ADAPTADORES Y BATERÍAS (Prioridad máxima por marca y modelo específico)
+  if (
+    c.includes("cargador") ||
+    c.includes("energ") ||
+    n.startsWith("carg") ||
+    n.includes("cargador") ||
+    n.includes("cargadores") ||
+    n.includes("carg.") ||
+    n.includes("carg ") ||
+    n.includes("carg-") ||
+    n.includes("fuente") ||
+    n.includes("adaptador corriente") ||
+    n.includes("adaptador de corriente") ||
+    n.includes("power bank") ||
+    n.includes("bateria")
+  ) {
+    if (n.includes("lenovo")) {
+      return "/products/chargers/lenovo_slimtip.jpg";
+    }
+    if (n.includes("hp")) {
+      if (n.includes("azul") || n.includes("3.33a") || n.includes("2.31a") || n.includes("h07p")) {
+        return "/products/chargers/hp_punta_azul.jpg";
+      }
+      return "/products/chargers/hp_estandar.jpg";
+    }
+    if (n.includes("dell")) {
+      return "/products/chargers/dell_pa12.webp";
+    }
+    if (n.includes("asus")) {
+      return "/products/chargers/asus_19v.jpg";
+    }
+    if (n.includes("acer") || n.includes("hacer")) {
+      return "/products/chargers/acer_19v.png";
+    }
+    if (n.includes("apple") || n.includes("macbook") || n.includes("iphone") || n.includes("iph")) {
+      if (n.includes("16.5v") || n.includes("14.5v") || n.includes("tipo-l") || n.includes("tipo l")) {
+        return "/products/chargers/apple_magsafe1.jpg";
+      }
+      if (n.includes("14.85v") || n.includes("magsafe 2") || n.includes("magsafe2")) {
+        return "/products/chargers/apple_magsafe2.jpg";
+      }
+      if (n.includes("tipo c") || n.includes("61w") || n.includes("ap08p")) {
+        return "/products/chargers/apple_usbc_61w.jpg";
+      }
+      return "/products/chargers/apple_usbc_20w.jpg";
+    }
+    if (n.includes("samsung")) {
+      if (n.includes("monitor") || n.includes("14v") || n.includes("2.1a")) {
+        return "/products/chargers/lg_monitor_5a.jpg";
+      }
+      if (n.includes("19v") || n.includes("3.16a")) {
+        return "/products/chargers/samsung_laptop.jpg";
+      }
+      return "/products/chargers/samsung_25w.png";
+    }
+    if (n.includes("toshiba") || n.includes("sony")) {
+      return "/products/chargers/toshiba_19v.jpg";
+    }
+    if (n.includes("monitor") || n.includes("lg")) {
+      if (n.includes("3a")) {
+        return "/products/chargers/lg_monitor_3a.jpg";
+      }
+      return "/products/chargers/lg_monitor_5a.jpg";
+    }
+    if (n.includes("motorola")) {
+      return "/products/chargers/motorola_turbopower.png";
+    }
+    if (n.includes("xiaomi")) {
+      return "/products/chargers/xiaomi_67w.jpg";
+    }
+    if (
+      n.includes("laptop") ||
+      n.includes("portatil") ||
+      n.includes("19v") ||
+      n.includes("20v") ||
+      n.includes("65w") ||
+      n.includes("45w") ||
+      n.includes("90w")
+    ) {
+      return "/products/chargers/lenovo_slimtip.jpg";
+    }
+    return "/products/chargers/apple_usbc_20w.jpg";
+  }
+
+  // 2. CABLES Y CONECTIVIDAD
+  if (c.includes("cable") || n.includes("cable") || n.includes("otg") || n.includes("hdmi")) {
+    return "/products/cable_usbc.png";
+  }
+
+  // 3. FORROS, VIDRIOS, FUNDAS Y CARCASAS
+  if (
+    n.includes("forro") ||
+    n.includes("vidrio") ||
+    n.includes("funda") ||
+    n.includes("case") ||
+    n.includes("carcasa") ||
+    n.includes("estuche")
+  ) {
+    return "/products/combos/combo-forro-vidrio-samsung.png";
+  }
+
+  // 4. AUDÍFONOS Y DIADEMAS
+  if (
+    c.includes("audio") ||
+    c.includes("aud") ||
+    c.includes("diadema") ||
+    n.includes("audifono") ||
+    n.includes("diadema") ||
+    n.includes("auricular") ||
+    n.includes("airpod") ||
+    n.includes("parlante") ||
+    n.includes("cabina")
+  ) {
+    return "/products/headphones.png";
+  }
+
+  // 5. RELOJES Y SMARTWATCHES
+  if (c.includes("reloj") || c.includes("smartwatch") || n.includes("reloj") || n.includes("watch")) {
+    return "/products/redmi_watch5.png";
+  }
+
+  // 6. GAMING Y CONSOLAS
+  if (c.includes("gaming") || n.includes("juego") || n.includes("consola") || n.includes("stick") || n.includes("tvbox")) {
+    return "/products/gamestick_4k.png";
+  }
+
+  // 7. COMPUTADORES Y PORTÁTILES
+  if (c.includes("computo") || n.includes("portatil") || n.includes("laptop") || n.includes("computador")) {
+    return "/products/lenovo.png";
+  }
+
+  // 8. CELULARES (Sólo si es explícitamente celular o smartphone)
+  if (c.includes("celular") || n.includes("celular") || n.includes("smartphone")) {
+    return "/products/samsung_s24_ultra.png";
+  }
+
+  return "/products/cargador_laptop_generico.jpg";
+}
+
 export default function CatalogoPage() {
   const { openCheckout } = useCart();
   const [selectedCategory, setSelectedCategory] = useState("Todos");
@@ -236,12 +379,16 @@ export default function CatalogoPage() {
                     )}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={item.image || "/products/smartphone.jpg"}
+                      src={item.image || getFallbackImage(item.category, item.name)}
                       alt={item.name}
                       loading="lazy"
-                      className="w-full h-full object-contain mix-blend-multiply transition-transform duration-350 group-hover:scale-105"
+                      className="w-full h-full object-contain transition-transform duration-350 group-hover:scale-105"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/products/smartphone.jpg";
+                        const target = e.currentTarget;
+                        if (!target.dataset.fallback) {
+                          target.dataset.fallback = "true";
+                          target.src = getFallbackImage(item.category, item.name);
+                        }
                       }}
                     />
                   </div>
@@ -295,12 +442,12 @@ export default function CatalogoPage() {
                           compareAtPrice: item.compareAtPrice ?? null,
                           currencyCode: "COP",
                           featuredImage: {
-                            url: item.image || "/products/smartphone.jpg",
+                            url: item.image || getFallbackImage(item.category, item.name),
                             altText: item.name,
                           },
                           images: [
                             {
-                              url: item.image || "/products/smartphone.jpg",
+                              url: item.image || getFallbackImage(item.category, item.name),
                               altText: item.name,
                             },
                           ],

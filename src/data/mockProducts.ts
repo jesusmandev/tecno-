@@ -199,12 +199,12 @@ export const mockProducts: Product[] = [
     compareAtPrice: 4_190_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/samsung s26 ultra.jpg",
+      url: "/products/samsung_s24_ultra.png",
       altText: "Samsung Galaxy S26 Ultra 256GB",
     },
     images: [
       {
-        url: "/products/samsung s26 ultra.jpg",
+        url: "/products/samsung_s24_ultra.png",
         altText: "Samsung Galaxy S26 Ultra 256GB",
       },
     ],
@@ -243,12 +243,12 @@ export const mockProducts: Product[] = [
     compareAtPrice: 1_300_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/reminote15pro.jpg",
+      url: "/products/redmi_note13_pro.png",
       altText: "Redmi Note 15 Pro",
     },
     images: [
       {
-        url: "/products/reminote15pro.jpg",
+        url: "/products/redmi_note13_pro.png",
         altText: "Redmi Note 15 Pro",
       },
     ],
@@ -319,12 +319,12 @@ export const mockProducts: Product[] = [
     compareAtPrice: 3_490_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/iphone-16-pro-max.jpg",
+      url: "/products/iphone16_desert.png",
       altText: "iPhone 16 Pro Max",
     },
     images: [
       {
-        url: "/products/iphone-16-pro-max.jpg",
+        url: "/products/iphone16_desert.png",
         altText: "iPhone 16 Pro Max",
       },
     ],
@@ -356,12 +356,12 @@ export const mockProducts: Product[] = [
     compareAtPrice: 3_450_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/galaxy_tab_s9.jpg",
+      url: "/products/galaxy_tab_s9.png",
       altText: "Samsung Galaxy Tab S9 Ultra",
     },
     images: [
       {
-        url: "/products/galaxy_tab_s9.jpg",
+        url: "/products/galaxy_tab_s9.png",
         altText: "Samsung Galaxy Tab S9 Ultra",
       },
     ],
@@ -413,43 +413,6 @@ export const mockProducts: Product[] = [
     ],
   },
   {
-    id: "galaxy-buds-pro",
-    title: "Galaxy Buds Pro Inalámbricos",
-    handle: "galaxy-buds-pro-inalambricos",
-    description: "Cancelación Activa de Ruido (ANC) · Audio 360",
-    descriptionHtml:
-      "<p>Audífonos inalámbricos de fidelidad estudio con <strong>Cancelación Activa de Ruido Inteligente</strong>, sonido inmersivo 360 con seguimiento de cabeza y llamadas ultranítidas.</p><ul><li>Cancelación Activa de Ruido inteligente con modo ambiente</li><li>Altavoces de 2 vías con sonido sintonizado profesional</li><li>Resistencia al agua certificada IPX7</li><li>Estuche de carga inalámbrica rápida Qi</li><li>Garantía directa con Tecno+</li></ul>",
-    vendor: "Samsung",
-    productType: "Audio",
-    category: "gaming",
-    badge: "Top Sonido",
-    badgeStyle: "dark",
-    whatsappText: "Hola Tecno+, quiero comprar los Galaxy Buds Pro por $420.000 COP",
-    tags: ["samsung", "buds", "audio", "auriculares", "anc", "bluetooth"],
-    price: 420_000,
-    compareAtPrice: 520_000,
-    currencyCode: "COP",
-    featuredImage: {
-      url: "/products/galaxy_buds_pro.jpg",
-      altText: "Galaxy Buds Pro Inalámbricos",
-    },
-    images: [
-      {
-        url: "/products/galaxy_buds_pro.jpg",
-        altText: "Galaxy Buds Pro Inalámbricos",
-      },
-    ],
-    variants: [
-      {
-        id: "var-gbudspro-white",
-        title: "Blanco Glaciar - Audio 360",
-        availableForSale: true,
-        price: 420_000,
-        compareAtPrice: 520_000,
-      },
-    ],
-  },
-  {
     id: "parlantes-premium-30w",
     title: "Parlantes Premium 30W RGB",
     handle: "parlantes-premium-30w",
@@ -467,12 +430,12 @@ export const mockProducts: Product[] = [
     compareAtPrice: 320_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/parlante_rgb.jpg",
+      url: "/products/parlante_rgb.png",
       altText: "Parlantes Premium 30W RGB",
     },
     images: [
       {
-        url: "/products/parlante_rgb.jpg",
+        url: "/products/parlante_rgb.png",
         altText: "Parlantes Premium 30W RGB",
       },
     ],
@@ -504,12 +467,12 @@ export const mockProducts: Product[] = [
     compareAtPrice: 360_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/redmi_watch5_studio.jpg",
+      url: "/products/redmi_watch5.png",
       altText: "Redmi Watch 5 Active",
     },
     images: [
       {
-        url: "/products/redmi_watch5_studio.jpg",
+        url: "/products/redmi_watch5.png",
         altText: "Redmi Watch 5 Active",
       },
     ],
@@ -541,12 +504,12 @@ export const mockProducts: Product[] = [
     compareAtPrice: 200_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/tvbox_g7_studio.jpg",
+      url: "/products/tvbox_g7.jpg",
       altText: "TvBox G7 Edición Araña",
     },
     images: [
       {
-        url: "/products/tvbox_g7_studio.jpg",
+        url: "/products/tvbox_g7.jpg",
         altText: "TvBox G7 Edición Araña",
       },
     ],
@@ -578,12 +541,12 @@ export const mockProducts: Product[] = [
     compareAtPrice: 210_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/gamestick_studio.jpg",
+      url: "/products/gamestick_4k.png",
       altText: "Game Stick Pro 4K M15",
     },
     images: [
       {
-        url: "/products/gamestick_studio.jpg",
+        url: "/products/gamestick_4k.png",
         altText: "Game Stick Pro 4K M15",
       },
     ],
@@ -615,12 +578,12 @@ export const mockProducts: Product[] = [
     compareAtPrice: 120_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/headphones.jpg",
+      url: "/products/headphones.png",
       altText: "AirPods Max 1.1",
     },
     images: [
       {
-        url: "/products/headphones.jpg",
+        url: "/products/headphones.png",
         altText: "AirPods Max 1.1",
       },
     ],
@@ -652,12 +615,12 @@ export const mockProducts: Product[] = [
     compareAtPrice: 95_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/cable_usbc_studio.jpg",
+      url: "/products/cable_usbc.png",
       altText: "Cable USB-C a Lightning",
     },
     images: [
       {
-        url: "/products/cable_usbc_studio.jpg",
+        url: "/products/cable_usbc.png",
         altText: "Cable USB-C a Lightning",
       },
     ],
