@@ -54,29 +54,69 @@ export default function Navbar() {
   // Derive active tab: If on /catalogo, it's always "catalogo"
   const currentActive = pathname === "/catalogo" ? "catalogo" : activeSection;
 
-  // Detect which section is active on homepage scroll
+  // Detect which section is active on homepage scroll (Detección automática precisa)
   useEffect(() => {
-    if (pathname !== "/") return;
+    if (pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
 
-    const sections = ["celulares", "combos", "opiniones", "gaming", "beneficios"];
+    const trackedSections = [
+      { navId: "beneficios", elId: "beneficios" },
+      { navId: "celulares", elId: "celulares" },
+      { navId: "gaming", elId: "gaming" },
+      { navId: "gaming", elId: "gadgets" },
+      { navId: "combos", elId: "combos" },
+      { navId: "opiniones", elId: "opiniones" },
+    ];
 
     const handleScroll = () => {
-      const scrollPos = window.scrollY + 200;
+      // 1. Si estamos muy arriba (Hero), no activar ninguna pestaña todavía
+      if (window.scrollY < 160) {
+        setActiveSection("");
+        return;
+      }
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const id = sections[i];
-        const el = document.getElementById(id);
+      // 2. Si el usuario llegó casi al fondo de la página, activar la última sección ("opiniones")
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight;
+      if (window.scrollY + clientHeight >= scrollHeight - 70) {
+        setActiveSection("opiniones");
+        return;
+      }
+
+      // 3. Punto focal de visión (a 180px debajo del borde superior)
+      const focalPoint = 180;
+      let matchedNavId = "";
+
+      for (const item of trackedSections) {
+        const el = document.getElementById(item.elId);
         if (el) {
-          const top = el.offsetTop;
-          if (scrollPos >= top) {
-            setActiveSection(id);
-            return;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= focalPoint && rect.bottom > focalPoint) {
+            matchedNavId = item.navId;
+            break;
           }
         }
       }
 
-      if (window.scrollY < 150) {
-        setActiveSection("");
+      // Fallback: Si queda en un margen entre secciones, tomar la sección más cercana superior
+      if (!matchedNavId) {
+        let maxPassedTop = -Infinity;
+        for (const item of trackedSections) {
+          const el = document.getElementById(item.elId);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= focalPoint && rect.top > maxPassedTop) {
+              maxPassedTop = rect.top;
+              matchedNavId = item.navId;
+            }
+          }
+        }
+      }
+
+      if (matchedNavId) {
+        setActiveSection(matchedNavId);
       }
     };
 
@@ -150,7 +190,21 @@ export default function Navbar() {
               <Link
                 key={item.id}
                 href={item.href}
-                onClick={() => setActiveSection(item.id)}
+                onClick={(e) => {
+                  if (pathname === "/" && item.href.startsWith("/#")) {
+                    e.preventDefault();
+                    const el = document.getElementById(item.id);
+                    if (el) {
+                      const topOffset = 85;
+                      const targetY =
+                        el.getBoundingClientRect().top + window.scrollY - topOffset;
+                      window.scrollTo({ top: targetY, behavior: "smooth" });
+                      setActiveSection(item.id);
+                    }
+                  } else {
+                    setActiveSection(item.id);
+                  }
+                }}
                 onMouseEnter={item.preload ? () => preload3DModels("high") : undefined}
                 className={currentActive === item.id ? "active" : ""}
               >

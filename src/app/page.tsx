@@ -109,7 +109,7 @@ export default function HomePage() {
       {/* =============================================
           4. MUNDO GAMER FEATURE BANNER
           ============================================= */}
-      <section className="tp-dark-bg tp-section">
+      <section id="gaming" className="tp-dark-bg tp-section">
         <div className="tp-container">
           <div className="tp-feature">
             <div className="tp-feature-copy">
@@ -137,7 +137,7 @@ export default function HomePage() {
       {/* =============================================
           5. CATÁLOGO DE GADGETS & ACCESORIOS (8 PRODUCTOS)
           ============================================= */}
-      <section id="gaming" className="tp-section">
+      <section id="gadgets" className="tp-section">
         <div className="tp-container">
           <div className="tp-head">
             <div>
