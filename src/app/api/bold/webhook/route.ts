@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { paymentService } from "@/backend/services/paymentService";
+import { productService } from "@/backend/services/productService";
 import type { PaymentStatus } from "@/backend/types";
 
 export async function POST(request: Request) {
@@ -16,8 +17,7 @@ export async function POST(request: Request) {
 
     // Firma opcional enviada por Bold
     const boldSignature = request.headers.get("x-bold-signature");
-    const apiKey =
-      process.env.BOLD_API_KEY || "KLnzKJLobCmzOJbWqHM02hdwrS7I9NAStL5FzSZH7Og";
+    const apiKey = process.env.BOLD_API_KEY;
 
     if (boldSignature && apiKey) {
       // Bold firma: HMAC-SHA256 del cuerpo en Base64 con la API Key
@@ -74,8 +74,14 @@ export async function POST(request: Request) {
     }
 
     if (newStatus) {
-      await paymentService.updateStatus(orderId, newStatus);
+      const updateResult = await paymentService.updateStatus(orderId, newStatus);
       console.log(`[Webhook Bold] Orden ${orderId} actualizada a: ${newStatus}`);
+
+      // SI EL PAGO FUE APROBADO: Descontar stock automáticamente en Supabase
+      if (newStatus === "approved" && updateResult.payment?.items) {
+        await productService.reduceStock(updateResult.payment.items, orderId);
+        console.log(`[Webhook Bold] Stock descontado para orden ${orderId}`);
+      }
     }
 
     return NextResponse.json({

@@ -106,8 +106,8 @@ DROP POLICY IF EXISTS payments_select_policy ON public.payments;
 CREATE POLICY payments_select_policy 
 ON public.payments 
 FOR SELECT 
-TO public, anon, authenticated 
-USING (true);
+TO authenticated 
+USING (auth.uid() = user_id AND auth.uid() IS NOT NULL);
 
 DROP POLICY IF EXISTS page_visits_select_policy ON public.page_visits;
 CREATE POLICY page_visits_select_policy 

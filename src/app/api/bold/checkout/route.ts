@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { paymentService } from "@/backend/services/paymentService";
+import { productService } from "@/backend/services/productService";
 import type { CreatePaymentInput } from "@/backend/types";
 
 export async function POST(request: Request) {
@@ -17,7 +18,6 @@ export async function POST(request: Request) {
       shipping_address,
       address_notes,
       items,
-      total,
       notes,
       user_id,
     } = body;
@@ -43,20 +43,16 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!items || !Array.isArray(items) || items.length === 0) {
+    // VALIDACIÓN SERVIDORAL DE PRECIOS Y STOCK REAL EN SUPABASE
+    const validation = await productService.validateOrderItems(items);
+    if (!validation.valid) {
       return NextResponse.json(
-        { error: "El carrito de compras esta vacio." },
+        { error: validation.error || "No se pudo validar el carrito." },
         { status: 400 }
       );
     }
 
-    const orderTotal = Math.round(Number(total) || 0);
-    if (orderTotal <= 0) {
-      return NextResponse.json(
-        { error: "El total a pagar debe ser mayor a 0." },
-        { status: 400 }
-      );
-    }
+    const orderTotal = Math.round(validation.totalAmount);
 
     const userAgent = request.headers.get("user-agent") || "";
     const ipAddress =
@@ -88,12 +84,16 @@ export async function POST(request: Request) {
     // El orderId con guiones (-) SI es valido segun la doc oficial de Bold
     const orderNumber = result.payment.order_number;
 
-    const apiKey =
-      process.env.BOLD_API_KEY ||
-      process.env.NEXT_PUBLIC_BOLD_API_KEY ||
-      "KLnzKJLobCmzOJbWqHM02hdwrS7I9NAStL5FzSZH7Og";
-    const secretKey =
-      process.env.BOLD_SECRET_KEY || "SlYtZtTycdHTsAo8OA8TPA";
+    const apiKey = process.env.BOLD_API_KEY || process.env.NEXT_PUBLIC_BOLD_API_KEY;
+    const secretKey = process.env.BOLD_SECRET_KEY;
+
+    if (!apiKey || !secretKey) {
+      console.error("Credenciales de Bold.co faltantes en .env.local");
+      return NextResponse.json(
+        { error: "Error de configuración en pasarela de pago (faltan llaves BOLD)." },
+        { status: 500 }
+      );
+    }
 
     // Firma SHA-256 segun doc Bold: {orderId}{amount}{currency}{secretKey}
     const currency = "COP";

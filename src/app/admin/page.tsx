@@ -69,22 +69,33 @@ export default function AdminDashboardPage() {
     }
   }, [isAuthenticated, loadDashboardData]);
 
-  // Manejar Login
-  const handleLogin = (e: React.FormEvent) => {
+  // Manejar Login seguro en servidor
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError(null);
-    // Valida contra la contraseña por defecto de .env.local
-    if (passwordInput === "tecnomasadmin2026") {
-      setIsAuthenticated(true);
-      sessionStorage.setItem("tp_admin_auth", "true");
-    } else {
-      setAuthError("Contraseña incorrecta. Por favor verifica.");
+    try {
+      const res = await fetch("/api/backend/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: passwordInput }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success && data.token) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem("tp_admin_auth", data.token);
+        sessionStorage.setItem("tp_admin_key", passwordInput);
+      } else {
+        setAuthError(data.error || "Contraseña incorrecta. Por favor verifica.");
+      }
+    } catch {
+      setAuthError("Error al conectar con el servidor de autenticación.");
     }
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
     sessionStorage.removeItem("tp_admin_auth");
+    sessionStorage.removeItem("tp_admin_key");
     setPasswordInput("");
   };
 
@@ -114,11 +125,12 @@ export default function AdminDashboardPage() {
   const handleSyncSupabase = async () => {
     setIsSyncing(true);
     setSyncResult(null);
+    const adminKey = sessionStorage.getItem("tp_admin_key") || passwordInput;
     try {
       const res = await fetch("/api/backend/sync", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ adminPassword: "tecnomasadmin2026" }),
+        body: JSON.stringify({ adminPassword: adminKey }),
       });
       const data = await res.json();
       setSyncResult({
@@ -133,6 +145,35 @@ export default function AdminDashboardPage() {
       });
     } finally {
       setIsSyncing(false);
+    }
+  };
+
+  // Sembrar Catálogo completo a Supabase (Productos, Categorías, Variantes, Inventario)
+  const [isSeedingCatalog, setIsSeedingCatalog] = useState<boolean>(false);
+  const [catalogSeedResult, setCatalogSeedResult] = useState<{ success: boolean; message: string } | null>(null);
+
+  const handleSeedCatalog = async () => {
+    setIsSeedingCatalog(true);
+    setCatalogSeedResult(null);
+    const adminKey = sessionStorage.getItem("tp_admin_key") || passwordInput;
+    try {
+      const res = await fetch("/api/backend/seed-catalog", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminPassword: adminKey }),
+      });
+      const data = await res.json();
+      setCatalogSeedResult({
+        success: data.success,
+        message: data.message || (data.success ? `¡Catálogo sembrado! (${data.insertedProductsCount} productos, ${data.categoriesCount} categorías)` : data.error),
+      });
+    } catch {
+      setCatalogSeedResult({
+        success: false,
+        message: "Error de red al sembrar el catálogo en Supabase.",
+      });
+    } finally {
+      setIsSeedingCatalog(false);
     }
   };
 
@@ -830,7 +871,15 @@ CREATE POLICY page_visits_select_policy ON public.page_visits FOR SELECT TO publ
                     disabled={isSyncing}
                     className="flex items-center gap-2 rounded-xl bg-neutral-800 px-4 py-2.5 text-xs font-bold text-neutral-200 hover:bg-neutral-700 transition"
                   >
-                    <span>{isSyncing ? "Sincronizando..." : "Sincronizar Datos"}</span>
+                    <span>{isSyncing ? "Sincronizando..." : "Sincronizar Pedidos/Visitas"}</span>
+                  </button>
+
+                  <button
+                    onClick={handleSeedCatalog}
+                    disabled={isSeedingCatalog}
+                    className="flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-red-500 transition shadow-lg shadow-red-600/30"
+                  >
+                    <span>{isSeedingCatalog ? "Cargando Catálogo..." : "📦 Cargar Catálogo e Inventario en Supabase"}</span>
                   </button>
                 </div>
               </div>
@@ -844,6 +893,18 @@ CREATE POLICY page_visits_select_policy ON public.page_visits FOR SELECT TO publ
                   }`}
                 >
                   {syncResult.message}
+                </div>
+              )}
+
+              {catalogSeedResult && (
+                <div
+                  className={`mt-4 rounded-xl p-3 text-xs font-medium border ${
+                    catalogSeedResult.success
+                      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+                      : "bg-amber-500/10 text-amber-400 border-amber-500/30"
+                  }`}
+                >
+                  {catalogSeedResult.message}
                 </div>
               )}
 

@@ -526,33 +526,50 @@ export default function ReviewsSection() {
   };
 
   // Funciones de Administrador
-  const handleAdminLogin = (e: React.FormEvent) => {
+  const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanPass = adminInputPassword.trim();
-    if (cleanPass === "tecnomasadmin2026") {
-      setIsAdmin(true);
-      try { sessionStorage.setItem("tecnoplus_admin_auth", "true"); } catch { /* ignore */ }
-      setShowAdminModal(false);
-      setAdminError(null);
-      setAdminInputPassword("");
-    } else {
-      setAdminError("Contraseña incorrecta. Intenta nuevamente.");
+    try {
+      const res = await fetch("/api/backend/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: cleanPass }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsAdmin(true);
+        try {
+          sessionStorage.setItem("tecnoplus_admin_auth", "true");
+          sessionStorage.setItem("tecnoplus_admin_key", cleanPass);
+        } catch { /* ignore */ }
+        setShowAdminModal(false);
+        setAdminError(null);
+        setAdminInputPassword("");
+      } else {
+        setAdminError(data.error || "Contraseña incorrecta. Intenta nuevamente.");
+      }
+    } catch {
+      setAdminError("Error al conectar con el servidor de autenticación.");
     }
   };
 
   const handleAdminLogout = () => {
     setIsAdmin(false);
-    try { sessionStorage.removeItem("tecnoplus_admin_auth"); } catch { /* ignore */ }
+    try {
+      sessionStorage.removeItem("tecnoplus_admin_auth");
+      sessionStorage.removeItem("tecnoplus_admin_key");
+    } catch { /* ignore */ }
   };
 
   const handleDeleteReview = async (id: string) => {
     if (!confirm("¿Deseas eliminar este comentario para siempre de la tienda y la base de datos?")) return;
 
+    const adminKey = sessionStorage.getItem("tecnoplus_admin_key") || "";
     try {
       const res = await fetch(`/api/reviews?id=${encodeURIComponent(id)}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ adminPassword: "tecnomasadmin2026" }),
+        body: JSON.stringify({ adminPassword: adminKey }),
       });
 
       if (res.ok) {
@@ -569,11 +586,12 @@ export default function ReviewsSection() {
   const handleSeedToSupabase = async () => {
     setIsSeeding(true);
     setSeedMessage(null);
+    const adminKey = sessionStorage.getItem("tecnoplus_admin_key") || "";
     try {
       const res = await fetch("/api/reviews/seed", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ adminPassword: "tecnomasadmin2026" }),
+        body: JSON.stringify({ adminPassword: adminKey }),
       });
       const data = await res.json();
       if (res.ok) {

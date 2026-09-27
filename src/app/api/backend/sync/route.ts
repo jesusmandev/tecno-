@@ -9,8 +9,8 @@ export async function POST(request: Request) {
     const body = await request.json().catch(() => ({}));
     const adminPassword = body.adminPassword || searchParams.get("adminPassword");
 
-    const expectedPassword = process.env.ADMIN_PASSWORD || "tecnomasadmin2026";
-    if (adminPassword !== expectedPassword) {
+    const expectedPassword = process.env.ADMIN_PASSWORD;
+    if (!expectedPassword || !adminPassword || adminPassword !== expectedPassword) {
       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
     }
 
