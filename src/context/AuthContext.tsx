@@ -97,17 +97,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    // Obtener sesión actual
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      const currentUser = session?.user ?? null;
-      setUser(currentUser);
-      if (currentUser) {
-        fetchProfile(currentUser).finally(() => setLoading(false));
-      } else {
-        setProfile(null);
-        setLoading(false);
+    // Si llegamos con un código OAuth PKCE en la URL, intercambiarlo por sesión
+    if (typeof window !== "undefined" && window.location.search.includes("code=")) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get("code");
+      if (code) {
+        supabase.auth.exchangeCodeForSession(code).then(({ data, error }) => {
+          if (!error && data?.session?.user) {
+            setUser(data.session.user);
+            fetchProfile(data.session.user).finally(() => setLoading(false));
+            // Limpiar la URL de parámetros feos de OAuth
+            const cleanUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, cleanUrl);
+          } else {
+            setLoading(false);
+          }
+        }).catch(() => setLoading(false));
       }
-    });
+    } else {
+      // Obtener sesión actual normalmente
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        const currentUser = session?.user ?? null;
+        setUser(currentUser);
+        if (currentUser) {
+          fetchProfile(currentUser).finally(() => setLoading(false));
+        } else {
+          setProfile(null);
+          setLoading(false);
+        }
+      });
+    }
 
     // Escuchar cambios de autenticación en tiempo real
     const {
@@ -131,11 +150,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Iniciar sesión con Google
   const signInWithGoogle = async () => {
     try {
-      const currentOrigin = typeof window !== "undefined" ? window.location.origin : "http://localhost:3000";
+      const currentOrigin =
+        typeof window !== "undefined" && window.location.origin
+          ? window.location.origin
+          : (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${currentOrigin}`,
+          redirectTo: `${currentOrigin}/auth/callback`,
           queryParams: {
             access_type: "offline",
             prompt: "consent",
