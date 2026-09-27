@@ -150,7 +150,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="tp-grid">
-            {gadgets.slice(0, 8).map((product) => (
+            {gadgets.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}

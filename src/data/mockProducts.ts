@@ -541,13 +541,25 @@ export const mockProducts: Product[] = [
     compareAtPrice: 210_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/gamestick_4k.png",
-      altText: "Game Stick Pro 4K M15",
+      url: "https://jaltechsas.com/wp-content/uploads/2023/11/GAME-STICK-CONSOLA-64G-M16_11393_M15_1.png",
+      altText: "Game Stick Pro 4K M15 - Portada Oficial Jaltech",
     },
     images: [
       {
-        url: "/products/gamestick_4k.png",
-        altText: "Game Stick Pro 4K M15",
+        url: "https://jaltechsas.com/wp-content/uploads/2023/11/GAME-STICK-CONSOLA-64G-M16_11393_M15_1.png",
+        altText: "Game Stick Pro 4K M15 - Portada Oficial",
+      },
+      {
+        url: "https://jaltechsas.com/wp-content/uploads/2023/11/GAME-STICK-CONSOLA-64G-M16_11393_M15_2.png",
+        altText: "Game Stick Pro 4K M15 - Mandos Inalámbricos Duales",
+      },
+      {
+        url: "https://jaltechsas.com/wp-content/uploads/2023/11/GAME-STICK-CONSOLA-64G-M16_11393_M15_3.png",
+        altText: "Game Stick Pro 4K M15 - Dongle HDMI 4K Ultra HD",
+      },
+      {
+        url: "https://jaltechsas.com/wp-content/uploads/2023/11/GAME-STICK-CONSOLA-64G-M16_11393_M15_4.png",
+        altText: "Game Stick Pro 4K M15 - Accesorios y Cable de Poder",
       },
     ],
     variants: [
@@ -589,8 +601,15 @@ export const mockProducts: Product[] = [
     ],
     variants: [
       {
-        id: "var-apmax-black",
-        title: "Negro Espacial",
+        id: "var-apmax-space",
+        title: "Gris Espacial",
+        availableForSale: true,
+        price: 85_000,
+        compareAtPrice: 120_000,
+      },
+      {
+        id: "var-apmax-silver",
+        title: "Plata",
         availableForSale: true,
         price: 85_000,
         compareAtPrice: 120_000,
@@ -615,13 +634,25 @@ export const mockProducts: Product[] = [
     compareAtPrice: 95_000,
     currencyCode: "COP",
     featuredImage: {
-      url: "/products/cable_usbc.png",
-      altText: "Cable USB-C a Lightning",
+      url: "https://jaltechsas.com/wp-content/uploads/2024/07/CABLE-TIPO-C-A-LIGHTNING-1M_30626_JAL-09L_1.png",
+      altText: "Cable Tipo C a Lightning 1M Jaltech - Portada",
     },
     images: [
       {
-        url: "/products/cable_usbc.png",
-        altText: "Cable USB-C a Lightning",
+        url: "https://jaltechsas.com/wp-content/uploads/2024/07/CABLE-TIPO-C-A-LIGHTNING-1M_30626_JAL-09L_1.png",
+        altText: "Cable Tipo C a Lightning 1M - Portada",
+      },
+      {
+        url: "https://jaltechsas.com/wp-content/uploads/2024/07/CABLE-TIPO-C-A-LIGHTNING-1M_30626_JAL-09L_2.jpg",
+        altText: "Cable Tipo C a Lightning 1M - Detalle de conector",
+      },
+      {
+        url: "https://jaltechsas.com/wp-content/uploads/2024/07/CABLE-TIPO-C-A-LIGHTNING-1M_30626_JAL-09L_1.png",
+        altText: "Cable Tipo C a Lightning 1M - Vista frontal",
+      },
+      {
+        url: "https://jaltechsas.com/wp-content/uploads/2024/07/CABLE-TIPO-C-A-LIGHTNING-1M_30626_JAL-09L_2.jpg",
+        altText: "Cable Tipo C a Lightning 1M - Empaque y certificación",
       },
     ],
     variants: [

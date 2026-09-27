@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { formatPrice, type Product } from "@/data/mockProducts";
 import ProductImageContainer from "./ProductImageContainer";
@@ -15,6 +16,38 @@ export default function ProductCard({
   buttonTheme = "red",
 }: ProductCardProps) {
   const { openCheckout } = useCart();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const cardImages =
+    product.images && product.images.length > 0
+      ? product.images
+      : [product.featuredImage];
+  const hasCarousel = cardImages.length > 1;
+
+  const currentImage = cardImages[currentImageIndex] || product.featuredImage;
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? cardImages.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) =>
+      prev === cardImages.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const handleDotClick = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex(index);
+  };
+
   const hasDiscount =
     product.compareAtPrice !== null && product.compareAtPrice > product.price;
 
@@ -51,13 +84,58 @@ export default function ProductCard({
         <span className="tp-check">✓</span>
       </div>
 
-      {/* Picture container (Modular for future 3D viewer) */}
-      <Link href={`/productos/${product.id}`} className="tp-pic">
-        <ProductImageContainer
-          src={product.featuredImage.url}
-          alt={product.featuredImage.altText}
-        />
-      </Link>
+      {/* Picture container con carrusel interactivo en la portada */}
+      <div className="tp-pic-wrapper">
+        <Link href={`/productos/${product.id}`} className="tp-pic">
+          <ProductImageContainer
+            src={currentImage.url}
+            alt={currentImage.altText || product.title}
+          />
+        </Link>
+
+        {/* Controles de carrusel (portada + fotos adicionales) */}
+        {hasCarousel && (
+          <>
+            <button
+              type="button"
+              onClick={handlePrevImage}
+              className="tp-pic-arrow tp-pic-arrow-left"
+              aria-label="Imagen anterior"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={handleNextImage}
+              className="tp-pic-arrow tp-pic-arrow-right"
+              aria-label="Imagen siguiente"
+            >
+              ›
+            </button>
+
+            {/* Puntos indicadores del carrusel */}
+            <div
+              className="tp-pic-dots"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              {cardImages.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={(e) => handleDotClick(e, idx)}
+                  className={`tp-pic-dot ${
+                    idx === currentImageIndex ? "active" : ""
+                  }`}
+                  aria-label={`Ver imagen ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
 
       {/* Brand */}
       <small>TECNO+</small>

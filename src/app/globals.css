@@ -536,6 +536,11 @@ a {
   color: #111111;
 }
 
+.tp-pic-wrapper {
+  position: relative;
+  width: 100%;
+}
+
 .tp-pic {
   height: 235px;
   display: grid;
@@ -547,11 +552,107 @@ a {
   max-width: 92%;
   height: 220px;
   object-fit: contain;
-  transition: transform 0.35s;
+  transition: transform 0.35s ease, opacity 0.25s ease;
 }
 
 .tp-card:hover .tp-pic img {
-  transform: scale(1.06);
+  transform: scale(1.04);
+}
+
+/* Controles de carrusel en portada */
+.tp-pic-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.2s ease, background 0.2s ease;
+  user-select: none;
+}
+
+.tp-card:hover .tp-pic-arrow {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tp-pic-arrow:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+.tp-pic-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.tp-pic-arrow-left {
+  left: 6px;
+}
+
+.tp-pic-arrow-right {
+  right: 6px;
+}
+
+.tp-pic-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.tp-pic-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.22);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tp-pic-dot:hover {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.tp-pic-dot.active {
+  width: 16px;
+  border-radius: 999px;
+  background: var(--red, #e02424);
+  box-shadow: 0 1px 4px rgba(224, 36, 36, 0.35);
+}
+
+@media (max-width: 768px) {
+  .tp-pic-arrow {
+    opacity: 0.85;
+    pointer-events: auto;
+    width: 26px;
+    height: 26px;
+    font-size: 16px;
+  }
 }
 
 .tp-card small {
