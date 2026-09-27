@@ -9,6 +9,7 @@ import { formatPrice } from "@/data/mockProducts";
 import SearchBar from "./SearchBar";
 import CheckoutDrawer from "./CheckoutDrawer";
 import { preload3DModels } from "@/lib/preload3D";
+import { useAuth } from "@/context/AuthContext";
 
 const NAV_ITEMS = [
   { id: "celulares", label: "Celulares", href: "/#celulares" },
@@ -23,6 +24,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+  const { user, profile, loading: authLoading, signInWithGoogle, signOut } = useAuth();
 
   const {
     totalQuantity,
@@ -180,6 +184,116 @@ export default function Navbar() {
                 />
               </svg>
             </button>
+
+            {/* User Account / Google Login Button */}
+            <div className="relative">
+              {authLoading ? (
+                <div className="h-8 w-8 rounded-full bg-neutral-200 animate-pulse" />
+              ) : user ? (
+                <div>
+                  <button
+                    onClick={() => setUserMenuOpen((prev) => !prev)}
+                    className="flex items-center gap-1.5 rounded-full border border-black/10 bg-white p-1 pr-2.5 text-xs font-semibold text-neutral-800 shadow-sm transition hover:bg-neutral-50 hover:shadow"
+                    aria-label="Menú de usuario"
+                  >
+                    {profile?.avatar_url || user.user_metadata?.avatar_url ? (
+                      <img
+                        src={profile?.avatar_url || user.user_metadata?.avatar_url}
+                        alt="Avatar"
+                        className="h-6 w-6 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--red)] text-[11px] font-bold text-white">
+                        {(profile?.full_name || user.email || "U")[0].toUpperCase()}
+                      </div>
+                    )}
+                    <span className="hidden sm:inline max-w-[90px] truncate text-[12px]">
+                      {(profile?.full_name || user.user_metadata?.name || user.email?.split("@")[0] || "Mi Cuenta").split(" ")[0]}
+                    </span>
+                    <svg
+                      className={`h-3 w-3 text-neutral-500 transition-transform ${userMenuOpen ? "rotate-180" : ""}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2.5}
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                    </svg>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {userMenuOpen && (
+                    <>
+                      <div
+                        className="fixed inset-0 z-40"
+                        onClick={() => setUserMenuOpen(false)}
+                      />
+                      <div className="absolute right-0 top-full mt-2 z-50 w-64 rounded-2xl border border-black/10 bg-white p-3 shadow-xl space-y-2">
+                        <div className="border-b border-black/5 pb-2">
+                          <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-600">
+                            <span>●</span> Cuenta Google Conectada
+                          </div>
+                          <p className="font-bold text-neutral-900 text-xs truncate">
+                            {profile?.full_name || user.email}
+                          </p>
+                          <p className="text-[11px] text-neutral-500 truncate">{user.email}</p>
+                        </div>
+
+                        {profile?.shipping_address && (
+                          <div className="rounded-lg bg-neutral-50 p-2 text-[11px] text-neutral-600 space-y-0.5">
+                            <span className="font-semibold text-neutral-700 block text-[10px] uppercase">
+                              Dirección de entrega:
+                            </span>
+                            <p className="truncate">📍 {profile.shipping_address}</p>
+                            <p className="text-neutral-400 text-[10px]">
+                              {profile.city || "Montería"}, {profile.department || "Córdoba"}
+                            </p>
+                          </div>
+                        )}
+
+                        <div className="pt-1">
+                          <button
+                            onClick={() => {
+                              signOut();
+                              setUserMenuOpen(false);
+                            }}
+                            className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-neutral-100 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition"
+                          >
+                            Cerrar sesión
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={() => signInWithGoogle()}
+                  className="flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-semibold text-neutral-800 shadow-sm transition hover:bg-neutral-50 hover:shadow"
+                  title="Iniciar sesión con Google para autocompletar tus datos"
+                >
+                  <svg className="h-3.5 w-3.5" viewBox="0 0 24 24">
+                    <path
+                      fill="#4285F4"
+                      d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.16 0 9.97 0 12s.45 3.84 1.25 5.42l4.03-3.15z"
+                    />
+                    <path
+                      fill="#EA4335"
+                      d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
+                    />
+                  </svg>
+                  <span className="hidden sm:inline">Ingresar</span>
+                </button>
+              )}
+            </div>
 
             {/* Cart Button */}
             <button

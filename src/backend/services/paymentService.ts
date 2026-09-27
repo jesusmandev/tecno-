@@ -31,6 +31,7 @@ export const paymentService = {
     const newPayment: PaymentRecord = {
       id,
       order_number: orderNumber,
+      user_id: input.user_id || undefined,
       customer_name: input.customer_name.trim(),
       customer_email: input.customer_email?.trim() || "",
       customer_phone: input.customer_phone.trim(),
@@ -58,6 +59,27 @@ export const paymentService = {
     // Intentar guardar en Supabase
     try {
       const admin = getSupabaseAdmin();
+
+      // Si el cliente está autenticado, actualizar su perfil con los datos más recientes
+      if (input.user_id) {
+        try {
+          await admin.from("customer_profiles").upsert({
+            id: input.user_id,
+            email: input.customer_email?.trim() || "",
+            full_name: input.customer_name.trim(),
+            phone: input.customer_phone.trim(),
+            document_id: input.customer_id_number?.trim() || "",
+            shipping_address: input.shipping_address.trim(),
+            city: input.city?.trim() || "Montería",
+            department: input.department?.trim() || "Córdoba",
+            address_notes: input.address_notes?.trim() || "",
+            updated_at: now,
+          });
+        } catch (e: unknown) {
+          console.warn("No se pudo actualizar customer_profile:", e);
+        }
+      }
+
       const { data, error } = await admin
         .from("payments")
         .insert([newPayment])

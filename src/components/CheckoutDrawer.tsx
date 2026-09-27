@@ -3,6 +3,7 @@
 import { useState, useRef, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 import { formatPrice } from "@/data/mockProducts";
 
 type PaymentMethod = "bold" | "cash_on_delivery";
@@ -36,6 +37,9 @@ export default function CheckoutDrawer() {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("bold");
   const boldContainerRef = useRef<HTMLDivElement>(null);
 
+  // Auth Context (Google Login & Profile)
+  const { user, profile, signInWithGoogle, updateProfile } = useAuth();
+
   // Customer Info
   const [customerName, setCustomerName] = useState("");
   const [documentId, setDocumentId] = useState("");
@@ -44,6 +48,35 @@ export default function CheckoutDrawer() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("Montería");
   const [department, setDepartment] = useState("Córdoba");
+
+  // Autocompletar automáticamente datos del cliente si tiene sesión iniciada o datos guardados
+  useEffect(() => {
+    if (profile) {
+      if (profile.full_name && !customerName) setCustomerName(profile.full_name);
+      if (profile.email && !email) setEmail(profile.email);
+      if (profile.phone && !phone) setPhone(profile.phone);
+      if (profile.document_id && !documentId) setDocumentId(profile.document_id);
+      if (profile.shipping_address && !address) setAddress(profile.shipping_address);
+      if (profile.city) setCity(profile.city);
+      if (profile.department) setDepartment(profile.department);
+    } else if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("tecnoplus_customer_info");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.customerName && !customerName) setCustomerName(parsed.customerName);
+          if (parsed.email && !email) setEmail(parsed.email);
+          if (parsed.phone && !phone) setPhone(parsed.phone);
+          if (parsed.documentId && !documentId) setDocumentId(parsed.documentId);
+          if (parsed.address && !address) setAddress(parsed.address);
+          if (parsed.city) setCity(parsed.city);
+          if (parsed.department) setDepartment(parsed.department);
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, [profile]);
 
   // Validation & status
   const [validationError, setValidationError] = useState<string | null>(null);
@@ -123,9 +156,40 @@ export default function CheckoutDrawer() {
       image: item.product.featuredImage?.url,
     }));
 
+    // Guardar o actualizar perfil en Supabase si está autenticado
+    if (user) {
+      updateProfile({
+        full_name: customerName,
+        phone,
+        document_id: documentId,
+        shipping_address: address,
+        city,
+        department,
+      }).catch((e) => console.warn("Error guardando perfil:", e));
+    }
+
+    // Guardar también en localStorage como respaldo local
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem(
+          "tecnoplus_customer_info",
+          JSON.stringify({
+            customerName,
+            email,
+            phone,
+            documentId,
+            address,
+            city,
+            department,
+          })
+        );
+      } catch (e) {}
+    }
+
     if (paymentMethod === "bold") {
       try {
         const payload = {
+          user_id: user?.id,
           customer_name: customerName,
           customer_email: email,
           customer_phone: phone,
@@ -163,6 +227,7 @@ export default function CheckoutDrawer() {
       // Pago Contra Entrega
       try {
         const payload = {
+          user_id: user?.id,
           customer_name: customerName,
           customer_email: email,
           customer_phone: phone,
@@ -326,6 +391,81 @@ export default function CheckoutDrawer() {
                     <circle cx="12" cy="16" r="1" fill="#fff" />
                   </svg>
                   <span>{validationError}</span>
+                </div>
+              )}
+
+              {/* Google Authentication & Auto-fill Banner */}
+              {user ? (
+                <div className="rounded-2xl border border-emerald-500/20 bg-emerald-50/60 p-3.5 flex items-center justify-between gap-3 shadow-xs">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    {profile?.avatar_url || user.user_metadata?.avatar_url ? (
+                      <img
+                        src={profile?.avatar_url || user.user_metadata?.avatar_url}
+                        alt="Avatar"
+                        className="h-8 w-8 rounded-full border border-emerald-300 object-cover shrink-0"
+                      />
+                    ) : (
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-xs font-bold text-white">
+                        {(customerName || user.email || "U")[0].toUpperCase()}
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-800">
+                        <span>✓</span> Sesión iniciada con Google
+                      </div>
+                      <p className="text-[11px] text-neutral-600 font-medium truncate">
+                        {user.email} · Tus datos se guardan en la nube
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCustomerName("");
+                      setPhone("");
+                      setAddress("");
+                      setDocumentId("");
+                    }}
+                    className="text-[11px] font-semibold text-neutral-500 hover:text-neutral-800 underline shrink-0 transition"
+                  >
+                    Cambiar datos
+                  </button>
+                </div>
+              ) : (
+                <div className="rounded-2xl border border-neutral-200 bg-gradient-to-r from-neutral-50 via-white to-neutral-50 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+                  <div className="space-y-0.5">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-900">
+                      <span>⚡</span> Autocompletar con Google
+                    </div>
+                    <p className="text-[11px] text-neutral-500">
+                      Inicia sesión para autocompletar tu dirección y datos de entrega en 1 clic.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => signInWithGoogle()}
+                    className="flex items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white px-3.5 py-2 text-xs font-semibold text-neutral-800 shadow-xs hover:bg-neutral-50 hover:border-neutral-400 transition shrink-0"
+                  >
+                    <svg className="h-3.5 w-3.5" viewBox="0 0 24 24">
+                      <path
+                        fill="#4285F4"
+                        d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"
+                      />
+                      <path
+                        fill="#34A853"
+                        d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
+                      />
+                      <path
+                        fill="#FBBC05"
+                        d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.16 0 9.97 0 12s.45 3.84 1.25 5.42l4.03-3.15z"
+                      />
+                      <path
+                        fill="#EA4335"
+                        d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
+                      />
+                    </svg>
+                    <span>Continuar con Google</span>
+                  </button>
                 </div>
               )}
 

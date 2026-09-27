@@ -23,6 +23,7 @@ export interface OrderItem {
 export interface PaymentRecord {
   id: string;
   order_number: string;
+  user_id?: string;
   customer_name: string;
   customer_email?: string;
   customer_phone: string;
@@ -48,6 +49,7 @@ export interface PaymentRecord {
 }
 
 export interface CreatePaymentInput {
+  user_id?: string;
   customer_name: string;
   customer_email?: string;
   customer_phone: string;

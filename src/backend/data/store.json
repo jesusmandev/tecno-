@@ -411,6 +411,26 @@
   ],
   "visits": [
     {
+      "id": "vis-1790377376212-oh7wtw",
+      "visitor_id": "vis_1790371447007_mlsfbut",
+      "session_id": "sess_1790371447008_ns0gh73",
+      "page_path": "/",
+      "referrer": "http://localhost:3000/",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T23:02:56.211Z"
+    },
+    {
+      "id": "vis-1790377263769-y4khw3",
+      "visitor_id": "vis_1790374072606_ayjhxbh",
+      "session_id": "sess_1790374072606_n68v6fc",
+      "page_path": "/",
+      "referrer": "",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-25T23:01:03.769Z"
+    },
+    {
       "id": "vis-1790374072643-2z1tzr",
       "visitor_id": "vis_1790374072606_ayjhxbh",
       "session_id": "sess_1790374072606_n68v6fc",
@@ -535,5 +555,5 @@
       "created_at": "2026-09-25T17:44:02.977Z"
     }
   ],
-  "lastUpdated": "2026-09-25T22:08:15.352Z"
+  "lastUpdated": "2026-09-25T23:02:56.559Z"
 }

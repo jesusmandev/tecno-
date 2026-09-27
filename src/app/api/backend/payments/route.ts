@@ -60,6 +60,7 @@ export async function POST(request: Request) {
       "";
 
     const paymentInput: CreatePaymentInput = {
+      user_id: body.user_id || undefined,
       customer_name,
       customer_email: body.customer_email,
       customer_phone,

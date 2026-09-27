@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { paymentService } from "@/backend/services/paymentService";
 import type { CreatePaymentInput } from "@/backend/types";
@@ -19,6 +19,7 @@ export async function POST(request: Request) {
       items,
       total,
       notes,
+      user_id,
     } = body;
 
     if (!customer_name?.trim()) {
@@ -64,6 +65,7 @@ export async function POST(request: Request) {
       "";
 
     const paymentInput: CreatePaymentInput = {
+      user_id: user_id || undefined,
       customer_name: customer_name.trim(),
       customer_email: customer_email?.trim() || "",
       customer_phone: customer_phone.trim(),
