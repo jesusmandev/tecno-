@@ -198,7 +198,6 @@ export default function CheckoutDrawer() {
           city: city || "Montería",
           shipping_address: address,
           items: mappedItems,
-          total: activeTotal,
         };
 
         const res = await fetch("/api/bold/checkout", {
@@ -237,9 +236,6 @@ export default function CheckoutDrawer() {
           shipping_address: address,
           payment_method: "cash_on_delivery",
           items: mappedItems,
-          subtotal: activeTotal,
-          shipping_cost: 0,
-          total: activeTotal,
         };
 
         const res = await fetch("/api/backend/payments", {

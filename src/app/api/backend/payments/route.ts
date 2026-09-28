@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { paymentService } from "@/backend/services/paymentService";
+import { productService } from "@/backend/services/productService";
 import type { CreatePaymentInput } from "@/backend/types";
 
 // POST: Registrar un nuevo pago / orden
@@ -59,6 +60,17 @@ export async function POST(request: Request) {
       request.headers.get("x-real-ip") ||
       "";
 
+    // VALIDACIÓN SERVIDORAL DE PRECIOS Y STOCK REAL EN SUPABASE
+    const validation = await productService.validateOrderItems(items);
+    if (!validation.valid) {
+      return NextResponse.json(
+        { error: validation.error || "No se pudo validar el carrito." },
+        { status: 400 }
+      );
+    }
+
+    const orderTotal = Math.round(validation.totalAmount);
+
     const paymentInput: CreatePaymentInput = {
       user_id: body.user_id || undefined,
       customer_name,
@@ -71,16 +83,21 @@ export async function POST(request: Request) {
       address_notes: body.address_notes,
       payment_method,
       payment_method_detail: body.payment_method_detail,
-      items,
-      subtotal: body.subtotal || total,
-      shipping_cost: body.shipping_cost || 0,
-      total: total || 0,
+      items: validation.validatedItems,
+      subtotal: orderTotal,
+      shipping_cost: 0,
+      total: orderTotal,
       notes: body.notes,
       ip_address: ipAddress,
       user_agent: userAgent,
     };
 
     const result = await paymentService.createPayment(paymentInput);
+
+    // Si es contra entrega, apartar stock en base de datos
+    if (payment_method === "cash_on_delivery") {
+      await productService.reduceStock(validation.validatedItems, result.payment.order_number);
+    }
 
     return NextResponse.json({
       success: true,
