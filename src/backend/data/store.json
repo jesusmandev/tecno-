@@ -449,6 +449,16 @@
   ],
   "visits": [
     {
+      "id": "vis-1790563218478-ho6x5f",
+      "visitor_id": "vis_1790371447007_mlsfbut",
+      "session_id": "sess_1790545591537_y1xl7k8",
+      "page_path": "/catalogo",
+      "referrer": "http://localhost:3000/catalogo",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-28T02:40:18.477Z"
+    },
+    {
       "id": "vis-1790561483596-cylq4c",
       "visitor_id": "vis_1790371447007_mlsfbut",
       "session_id": "sess_1790545591537_y1xl7k8",
@@ -753,5 +763,5 @@
       "created_at": "2026-09-25T17:44:02.977Z"
     }
   ],
-  "lastUpdated": "2026-09-28T02:11:35.132Z"
+  "lastUpdated": "2026-09-28T02:40:22.840Z"
 }
