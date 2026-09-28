@@ -149,10 +149,12 @@ export default function CheckoutDrawer() {
     // Preparar items del pedido
     const mappedItems = checkoutItems.map((item) => ({
       id: item.product.id,
+      product_id: item.product.id,
+      variant_id: item.variant?.id,
       title: item.product.title,
-      price: item.variant.price,
+      price: item.variant?.price,
       quantity: item.quantity,
-      variantTitle: item.variant.title,
+      variantTitle: item.variant?.title,
       image: item.product.featuredImage?.url,
     }));
 
