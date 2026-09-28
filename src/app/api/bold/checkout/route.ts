@@ -105,7 +105,10 @@ export async function POST(request: Request) {
       .digest("hex");
 
     const host = request.headers.get("host") || "localhost:3000";
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || `https://${host}`;
+    // VERCEL_URL es inyectado automáticamente por Vercel en producción (sin protocolo).
+    // NEXT_PUBLIC_SITE_URL tiene prioridad si el usuario lo configuró en el panel de Vercel.
+    const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || vercelUrl || `https://${host}`;
     // Bold REQUIERE que redirection_url sea https:// siempre
     const redirectionUrl = siteUrl.replace(/^http:\/\//, "https://") + "/pago/resultado";
 
