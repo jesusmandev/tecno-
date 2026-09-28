@@ -15,6 +15,7 @@ interface InventarioItem {
   stock: number;
   category: string;
   image?: string;
+  images?: string[];
   description?: string;
   jaltechCode?: string;
   jaltechUrl?: string;
@@ -189,8 +190,19 @@ export default function CatalogoPage() {
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "name">("featured");
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const [selectedProduct, setSelectedProduct] = useState<InventarioItem | null>(null);
+  const [modalImageIndex, setModalImageIndex] = useState(0);
 
   const items = inventarioData as InventarioItem[];
+
+  // Lista de imágenes disponibles para el producto seleccionado en el modal
+  const productImages = useMemo(() => {
+    if (!selectedProduct) return [];
+    if (Array.isArray(selectedProduct.images) && selectedProduct.images.length > 0) {
+      return selectedProduct.images;
+    }
+    const fallback = selectedProduct.image || getFallbackImage(selectedProduct.category, selectedProduct.name);
+    return [fallback];
+  }, [selectedProduct]);
 
   // Filtered and sorted products
   const filteredProducts = useMemo(() => {
@@ -361,7 +373,10 @@ export default function CatalogoPage() {
             {visibleProducts.map((item) => (
               <div
                 key={item.id}
-                onClick={() => setSelectedProduct(item)}
+                onClick={() => {
+                  setSelectedProduct(item);
+                  setModalImageIndex(0);
+                }}
                 className="group flex flex-col justify-between rounded-2xl border border-[#e8e8ea] bg-white p-4 sm:p-5 shadow-xs transition-all hover:shadow-xl hover:border-red-300 hover:-translate-y-1 cursor-pointer relative"
               >
                 {/* Header Tag & Code */}
@@ -454,15 +469,17 @@ export default function CatalogoPage() {
                           compareAtPrice: item.compareAtPrice ?? null,
                           currencyCode: "COP",
                           featuredImage: {
-                            url: item.image || getFallbackImage(item.category, item.name),
+                            url: (item.images && item.images[0]) || item.image || getFallbackImage(item.category, item.name),
                             altText: item.name,
                           },
-                          images: [
-                            {
-                              url: item.image || getFallbackImage(item.category, item.name),
-                              altText: item.name,
-                            },
-                          ],
+                          images: Array.isArray(item.images) && item.images.length > 0
+                            ? item.images.map((url, i) => ({ url, altText: `${item.name} - ${i + 1}` }))
+                            : [
+                                {
+                                  url: item.image || getFallbackImage(item.category, item.name),
+                                  altText: item.name,
+                                },
+                              ],
                           variants: [
                             {
                               id: `var-${item.id}`,
@@ -563,13 +580,14 @@ export default function CatalogoPage() {
               )}
             </div>
 
-            {/* Imagen Principal Grande */}
-            <div className="relative w-full h-64 sm:h-72 bg-[#fbfbfc] rounded-2xl overflow-hidden mb-4 flex items-center justify-center p-4 border border-gray-100">
+            {/* Imagen Principal Grande con soporte multi-ángulo / galería */}
+            <div className="relative w-full h-64 sm:h-80 bg-[#fbfbfc] rounded-2xl overflow-hidden mb-3 flex items-center justify-center p-4 border border-gray-100 group/img">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={selectedProduct.image || getFallbackImage(selectedProduct.category, selectedProduct.name)}
-                alt={selectedProduct.name}
-                className="max-h-full max-w-full object-contain"
+                key={modalImageIndex}
+                src={productImages[modalImageIndex] || selectedProduct.image || getFallbackImage(selectedProduct.category, selectedProduct.name)}
+                alt={`${selectedProduct.name} - Vista ${modalImageIndex + 1}`}
+                className="max-h-full max-w-full object-contain transition-all duration-300"
                 onError={(e) => {
                   const target = e.currentTarget;
                   if (!target.dataset.fallback) {
@@ -578,7 +596,65 @@ export default function CatalogoPage() {
                   }
                 }}
               />
+
+              {/* Botones de navegación Prev / Next si hay más de 1 imagen */}
+              {productImages.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setModalImageIndex((prev) => (prev > 0 ? prev - 1 : productImages.length - 1));
+                    }}
+                    className="absolute left-2.5 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-md text-gray-700 hover:bg-white hover:text-black transition"
+                    aria-label="Imagen anterior"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setModalImageIndex((prev) => (prev < productImages.length - 1 ? prev + 1 : 0));
+                    }}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-md text-gray-700 hover:bg-white hover:text-black transition"
+                    aria-label="Siguiente imagen"
+                  >
+                    ›
+                  </button>
+
+                  {/* Contador de imágenes */}
+                  <span className="absolute bottom-2.5 right-3 rounded-full bg-black/70 px-2.5 py-0.5 text-[11px] font-semibold text-white tracking-wider backdrop-blur-xs">
+                    {modalImageIndex + 1} / {productImages.length}
+                  </span>
+                </>
+              )}
             </div>
+
+            {/* Tira de Miniaturas (thumbnails) si hay más de 1 imagen */}
+            {productImages.length > 1 && (
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-4 scrollbar-thin">
+                {productImages.map((imgUrl, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setModalImageIndex(idx)}
+                    className={`relative h-16 w-16 flex-shrink-0 rounded-xl overflow-hidden border-2 transition-all p-1 bg-[#fbfbfc] ${
+                      idx === modalImageIndex
+                        ? "border-[var(--red)] shadow-md ring-2 ring-red-100"
+                        : "border-gray-200 hover:border-gray-400 opacity-60 hover:opacity-100"
+                    }`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={imgUrl}
+                      alt={`${selectedProduct.name} - miniatura ${idx + 1}`}
+                      className="h-full w-full object-contain"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Título */}
             <h2 className="text-lg sm:text-xl font-black text-[#111] leading-snug mb-3">
@@ -667,15 +743,17 @@ export default function CatalogoPage() {
                       compareAtPrice: prod.compareAtPrice ?? null,
                       currencyCode: "COP",
                       featuredImage: {
-                        url: prod.image || getFallbackImage(prod.category, prod.name),
+                        url: (prod.images && prod.images[0]) || prod.image || getFallbackImage(prod.category, prod.name),
                         altText: prod.name,
                       },
-                      images: [
-                        {
-                          url: prod.image || getFallbackImage(prod.category, prod.name),
-                          altText: prod.name,
-                        },
-                      ],
+                      images: Array.isArray(prod.images) && prod.images.length > 0
+                        ? prod.images.map((url, i) => ({ url, altText: `${prod.name} - ${i + 1}` }))
+                        : [
+                            {
+                              url: prod.image || getFallbackImage(prod.category, prod.name),
+                              altText: prod.name,
+                            },
+                          ],
                       variants: [
                         {
                           id: `var-${prod.id}`,

@@ -81,7 +81,15 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/iphone17promax.jpg",
-        altText: "iPhone 17 Pro Max",
+        altText: "iPhone 17 Pro Max - Frontal y Marco Titanio",
+      },
+      {
+        url: "/products/phone18proax.jpg",
+        altText: "iPhone 17 Pro Max - Módulo de Cámaras y Trasera",
+      },
+      {
+        url: "/products/iphone16_desert.png",
+        altText: "iPhone 17 Pro Max - Vista Lateral y Pantalla",
       },
     ],
     variants: [
@@ -125,7 +133,15 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/phone16promax.jpg",
-        altText: "iPhone 16 Pro Max",
+        altText: "iPhone 16 Pro Max - Titanio Desierto Frontal",
+      },
+      {
+        url: "/products/iphone16_desert.png",
+        altText: "iPhone 16 Pro Max - Acabado Titanio y Bisel",
+      },
+      {
+        url: "/products/iphone-16-pro-max.jpg",
+        altText: "iPhone 16 Pro Max - Sistema de Cámaras Pro",
       },
     ],
     variants: [
@@ -169,7 +185,11 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/lenovo.png",
-        altText: "Lenovo IdeaPad Slim 3 15IRH10",
+        altText: "Lenovo IdeaPad Slim 3 - Vista Frontal y Pantalla Táctil",
+      },
+      {
+        url: "/products/laptop.jpg",
+        altText: "Lenovo IdeaPad Slim 3 - Teclado Ergonómico y Perfil",
       },
     ],
     variants: [
@@ -207,7 +227,11 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/samsung_s24_ultra.png",
-        altText: "Samsung Galaxy S26 Ultra 256GB",
+        altText: "Samsung Galaxy S26 Ultra - Frontal con S-Pen",
+      },
+      {
+        url: "/products/samsung s26 ultra.jpg",
+        altText: "Samsung Galaxy S26 Ultra - Diseño Titanio y Cámaras 200MP",
       },
     ],
     variants: [
@@ -251,7 +275,11 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/redmi_note13_pro.png",
-        altText: "Redmi Note 15 Pro",
+        altText: "Redmi Note 15 Pro - Pantalla Curva AMOLED",
+      },
+      {
+        url: "/products/reminote15pro.jpg",
+        altText: "Redmi Note 15 Pro - Módulo Cámara 200MP y Trasera",
       },
     ],
     variants: [
@@ -327,7 +355,15 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/iphone16_desert.png",
-        altText: "iPhone 16 Pro Max",
+        altText: "iPhone 16 Pro Max - Titanio Desierto",
+      },
+      {
+        url: "/products/phone16promax.jpg",
+        altText: "iPhone 16 Pro Max - Pantalla Super Retina XDR",
+      },
+      {
+        url: "/products/iphone-16-pro-max.jpg",
+        altText: "iPhone 16 Pro Max - Sistema de Cámaras Pro",
       },
     ],
     variants: [
@@ -364,7 +400,11 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/galaxy_tab_s9.png",
-        altText: "Samsung Galaxy Tab S9 Ultra",
+        altText: "Samsung Galaxy Tab S9 Ultra - Frontal con S-Pen",
+      },
+      {
+        url: "/products/galaxy_tab_s9.jpg",
+        altText: "Samsung Galaxy Tab S9 Ultra - Pantalla 14.6 Dynamic AMOLED",
       },
     ],
     variants: [
@@ -401,7 +441,11 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/apple_watch_ultra.jpg",
-        altText: "Apple Watch Ultra 2 Titanium",
+        altText: "Apple Watch Ultra 2 - Caja Titanio 49mm y Correa Ocean",
+      },
+      {
+        url: "/products/smartwatch.jpg",
+        altText: "Apple Watch Ultra 2 - Pantalla 3000 nits y Botón de Acción",
       },
     ],
     variants: [
@@ -438,7 +482,11 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/parlante_rgb.png",
-        altText: "Parlantes Premium 30W RGB",
+        altText: "Parlantes Premium 30W RGB - Luces LED Dinámicas",
+      },
+      {
+        url: "/products/parlante_rgb.jpg",
+        altText: "Parlantes Premium 30W RGB - Vista Posterior y Controles",
       },
     ],
     variants: [
@@ -475,7 +523,11 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/redmi_watch5.png",
-        altText: "Redmi Watch 5 Active",
+        altText: "Redmi Watch 5 Active - Pantalla 2.0 Pulgadas",
+      },
+      {
+        url: "/products/redmi_watch5_studio.jpg",
+        altText: "Redmi Watch 5 Active - Correa y Sensor de Ritmo",
       },
     ],
     variants: [
@@ -512,7 +564,11 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/tvbox_g7.jpg",
-        altText: "TvBox G7 Edición Araña",
+        altText: "TvBox G7 Edición Araña - Consola 4K",
+      },
+      {
+        url: "/products/tvbox_g7_studio.jpg",
+        altText: "TvBox G7 Edición Araña - Mandos y Empaque Completo",
       },
     ],
     variants: [
@@ -598,7 +654,11 @@ export const mockProducts: Product[] = [
     images: [
       {
         url: "/products/headphones.png",
-        altText: "AirPods Max 1.1",
+        altText: "AirPods Max 1.1 - Vista Frontal con Almohadillas Acolchadas",
+      },
+      {
+        url: "/products/headphones.jpg",
+        altText: "AirPods Max 1.1 - Diadema de Malla Transpirable y Perfil",
       },
     ],
     variants: [
