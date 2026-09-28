@@ -4,6 +4,8 @@
 // fácil migración a Shopify Storefront API.
 // =============================================
 
+import inventarioCompleto from "./inventarioCompleto.json";
+
 export interface ProductImage {
   url: string;
   altText: string;
@@ -736,7 +738,63 @@ export const gamerFeature = {
  * Busca un producto por su ID o handle.
  */
 export function getProductById(id: string): Product | undefined {
-  return mockProducts.find((p) => p.id === id || p.handle === id);
+  const found = mockProducts.find((p) => p.id === id || p.handle === id);
+  if (found) return found;
+
+  const invItem = (inventarioCompleto as any[]).find((i) => i.id === id || i.code === id);
+  if (!invItem) return undefined;
+
+  const desc = invItem.description || `Accesorio original ${invItem.category} disponible en Tecno+. Garantía oficial de 3 meses y envío inmediato.`;
+
+  // Convertir descripción con bullets (•) a HTML semántico
+  const descHtml = (() => {
+    const lines = desc.split('\n').map((l: string) => l.trim()).filter(Boolean);
+    let html = '';
+    let inList = false;
+    for (const line of lines) {
+      if (line.startsWith('•') || line.startsWith('-')) {
+        if (!inList) { html += '<ul>'; inList = true; }
+        html += `<li>${line.replace(/^[•\-]\s*/, '')}</li>`;
+      } else {
+        if (inList) { html += '</ul>'; inList = false; }
+        html += `<p>${line}</p>`;
+      }
+    }
+    if (inList) html += '</ul>';
+    return html;
+  })();
+
+  return {
+    id: invItem.id,
+    title: invItem.name,
+    handle: invItem.id,
+    description: desc,
+    descriptionHtml: descHtml,
+    vendor: "Tecno+",
+    productType: invItem.category,
+    category: "gaming",
+    tags: [invItem.category.toLowerCase()],
+    price: invItem.price,
+    compareAtPrice: invItem.compareAtPrice ?? null,
+    currencyCode: "COP",
+    whatsappText: `Hola Tecno+, me interesa el producto "${invItem.name}" (Cód: ${invItem.code}).`,
+    featuredImage: {
+      url: invItem.image || "/products/chargers/lenovo_slimtip.jpg",
+      altText: invItem.name,
+    },
+    images: Array.isArray(invItem.images) && (invItem.images as string[]).length > 0
+      ? (invItem.images as string[]).map((url, i) => ({ url, altText: `${invItem.name} - vista ${i + 1}` }))
+      : [{ url: invItem.image || "/products/chargers/lenovo_slimtip.jpg", altText: invItem.name }],
+    variants: [
+      {
+        id: `var-${invItem.id}`,
+        title: "Estándar",
+        availableForSale: (invItem.stock ?? 1) > 0,
+        price: invItem.price,
+        compareAtPrice: invItem.compareAtPrice ?? null,
+      },
+    ],
+  };
 }
 
 /**

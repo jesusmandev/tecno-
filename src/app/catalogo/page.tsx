@@ -15,6 +15,9 @@ interface InventarioItem {
   stock: number;
   category: string;
   image?: string;
+  description?: string;
+  jaltechCode?: string;
+  jaltechUrl?: string;
   compareAtPrice?: number | null;
   badge?: string;
 }
@@ -185,6 +188,7 @@ export default function CatalogoPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "name">("featured");
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+  const [selectedProduct, setSelectedProduct] = useState<InventarioItem | null>(null);
 
   const items = inventarioData as InventarioItem[];
 
@@ -357,7 +361,8 @@ export default function CatalogoPage() {
             {visibleProducts.map((item) => (
               <div
                 key={item.id}
-                className="group flex flex-col justify-between rounded-2xl border border-[#e8e8ea] bg-white p-4 sm:p-5 shadow-xs transition-all hover:shadow-xl hover:border-gray-300 hover:-translate-y-1"
+                onClick={() => setSelectedProduct(item)}
+                className="group flex flex-col justify-between rounded-2xl border border-[#e8e8ea] bg-white p-4 sm:p-5 shadow-xs transition-all hover:shadow-xl hover:border-red-300 hover:-translate-y-1 cursor-pointer relative"
               >
                 {/* Header Tag & Code */}
                 <div>
@@ -397,6 +402,12 @@ export default function CatalogoPage() {
                   <h3 className="text-sm font-bold text-[#111] leading-snug line-clamp-2 group-hover:text-[var(--red)] transition-colors min-h-[2.5rem]">
                     {item.name}
                   </h3>
+
+                  {/* Indicador de toque */}
+                  <div className="mt-1 flex items-center gap-1 text-[10px] font-semibold text-neutral-400 group-hover:text-[var(--red)] transition-colors">
+                    <span>👁️</span>
+                    <span>Toca para ver descripción completa</span>
+                  </div>
                 </div>
 
                 {/* Bottom: Price & WhatsApp Action */}
@@ -425,14 +436,15 @@ export default function CatalogoPage() {
 
                   {/* Order Button */}
                   <button
-                    onClick={() =>
+                    onClick={(e) => {
+                      e.stopPropagation();
                       openCheckout({
                         product: {
                           id: item.id,
                           title: item.name,
                           handle: item.id,
-                          description: item.category,
-                          descriptionHtml: `<p>${item.name}</p>`,
+                          description: item.description || item.category,
+                          descriptionHtml: `<p>${item.description || item.name}</p>`,
                           vendor: "Tecno+",
                           productType: item.category,
                           category: "gaming",
@@ -469,8 +481,8 @@ export default function CatalogoPage() {
                           compareAtPrice: item.compareAtPrice ?? null,
                         },
                         quantity: 1,
-                      })
-                    }
+                      });
+                    }}
                     className="tp-catalog-card-btn"
                   >
                     <span>{item.badge === "Preventa" ? "Apartar Preventa" : "Comprar"}</span>
@@ -516,6 +528,193 @@ export default function CatalogoPage() {
           </div>
         )}
       </div>
+
+      {/* ================= MODAL DE DETALLE Y DESCRIPCIÓN AL TOCAR EL PRODUCTO ================= */}
+      {selectedProduct && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn"
+          onClick={() => setSelectedProduct(null)}
+        >
+          <div
+            className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl transition-all border border-gray-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Botón Cerrar */}
+            <button
+              onClick={() => setSelectedProduct(null)}
+              className="absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-black transition"
+              aria-label="Cerrar"
+            >
+              ✕
+            </button>
+
+            {/* Badges de Categoría y Código */}
+            <div className="flex flex-wrap items-center gap-2 mb-3 pr-8">
+              <span className="rounded-md bg-red-50 px-2.5 py-1 text-xs font-bold text-[var(--red)] uppercase tracking-wider">
+                {selectedProduct.category}
+              </span>
+              <span className="rounded-md bg-gray-100 px-2.5 py-1 font-mono text-xs font-semibold text-gray-700">
+                Cód: {selectedProduct.code}
+              </span>
+              {selectedProduct.badge && (
+                <span className="rounded-md bg-amber-500 px-2.5 py-1 text-xs font-extrabold text-white uppercase tracking-wider">
+                  {selectedProduct.badge}
+                </span>
+              )}
+            </div>
+
+            {/* Imagen Principal Grande */}
+            <div className="relative w-full h-64 sm:h-72 bg-[#fbfbfc] rounded-2xl overflow-hidden mb-4 flex items-center justify-center p-4 border border-gray-100">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={selectedProduct.image || getFallbackImage(selectedProduct.category, selectedProduct.name)}
+                alt={selectedProduct.name}
+                className="max-h-full max-w-full object-contain"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.dataset.fallback) {
+                    target.dataset.fallback = "true";
+                    target.src = getFallbackImage(selectedProduct.category, selectedProduct.name);
+                  }
+                }}
+              />
+            </div>
+
+            {/* Título */}
+            <h2 className="text-lg sm:text-xl font-black text-[#111] leading-snug mb-3">
+              {selectedProduct.name}
+            </h2>
+
+            {/* Precio y Disponibilidad */}
+            <div className="flex items-baseline justify-between py-3 border-y border-gray-100 mb-4">
+              <div>
+                <span className="text-[11px] text-gray-500 block font-medium">Precio exclusivo:</span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-black text-[var(--red)]">
+                    {formatPrice(selectedProduct.price)}
+                  </span>
+                  {selectedProduct.compareAtPrice && selectedProduct.compareAtPrice > selectedProduct.price && (
+                    <del className="text-xs text-gray-400 font-semibold line-through">
+                      {formatPrice(selectedProduct.compareAtPrice)}
+                    </del>
+                  )}
+                </div>
+              </div>
+              <div className="text-right">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700 border border-emerald-200">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  {selectedProduct.stock > 0
+                    ? `${selectedProduct.stock} disponibles en bodega`
+                    : "Disponible para encargo"}
+                </span>
+              </div>
+            </div>
+
+            {/* Descripción y Especificaciones */}
+            <div className="space-y-2 mb-6">
+              <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider flex items-center gap-1.5">
+                <svg className="w-4 h-4 text-[var(--red)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg>
+                Descripción y Especificaciones Técnicas
+              </h3>
+              <div className="rounded-2xl bg-gray-50 p-4 text-xs text-gray-700 leading-relaxed max-h-64 overflow-y-auto border border-gray-200/80">
+                {selectedProduct.description ? (
+                  <div className="whitespace-pre-line text-neutral-800 space-y-1">
+                    {selectedProduct.description}
+                  </div>
+                ) : (
+                  <div className="space-y-2 text-gray-600">
+                    <p className="font-semibold text-gray-900">
+                      {selectedProduct.name}
+                    </p>
+                    <p>
+                      Accesorio y producto original garantizado de la categoría <strong>{selectedProduct.category}</strong> disponible en tienda Tecno+.
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 pt-1">
+                      <li>Garantía oficial directa de 3 meses en Tecno+.</li>
+                      <li>Entrega y despacho inmediato a todo el país.</li>
+                      <li>Alta durabilidad, rendimiento y compatibilidad probada.</li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Botones de Acción */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                onClick={() => {
+                  const prod = selectedProduct;
+                  setSelectedProduct(null);
+                  openCheckout({
+                    product: {
+                      id: prod.id,
+                      title: prod.name,
+                      handle: prod.id,
+                      description: prod.description || prod.category,
+                      descriptionHtml: `<p>${prod.description || prod.name}</p>`,
+                      vendor: "Tecno+",
+                      productType: prod.category,
+                      category: "gaming",
+                      whatsappText: "",
+                      tags: [prod.category.toLowerCase()],
+                      price: prod.price,
+                      compareAtPrice: prod.compareAtPrice ?? null,
+                      currencyCode: "COP",
+                      featuredImage: {
+                        url: prod.image || getFallbackImage(prod.category, prod.name),
+                        altText: prod.name,
+                      },
+                      images: [
+                        {
+                          url: prod.image || getFallbackImage(prod.category, prod.name),
+                          altText: prod.name,
+                        },
+                      ],
+                      variants: [
+                        {
+                          id: `var-${prod.id}`,
+                          title: "Estándar",
+                          availableForSale: true,
+                          price: prod.price,
+                          compareAtPrice: prod.compareAtPrice ?? null,
+                        },
+                      ],
+                    },
+                    variant: {
+                      id: `var-${prod.id}`,
+                      title: "Estándar",
+                      availableForSale: true,
+                      price: prod.price,
+                      compareAtPrice: prod.compareAtPrice ?? null,
+                    },
+                    quantity: 1,
+                  });
+                }}
+                className="w-full rounded-2xl bg-[var(--red)] py-3.5 text-xs font-bold text-white hover:bg-black transition shadow-lg shadow-red-500/20"
+              >
+                Comprar Ahora
+              </button>
+
+              <a
+                href={`https://wa.me/573043547935?text=${encodeURIComponent(
+                  `Hola Tecno+, me interesa el producto "${selectedProduct.name}" (Cód: ${selectedProduct.code}) por valor de ${formatPrice(selectedProduct.price)}. ¿Tienen disponibilidad inmediata?`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 py-3.5 text-xs font-bold text-white hover:bg-emerald-700 transition"
+              >
+                Pedir por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
