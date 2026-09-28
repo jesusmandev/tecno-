@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import { formatPrice } from "@/data/mockProducts";
+import ColombiaAddressPicker, { AddressPickerValue } from "./ColombiaAddressPicker";
 
 type PaymentMethod = "bold" | "cash_on_delivery";
 
@@ -48,31 +49,39 @@ export default function CheckoutDrawer() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("Montería");
   const [department, setDepartment] = useState("Córdoba");
+  const [mapsUrl, setMapsUrl] = useState("");
+
+  const handleAddressChange = useCallback((val: AddressPickerValue) => {
+    setCity(val.city);
+    setDepartment(val.department);
+    setAddress(val.formattedSummary);
+    setMapsUrl(val.googleMapsUrl);
+  }, []);
 
   // Autocompletar automáticamente datos del cliente si tiene sesión iniciada o datos guardados
   useEffect(() => {
     if (profile) {
-      if (profile.full_name && !customerName) setCustomerName(profile.full_name);
-      if (profile.email && !email) setEmail(profile.email);
-      if (profile.phone && !phone) setPhone(profile.phone);
-      if (profile.document_id && !documentId) setDocumentId(profile.document_id);
-      if (profile.shipping_address && !address) setAddress(profile.shipping_address);
-      if (profile.city) setCity(profile.city);
-      if (profile.department) setDepartment(profile.department);
+      if (profile.full_name) setCustomerName((prev) => prev || profile.full_name || "");
+      if (profile.email) setEmail((prev) => prev || profile.email || "");
+      if (profile.phone) setPhone((prev) => prev || profile.phone || "");
+      if (profile.document_id) setDocumentId((prev) => prev || profile.document_id || "");
+      if (profile.shipping_address) setAddress((prev) => prev || profile.shipping_address || "");
+      if (profile.city) setCity((prev) => prev || profile.city || "Montería");
+      if (profile.department) setDepartment((prev) => prev || profile.department || "Córdoba");
     } else if (typeof window !== "undefined") {
       try {
         const saved = localStorage.getItem("tecnoplus_customer_info");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (parsed.customerName && !customerName) setCustomerName(parsed.customerName);
-          if (parsed.email && !email) setEmail(parsed.email);
-          if (parsed.phone && !phone) setPhone(parsed.phone);
-          if (parsed.documentId && !documentId) setDocumentId(parsed.documentId);
-          if (parsed.address && !address) setAddress(parsed.address);
-          if (parsed.city) setCity(parsed.city);
-          if (parsed.department) setDepartment(parsed.department);
+          if (parsed.customerName) setCustomerName((prev) => prev || parsed.customerName || "");
+          if (parsed.email) setEmail((prev) => prev || parsed.email || "");
+          if (parsed.phone) setPhone((prev) => prev || parsed.phone || "");
+          if (parsed.documentId) setDocumentId((prev) => prev || parsed.documentId || "");
+          if (parsed.address) setAddress((prev) => prev || parsed.address || "");
+          if (parsed.city) setCity((prev) => prev || parsed.city || "Montería");
+          if (parsed.department) setDepartment((prev) => prev || parsed.department || "Córdoba");
         }
-      } catch (e) {
+      } catch {
         // ignore
       }
     }
@@ -185,7 +194,7 @@ export default function CheckoutDrawer() {
             department,
           })
         );
-      } catch (e) {}
+      } catch {}
     }
 
     if (paymentMethod === "bold") {
@@ -521,58 +530,25 @@ export default function CheckoutDrawer() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-[11px] font-semibold text-[#444] mb-1">
-                      Cédula / NIT (Opcional)
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Número de identificación"
-                      value={documentId}
-                      onChange={(e) => setDocumentId(e.target.value)}
-                      className="w-full rounded-xl border border-[#d1d5db] bg-white px-3.5 py-2.5 text-xs text-[#111] placeholder-[#9ca3af] outline-none transition focus:border-black focus:ring-1 focus:ring-black"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-[#444] mb-1">
-                      Ciudad de entrega *
-                    </label>
-                    <select
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      className="w-full rounded-xl border border-[#d1d5db] bg-white px-3.5 py-2.5 text-xs text-[#111] outline-none transition focus:border-black"
-                    >
-                      <option value="Montería">Montería (Córdoba)</option>
-                      <option value="Cereté">Cereté (Córdoba)</option>
-                      <option value="Sahagún">Sahagún (Córdoba)</option>
-                      <option value="Lorica">Lorica (Córdoba)</option>
-                      <option value="Planeta Rica">Planeta Rica (Córdoba)</option>
-                      <option value="Bogotá">Bogotá D.C.</option>
-                      <option value="Medellín">Medellín (Antioquia)</option>
-                      <option value="Barranquilla">Barranquilla (Atlántico)</option>
-                      <option value="Cartagena">Cartagena (Bolívar)</option>
-                      <option value="Cali">Cali (Valle)</option>
-                      <option value="Bucaramanga">Bucaramanga (Santander)</option>
-                      <option value="Otras ciudades">Otra ciudad (Envío nacional)</option>
-                    </select>
-                  </div>
-                </div>
-
                 <div>
                   <label className="block text-[11px] font-semibold text-[#444] mb-1">
-                    Dirección exacta y barrio *
+                    Cédula / NIT (Opcional)
                   </label>
                   <input
                     type="text"
-                    required
-                    placeholder="Ej. Calle 29 #14-25, Barrio El Recreo, Apto 302"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Número de identificación"
+                    value={documentId}
+                    onChange={(e) => setDocumentId(e.target.value)}
                     className="w-full rounded-xl border border-[#d1d5db] bg-white px-3.5 py-2.5 text-xs text-[#111] placeholder-[#9ca3af] outline-none transition focus:border-black focus:ring-1 focus:ring-black"
                   />
                 </div>
+
+                {/* Mapa Interactivo de Colombia en Vivo con GPS y Especificaciones de la Casa */}
+                <ColombiaAddressPicker
+                  initialCity={city}
+                  initialAddress={address}
+                  onAddressChange={handleAddressChange}
+                />
               </div>
 
               {/* 2. Método de Pago */}
@@ -858,12 +834,26 @@ export default function CheckoutDrawer() {
                   </span>
                 </div>
 
-                <div className="flex justify-between items-center">
-                  <span className="text-[#70757d]">Dirección de entrega:</span>
-                  <span className="font-medium text-[#111] text-right truncate max-w-[200px]">
-                    {address}, {city}
+                <div className="flex justify-between items-start gap-2">
+                  <span className="text-[#70757d]">Dirección:</span>
+                  <span className="font-medium text-[#111] text-right text-[11px] max-w-[210px] break-words">
+                    {address}
                   </span>
                 </div>
+
+                {mapsUrl && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-[#70757d]">Ubicación GPS:</span>
+                    <a
+                      href={mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold text-blue-600 underline text-right text-[11px] hover:text-blue-800"
+                    >
+                      Abrir en Google Maps ↗
+                    </a>
+                  </div>
+                )}
 
                 <div className="flex justify-between items-center">
                   <span className="text-[#70757d]">WhatsApp:</span>
@@ -874,7 +864,7 @@ export default function CheckoutDrawer() {
               <div className="mt-6 w-full space-y-2.5">
                 <a
                   href={`https://wa.me/573043547935?text=${encodeURIComponent(
-                    `Hola Tecno+, acabo de hacer el pedido ${orderId} contra entrega por valor de ${formatPrice(activeTotal)}. ¿Me confirman el despacho por favor?`
+                    `Hola Tecno+, acabo de hacer el pedido ${orderId} contra entrega por valor de ${formatPrice(activeTotal)}.\n📍 Entrega: ${address}${mapsUrl ? `\n🗺️ Mapa: ${mapsUrl}` : ""}\n¿Me confirman el despacho por favor?`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
