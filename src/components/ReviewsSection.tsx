@@ -294,18 +294,7 @@ function ReviewCard({
 // COMPONENTE PRINCIPAL
 // =============================================
 export default function ReviewsSection() {
-  const [reviews, setReviews] = useState<ReviewItem[]>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const stored = localStorage.getItem("tecnoplus_customer_reviews_v3");
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-        }
-      } catch { /* ignore */ }
-    }
-    return INITIAL_REVIEWS;
-  });
+  const [reviews, setReviews] = useState<ReviewItem[]>(INITIAL_REVIEWS);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [filterRating, setFilterRating] = useState<number | "all">("all");
   const [likedReviews, setLikedReviews] = useState<Record<string, boolean>>({});
@@ -314,14 +303,7 @@ export default function ReviewsSection() {
   const [isPaused, setIsPaused] = useState(false);
 
   // Admin Mode States
-  const [isAdmin, setIsAdmin] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        return sessionStorage.getItem("tecnoplus_admin_auth") === "true";
-      } catch { /* ignore */ }
-    }
-    return false;
-  });
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [adminInputPassword, setAdminInputPassword] = useState("");
   const [adminError, setAdminError] = useState<string | null>(null);
@@ -350,6 +332,21 @@ export default function ReviewsSection() {
 
   // Cargar de Supabase y cache local
   useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        if (sessionStorage.getItem("tecnoplus_admin_auth") === "true") {
+          setIsAdmin(true);
+        }
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setReviews(parsed);
+          }
+        }
+      }
+    } catch { /* ignore */ }
+
     // Sincronizar en segundo plano con Supabase (asíncrono)
     async function fetchFromSupabase() {
       try {

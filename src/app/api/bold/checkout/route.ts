@@ -105,9 +105,9 @@ export async function POST(request: Request) {
       .digest("hex");
 
     const host = request.headers.get("host") || "localhost:3000";
-    const protocol = host.includes("localhost") ? "http" : "https";
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
-    const redirectionUrl = `${siteUrl}/pago/resultado`;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || `https://${host}`;
+    // Bold REQUIERE que redirection_url sea https:// siempre
+    const redirectionUrl = siteUrl.replace(/^http:\/\//, "https://") + "/pago/resultado";
 
     const description = `Tecno+ Pedido ${orderNumber}`.substring(0, 100);
 
