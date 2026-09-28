@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import inventarioData from "@/data/inventarioCompleto.json";
 import { formatPrice } from "@/data/mockProducts";
 import { useCart } from "@/context/CartContext";
 import PhoneBanner3D from "@/components/PhoneBanner3D";
+import { tokenizeQuery, normalizeText, matchesAllTokens } from "@/lib/searchUtils";
 
 interface InventarioItem {
   id: string;
@@ -184,13 +186,44 @@ function getFallbackImage(category: string, name: string): string {
 }
 
 export default function CatalogoPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#f8f9fa] flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3 text-neutral-500">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--red)] border-t-transparent" />
+            <p className="text-sm font-semibold">Cargando catálogo oficial...</p>
+          </div>
+        </div>
+      }
+    >
+      <CatalogoContent />
+    </Suspense>
+  );
+}
+
+function CatalogoContent() {
   const { openCheckout } = useCart();
+  const searchParams = useSearchParams();
+  const urlQuery = searchParams.get("q") || searchParams.get("search") || "";
+  const urlCategory = searchParams.get("categoria") || "";
+
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "name">("featured");
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const [selectedProduct, setSelectedProduct] = useState<InventarioItem | null>(null);
   const [modalImageIndex, setModalImageIndex] = useState(0);
+
+  // Sincronizar búsqueda desde URL (ej. /catalogo?q=cargador)
+  useEffect(() => {
+    if (urlQuery) {
+      setSearchQuery(urlQuery);
+      setSelectedCategory("Todos");
+    } else if (urlCategory) {
+      setSelectedCategory(urlCategory);
+    }
+  }, [urlQuery, urlCategory]);
 
   const items = inventarioData as InventarioItem[];
 
@@ -204,22 +237,26 @@ export default function CatalogoPage() {
     return [fallback];
   }, [selectedProduct]);
 
-  // Filtered and sorted products
-  const filteredProducts = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
+  // Búsqueda inteligente por palabras clave (tokens), sin tildes, en nombre, código, descripción y categoría
+  const { filteredProducts, globalMatchCount } = useMemo(() => {
+    const q = searchQuery.trim();
+    const tokens = tokenizeQuery(q);
 
-    const filtered = items.filter((item) => {
-      const matchCat =
-        selectedCategory === "Todos" || item.category === selectedCategory;
-      const matchQuery =
-        !q ||
-        item.name.toLowerCase().includes(q) ||
-        item.code.toLowerCase().includes(q) ||
-        item.category.toLowerCase().includes(q);
-
-      return matchCat && matchQuery;
+    // 1. Filtrar globalmente por todos los tokens
+    const globalMatches = items.filter((item) => {
+      if (tokens.length === 0) return true;
+      const haystack = normalizeText(
+        `${item.name} ${item.code} ${item.category} ${item.description || ""} ${item.jaltechCode || ""}`
+      );
+      return matchesAllTokens(haystack, tokens);
     });
 
+    // 2. Filtrar por categoría seleccionada
+    const filtered = globalMatches.filter((item) => {
+      return selectedCategory === "Todos" || item.category === selectedCategory;
+    });
+
+    // 3. Ordenar
     if (sortBy === "price-asc") {
       filtered.sort((a, b) => a.price - b.price);
     } else if (sortBy === "price-desc") {
@@ -228,7 +265,10 @@ export default function CatalogoPage() {
       filtered.sort((a, b) => a.name.localeCompare(b.name));
     }
 
-    return filtered;
+    return {
+      filteredProducts: filtered,
+      globalMatchCount: globalMatches.length,
+    };
   }, [items, selectedCategory, searchQuery, sortBy]);
 
   const visibleProducts = useMemo(() => {

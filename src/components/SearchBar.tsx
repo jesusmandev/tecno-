@@ -3,7 +3,12 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { mockProducts, formatPrice, type Product } from "@/data/mockProducts";
+import { formatPrice } from "@/data/mockProducts";
+import {
+  searchProducts,
+  getAllSearchableProducts,
+  type UnifiedSearchItem,
+} from "@/lib/searchUtils";
 
 interface SearchBarProps {
   isOpen: boolean;
@@ -11,13 +16,14 @@ interface SearchBarProps {
 }
 
 const POPULAR_SEARCHES = [
-  "iPhone 17 Pro Max",
+  "Cargador Lenovo",
   "iPhone 16 Pro Max",
-  "Samsung Galaxy S26 Ultra",
-  "Lenovo IdeaPad Slim 3",
-  "Redmi Note 15 Pro",
-  "TvBox G7",
-  "Gaming",
+  "Vidrio Samsung",
+  "Cable Tipo C",
+  "Samsung Galaxy S26",
+  "Diadema Gamer",
+  "Portátil i5",
+  "Fuente de poder",
 ];
 
 export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
@@ -41,26 +47,16 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  // Filter products in real time
+  // Búsqueda inteligente por tokens y palabras clave en tiempo real en los 589+ productos
   const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
-
-    return mockProducts.filter((p) => {
-      const matchTitle = p.title.toLowerCase().includes(q);
-      const matchDesc = p.description.toLowerCase().includes(q);
-      const matchCategory = p.category.toLowerCase().includes(q);
-      const matchVendor = p.vendor.toLowerCase().includes(q);
-      const matchTags = p.tags.some((t) => t.toLowerCase().includes(q));
-      return matchTitle || matchDesc || matchCategory || matchVendor || matchTags;
-    });
+    return searchProducts(query, 30);
   }, [query]);
 
-  // Navigate to product and close modal
+  // Navegar al producto y cerrar modal
   const handleSelectProduct = useCallback(
-    (product: Product) => {
+    (product: UnifiedSearchItem) => {
       onClose();
-      router.push(`/productos/${product.id}`);
+      router.push(product.url);
     },
     [onClose, router]
   );
@@ -105,18 +101,22 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
           handleSelectProduct(results[selectedIndex]);
         } else if (results.length > 0) {
           handleSelectProduct(results[0]);
+        } else if (query.trim()) {
+          onClose();
+          router.push(`/catalogo?q=${encodeURIComponent(query.trim())}`);
         }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, results, selectedIndex, onClose, handleSelectProduct]);
+  }, [isOpen, results, selectedIndex, query, onClose, router, handleSelectProduct]);
 
   const handleLucky = () => {
-    if (mockProducts.length === 0) return;
-    const randomIndex = Math.floor(Math.random() * mockProducts.length);
-    handleSelectProduct(mockProducts[randomIndex]);
+    const all = getAllSearchableProducts();
+    if (all.length === 0) return;
+    const randomIndex = Math.floor(Math.random() * all.length);
+    handleSelectProduct(all[randomIndex]);
   };
 
   // Google Voice Search simulation / Web Speech API
@@ -378,7 +378,17 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
                       results.length === 1 ? "resultado" : "resultados"
                     } para "${query}"`}
               </span>
-              <span className="hidden sm:inline">Usa ↑ ↓ para navegar, Enter para abrir</span>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  router.push(`/catalogo?q=${encodeURIComponent(query.trim())}`);
+                }}
+                className="text-[var(--red)] font-bold hover:underline flex items-center gap-1 cursor-pointer"
+              >
+                <span>Ver todos en el catálogo</span>
+                <span>→</span>
+              </button>
             </div>
 
             {results.length > 0 ? (
@@ -398,13 +408,19 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         {/* Thumbnail */}
-                        <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg bg-[#f8f9fa] border border-[#e8e8ea] p-0.5">
-                          <Image
-                            src={product.featuredImage.url}
-                            alt={product.featuredImage.altText}
-                            fill
-                            className="object-contain"
-                            sizes="48px"
+                        <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg bg-[#f8f9fa] border border-[#e8e8ea] p-0.5 flex items-center justify-center">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={product.imageUrl}
+                            alt={product.title}
+                            className="h-full w-full object-contain"
+                            onError={(e) => {
+                              const target = e.currentTarget;
+                              if (!target.dataset.fallback) {
+                                target.dataset.fallback = "true";
+                                target.src = "/products/cargador_laptop_generico.jpg";
+                              }
+                            }}
                           />
                         </div>
 
@@ -417,6 +433,11 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
                             <span className="rounded bg-[#e8f0fe] px-1.5 py-0.5 text-[10px] font-medium text-[#1a73e8] uppercase">
                               {product.category}
                             </span>
+                            {product.code && (
+                              <span className="rounded bg-gray-100 px-1 py-0.2 font-mono text-[9px] text-gray-500">
+                                {product.code}
+                              </span>
+                            )}
                           </div>
                           <p className="truncate text-xs text-[#70757a]">
                             {product.description}

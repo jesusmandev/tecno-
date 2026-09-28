@@ -449,6 +449,36 @@
   ],
   "visits": [
     {
+      "id": "vis-1790634163892-7wf0tt",
+      "visitor_id": "vis_1790614314961_thftsdu",
+      "session_id": "sess_1790614314962_f1x2i3l",
+      "page_path": "/catalogo",
+      "referrer": "http://localhost:3000/catalogo",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-28T22:22:43.891Z"
+    },
+    {
+      "id": "vis-1790633353883-sxucty",
+      "visitor_id": "vis_1790614314961_thftsdu",
+      "session_id": "sess_1790614314962_f1x2i3l",
+      "page_path": "/catalogo",
+      "referrer": "http://localhost:3000/catalogo",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-28T22:09:13.882Z"
+    },
+    {
+      "id": "vis-1790632449311-45u43p",
+      "visitor_id": "vis_1790614314961_thftsdu",
+      "session_id": "sess_1790614314962_f1x2i3l",
+      "page_path": "/catalogo",
+      "referrer": "http://localhost:3000/catalogo",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-28T21:54:09.310Z"
+    },
+    {
       "id": "vis-1790616871877-f52ta6",
       "visitor_id": "vis_1790614314961_thftsdu",
       "session_id": "sess_1790614314962_f1x2i3l",
@@ -873,5 +903,5 @@
       "created_at": "2026-09-25T17:44:02.977Z"
     }
   ],
-  "lastUpdated": "2026-09-28T17:34:33.921Z"
+  "lastUpdated": "2026-09-28T22:22:45.597Z"
 }
