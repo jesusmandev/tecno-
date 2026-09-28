@@ -411,6 +411,16 @@
   ],
   "visits": [
     {
+      "id": "vis-1790556603841-xrqh0o",
+      "visitor_id": "vis_1790544832974_j07mrhv",
+      "session_id": "sess_1790544832974_seesk8i",
+      "page_path": "/",
+      "referrer": "http://localhost:3000/",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "device_type": "desktop",
+      "created_at": "2026-09-28T00:50:03.841Z"
+    },
+    {
       "id": "vis-1790552833187-10veln",
       "visitor_id": "vis_1790544832974_j07mrhv",
       "session_id": "sess_1790544832974_seesk8i",
@@ -655,5 +665,5 @@
       "created_at": "2026-09-25T17:44:02.977Z"
     }
   ],
-  "lastUpdated": "2026-09-27T23:47:19.642Z"
+  "lastUpdated": "2026-09-28T00:50:15.847Z"
 }

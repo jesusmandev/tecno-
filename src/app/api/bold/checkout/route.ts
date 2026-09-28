@@ -84,7 +84,7 @@ export async function POST(request: Request) {
     // El orderId con guiones (-) SI es valido segun la doc oficial de Bold
     const orderNumber = result.payment.order_number;
 
-    const apiKey = process.env.BOLD_API_KEY || process.env.NEXT_PUBLIC_BOLD_API_KEY;
+    const apiKey = process.env.BOLD_API_KEY;
     const secretKey = process.env.BOLD_SECRET_KEY;
 
     if (!apiKey || !secretKey) {
